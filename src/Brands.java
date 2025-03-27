@@ -86,13 +86,18 @@ public class Brands extends JFrame implements ActionListener {
 
 
 
-        JPanel holder = new JPanel();
-        holder.setBackground(Color.MAGENTA);
-        holder.setPreferredSize(new Dimension(100,200));
+        JPanel box = new JPanel();
+        box.setBackground(Color.MAGENTA);
+        box.setPreferredSize(new Dimension(100,200));
+
+
+
+        // heyyyyy is barlitos
+
 
         //adding panels on to panel
         profile_banner.add(profile_photo);
-        profile_banner.add(holder);
+        profile_banner.add(box);
 
         cardprofile.add(profile_banner);
 
