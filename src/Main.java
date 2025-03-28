@@ -57,6 +57,9 @@ public class Main {
                 System.out.println("Enter your password: ");
                 String password = scanner.nextLine();
 
+                // we can add a forgot password -> input email -> ends info, all in the GUI for loggining in
+
+
                 /* Getting user input of 'username' if it exist and if the user password matches as well
                     - we match the username with the class in database and return the password in that database
                  */
