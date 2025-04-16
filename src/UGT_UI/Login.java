@@ -1,5 +1,7 @@
 package UGT_UI;
 
+import UGT_UI.UGT_UI_SERVICE.LoginService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -92,49 +94,14 @@ public class Login extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //if button gets pressed
-        if(e.getSource() == buttonlogin){
-            //show this card from maincard--->cardlogin
-            cards.show(maincard, "cardlogin");
-        }else if(e.getSource() == buttoncreateaccount){
-            //show this card from maincard---->cardcreateaccount
-            cards.show(maincard, "cardcreateaccountr");
-        }else if(e.getSource() == buttonforgot){
-            //show this card from maincard----->cardforgot
-            cards.show(maincard, "cardforgot");
-        }else if(e.getSource() == upload){
-            JFileChooser fileChooser = new JFileChooser();
-
-             fileChooser.showOpenDialog(null);
-
-        }else if(e.getSource() == create_account){
-            //code
-        }else if(e.getSource() == get_password){
-            //code
-        }else if(e.getSource() == login){
-            //code
-        }
-
-    }
-
-
-
-
-
-
-
 //CARD LOGIN
 
 
     //
-    JTextField login_username;
-    JTextField login_password;
+    public static JTextField login_username;
+    public static JTextField login_password;
     //
-    JButton login;
+    public static JButton loginAction;
 
     private JPanel Cardlogin(){
         //creating JPanel
@@ -179,25 +146,17 @@ public class Login extends JFrame implements ActionListener {
         panel_for_login.add(login_password);
 
         //button
-        //creating login
-        login = new JButton("Login");
-        //adding login (button) to cardlogin (Panel)
-        //cardlogin.add(login);
+        //creating loginAction
+        loginAction = new JButton("Login");
+        //adding loginAction (button) to cardlogin (Panel)
 
-        panel_for_login.add(login);
+        LoginService.loginActionButton();
+
+        panel_for_login.add(loginAction);
 
 
         //returns cardlogin (JPanel)
         return cardlogin;
-    }
-
-//GETTERS
-
-    public String getLoginusername(){
-        return login_username.getText();
-    }
-    public String getLoginpassword(){
-        return login_password.getText();
     }
 
 
@@ -205,15 +164,15 @@ public class Login extends JFrame implements ActionListener {
 
 
     //ca = create account
-    JTextField ca_username;
-    JTextField ca_password;
-    JTextField ca_brandname;
-    JTextField ca_socialmedia1;
-    JTextField ca_socialmedia2;
-    JTextArea ca_aboutbrand;
+    public static JTextField ca_username;
+    public static  JTextField ca_password;
+    public static JTextField ca_brandname;
+    public static JTextField ca_socialmedia1;
+    public static JTextField ca_socialmedia2;
+    public static JTextArea ca_aboutbrand;
     //JButton
-    //create_account
-    JButton create_account;
+    //create_account_Action
+    public static JButton create_account_Action;
 
     JButton upload;
     private JPanel Cardcreateaccount(){
@@ -284,10 +243,13 @@ public class Login extends JFrame implements ActionListener {
 
 
         // create account button --->create account
-        create_account = new JButton("create account");
+        create_account_Action = new JButton("create account");
         //adding button to JPanel
-        //cardcreateaccount.add(create_account); //*********************************************8
-        panel_for_accountinfo.add(create_account);
+        //cardcreateaccount.add(create_account_Action); //*********************************************8
+
+        LoginService.createAccountActionButton();
+
+        panel_for_accountinfo.add(create_account_Action);
 
 
 
@@ -295,35 +257,10 @@ public class Login extends JFrame implements ActionListener {
         return cardcreateaccount;
     }
 
-
-//getters
-
-    public String getca_username(){
-        return ca_username.getText();
-    }
-    public String getca_password(){
-        return ca_password.getText();
-    }
-    public String getca_brandname(){
-        return ca_brandname.getText();
-    }
-
-    public String getca_socialmedia1(){
-        return ca_socialmedia1.getText();
-    }
-
-    public String getca_socialmedia2(){
-        return ca_socialmedia2.getText();
-    }
-
-    public String getca_aboutbrand(){
-        return ca_aboutbrand.getText();
-    }
-
-
 //CARD FORGOT
 
     JButton get_password;
+    JTextField secondLoginLabel; // change name
     private JPanel Cardforgot(){
         //JPanel
         JPanel cardforgot = new JPanel();
@@ -341,23 +278,39 @@ public class Login extends JFrame implements ActionListener {
 
 
         //JTextField
-        login_username = new JTextField();
+        secondLoginLabel = new JTextField();
         //text inside JTextField
-        login_username.setText("Username");
-        login_username.setPreferredSize(new Dimension(100,30));
+        secondLoginLabel.setText("Username");
+        secondLoginLabel.setPreferredSize(new Dimension(100,30));
         //adding JTextField to JPanel
         //cardforgot.add(login_username);
 
-        panel_for_forgot.add(login_username);
+        panel_for_forgot.add(secondLoginLabel);
 
-        //creating login button
+        //creating loginAction button
         get_password = new JButton("Get Password");
-        //adding login button to JPanel
+        //adding loginAction button to JPanel
         //cardforgot.add(get_password);
         panel_for_forgot.add(get_password);
 
         //returns JPanel
         return cardforgot;
     }
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //if button gets pressed
+        if(e.getSource() == buttonlogin){
+            //show this card from maincard--->cardlogin
+            cards.show(maincard, "cardlogin");
+        }else if(e.getSource() == buttoncreateaccount){
+            //show this card from maincard---->cardcreateaccount
+            cards.show(maincard, "cardcreateaccountr");
+        }else if(e.getSource() == buttonforgot){
+            //show this card from maincard----->cardforgot
+            cards.show(maincard, "cardforgot");
+        }else if(e.getSource() == upload){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showOpenDialog(null);
+        }
+    }
 }

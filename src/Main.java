@@ -1,16 +1,21 @@
 import UGT_UI.*;
-
 import javax.swing.*;
+import UGT_Controllers.LoginController;
+import java.io.FileNotFoundException;
 
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main extends JFrame {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException{
         // new Buyer();
-        new Login();
         // new BrandProfile();
 
+        try {
+            LoginController.populateHashMap();
+            new Login();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: userInfoFile.txt not found!");
+            throw new FileNotFoundException();
+        }
 
 
     }

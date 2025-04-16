@@ -8,11 +8,11 @@ package UGT_Data;
     We could've used a record java class, only one line of code for maximum efficiency, BUT
      we won't be able to change user information when needed.
  */
-public abstract class User {
+public class User {
     // User values
-    private final String email;
-    private final String username;
-    private final String password;  // Added password field
+    private String email;
+    private String username;
+    private String password;
 
     // Initializing when creating a new user
     public User(String email, String username, String password) {
@@ -21,7 +21,7 @@ public abstract class User {
         this.password = password;
     }
 
-    // Helper functions to check for valid login information
+    // Getter functions
     public String getEmail() {
         return email;
     }
@@ -32,5 +32,18 @@ public abstract class User {
 
     public String getPassword() {
         return password;
+    }
+
+    // Setter functions to update user information
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
