@@ -259,7 +259,7 @@ public class Login extends JFrame implements ActionListener {
 
 //CARD FORGOT
 
-    JButton get_password;
+    public static JButton get_password;
     JTextField secondLoginLabel; // change name
     private JPanel Cardforgot(){
         //JPanel
@@ -293,9 +293,13 @@ public class Login extends JFrame implements ActionListener {
         //cardforgot.add(get_password);
         panel_for_forgot.add(get_password);
 
+        LoginService.forgotAccountActionButton();
+
         //returns JPanel
         return cardforgot;
     }
+
+    // Code will switch between pages
     @Override
     public void actionPerformed(ActionEvent e) {
         //if button gets pressed

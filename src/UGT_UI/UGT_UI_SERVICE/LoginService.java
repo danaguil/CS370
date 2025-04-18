@@ -15,34 +15,45 @@ import static UGT_UI.Login.*;
  */
 public class LoginService {
 
+    // Button will call loggingIn() from Login
     public static void loginActionButton(){
         // Login button
         Login.loginAction.addActionListener(e -> {
             try {
                 System.out.println("It works!!");
-                LoginController.loggingIn();
+                LoginController.loggingIn(); // calls function
             } catch (IOException ex) {
                 //ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Login failed due to an error.");
             }
         });
     }
-
+    // Button will call createAccount() from Login
     public static void createAccountActionButton(){
         // Create Account button
         Login.create_account_Action.addActionListener(e -> {
             try {
-                System.out.println("Create Account Button works!!");
-                LoginController.createAccount();
+                System.out.println("Create Account Button works!!"); // for testing
+                LoginController.createAccount(); // calls function
             } catch (IOException ex) {
-                //ex.printStackTrace();
+                // ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
             }
         });
     }
 
-    //GETTERS, for logging in
+    // Button will call forgotAccount() from Login
+    public static void forgotAccountActionButton(){
+        // Create Account button
+        Login.get_password.addActionListener(e -> {
 
+            System.out.println("Forgot Account Button works!!"); // for testing
+
+            LoginController.forgotAccount(); // calls function
+        });
+    }
+
+    // GETTERS, for logging in
     public static String getLoginusername(){
         // testing, can delete after
         System.out.println("USERNAME ENTERED: " + login_username.getText()); // works
@@ -56,7 +67,7 @@ public class LoginService {
     }
 
 
-    // creating an account getters
+    // GETTER, for creating an account
     public static String getca_username(){
         return ca_username.getText();
     }
@@ -65,7 +76,7 @@ public class LoginService {
         return ca_password.getText();
     }
 
-
+    // GETTERS to create an account for a brand
     public String getca_brandname(){
         return ca_brandname.getText();
     }
