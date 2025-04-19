@@ -2,22 +2,39 @@ package UGT_Data;
 
 import java.util.ArrayList;
 
+/*
+    The `Customer` class extends the `User` class, inheriting user details like `email`, `username`, and `password`.
+    It adds customer-specific attributes such as `name`, `address`, `payment details`, and activity lists
+    (`likedPosts`, `followedBrand`, `orders`, and `cart`). It also includes methods to manage orders and the
+    shopping cart.
+ */
+
 public class Customer extends User{
 
+    // Name of customer
     private String first_name;
     private String last_name;
+
+    // Card Information
     private int card_number;
     private String name_on_card;
     private int exp_month;
     private int exp_year;
     private int cvv;
+
+    // Customers address information
     private String address;
+
+    // List of CRUD attributes
+    private final ArrayList<String> likedPosts;
+    private final ArrayList<String> followedBrand;
     private final ArrayList<Order> orders_list;
     private final ArrayList<Item> customer_cart;
 
 
+    // Constructor for Customer class
     public Customer(String email, String username, String password, String first_name, String last_name, int card_number, String name_on_card,
-                    int exp_month, int exp_year, int cvv, String address) {
+                    int exp_month, int exp_year, int cvv, String address, ArrayList<String> likedPosts, ArrayList<String> followedBrand) {
         super(email, username, password);
 
         this.first_name = first_name;
@@ -28,11 +45,13 @@ public class Customer extends User{
         this.exp_year = exp_year;
         this.cvv = cvv;
         this.address = address;
+        this.likedPosts = likedPosts;
+        this.followedBrand = followedBrand;
         this.orders_list = new ArrayList<>();
         this.customer_cart = new ArrayList<>();
     }
 
-
+    // All the getters
     public String getFirst_name() {
         return first_name;
     }

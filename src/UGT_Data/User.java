@@ -1,18 +1,22 @@
 package UGT_Data;
 
+import java.io.File;
+
 /*
     User class, will be containing
         - email, username, and password. All which the user can change if needed
-    We have the function getEmail, getUsername etc.. in order to check for valid credentials when logining in
+    We have the function getEmail, getUsername etc... in order to check for valid credentials when logining in
 
-    We could've used a record java class, only one line of code for maximum efficiency, BUT
-     we won't be able to change user information when needed.
+   Both customer and brand will then inherit from this user class, each will have their own
+    attributes and methods integrated to both
  */
 public class User {
-    // User values
+    // User basic information
     private String email;
     private String username;
     private String password;
+    private boolean isBrandAccount = false; // true = brand; false = buyer
+    private File profilePicture = new File("src/UGT_Data/Media/defaultProfilePicture.png");
 
     // Initializing when creating a new user
     public User(String email, String username, String password) {
@@ -32,6 +36,22 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public File getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(File profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public boolean isBrandAccount() {
+        return isBrandAccount;
+    }
+
+    public void setBrandAccount(boolean brandAccount) {
+        isBrandAccount = brandAccount;
     }
 
     // Setter functions to update user information

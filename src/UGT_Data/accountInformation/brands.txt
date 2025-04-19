@@ -1,0 +1,5 @@
+golden.stars@brands.com,goldenStars34,SparklyMoon!@34,Golden Stars,"A starting brand focused on premium, sparkling accessories.",golden_stars.jpg,@golden.stars,@goldenstars_official
+blue.wave@brands.com,blueWave48,OceanSplash@48,Blue Wave,"Sustainable clothing inspired by the ocean and nature.",blue_wave.jpg,null,@bluewaveclothing
+urban.sprite@brands.com,urbanSprite202,CityChill!202,Urban Sprite,"Trendy streetwear for the modern city dweller.",urban_sprite.jpg,@urbansprite,@urbansprite
+prime.trails@brands.com,primeTrails90,TrailBlaze#90,Prime Trails,"Gear designed for adventurers and outdoor enthusiasts.",prime_trails.jpg,@primetrails,null
+royal.anchor@brands.com,royalAnchor56,SailingAway+56,Royal Anchor,"Elegant nautical-themed products for lifestyle enthusiasts.",royal_anchor.jpg,null,null

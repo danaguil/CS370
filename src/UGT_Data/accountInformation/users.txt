@@ -1,0 +1,10 @@
+happy.journey@buyers.com,happyJourney84,AdventureFun#84,false
+golden.stars@brands.com,goldenStars34,SparklyMoon!@34,true
+wander.freely@buyers.com,wanderFreely55,ExploreMore$55,false
+blue.wave@brands.com,blueWave48,OceanSplash@48,true
+quiet.flame@buyers.com,quietFlame66,SilentBurn&66,false
+urban.sprite@brands.com,urbanSprite202,CityChill!202,true
+royal.anchor@brands.com,royalAnchor56,SailingAway+56,true
+sunshine.smile@buyers.com,sunshineSmile77,GoldenBeam$77,false
+prime.trails@brands.com,primeTrails90,TrailBlaze#90,true
+nature.touch@buyers.com,natureTouch99,GreenFields*99,false
