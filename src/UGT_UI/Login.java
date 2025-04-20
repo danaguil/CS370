@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 
 public class Login extends JFrame implements ActionListener {
@@ -15,17 +16,20 @@ public class Login extends JFrame implements ActionListener {
     JButton buttoncreateaccount;
     JButton buttonforgot;
     //will be used to be able to add actions
+    //ref
     CardLayout cards;
+    //hold all the cards
     JPanel maincard;
 
 
     //constructor
-    public Login() {
+    Login() {
         //creating JFrame
         JFrame frame = new JFrame(); //by default frames use borderlayout
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //allows window to close
-        frame.setSize(500, 500); //size of window
+        frame.setSize(500, 800); //size of window
         frame.setTitle("UnderGroundThreads"); //title of window
+        frame.setResizable(false);
         // cards is cardlayout
         cards = new CardLayout();
         //will be used to hold all the cards
@@ -77,7 +81,7 @@ public class Login extends JFrame implements ActionListener {
         //creating buttonforgot
         buttonforgot = new JButton();
         //text on top of button
-        buttonforgot.setText("forgot username/password?");
+        buttonforgot.setText("forgot password?");
         //get rid of rectangle
         buttonforgot.setFocusable(false);
         //allows for action
@@ -94,212 +98,8 @@ public class Login extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-//CARD LOGIN
 
-
-    //
-    public static JTextField login_username;
-    public static JTextField login_password;
-    //
-    public static JButton loginAction;
-
-    private JPanel Cardlogin(){
-        //creating JPanel
-        JPanel cardlogin = new JPanel();
-        //cardlogin.setLayout(new GridLayout(3,1));
-        cardlogin.setBackground(Color.BLUE);
-
-
-
-
-        JPanel panel_for_login = new JPanel();
-        panel_for_login.setBackground(Color.MAGENTA);
-        panel_for_login.setPreferredSize(new Dimension(150,150));
-        panel_for_login.setLayout(new GridLayout(3,1));
-
-
-        cardlogin.add(panel_for_login);
-
-
-        //username
-        //creating login_username JTextField
-        login_username = new JTextField();
-        // text that will be in JTextField
-        login_username.setText("Username");
-        //size of JTextField
-        login_username.setPreferredSize(new Dimension(100,30));
-        //adding login_username (JTextField) to cardlogin (Panel)
-        //cardlogin.add(login_username);
-
-        panel_for_login.add(login_username);
-
-        //password
-        //creating login_password JTextField
-        login_password = new JTextField();
-        // text that will be in JTextField
-        login_password.setText("password");
-        //size of JTextField
-        login_password.setPreferredSize(new Dimension(100,30));
-        //adding login_password to cardlogin Panel
-        //cardlogin.add(login_password);
-
-        panel_for_login.add(login_password);
-
-        //button
-        //creating loginAction
-        loginAction = new JButton("Login");
-        //adding loginAction (button) to cardlogin (Panel)
-
-        LoginService.loginActionButton();
-
-        panel_for_login.add(loginAction);
-
-
-        //returns cardlogin (JPanel)
-        return cardlogin;
-    }
-
-
-//CARD CREATE ACCOUNT
-
-
-    //ca = create account
-    public static JTextField ca_username;
-    public static  JTextField ca_password;
-    public static JTextField ca_brandname;
-    public static JTextField ca_socialmedia1;
-    public static JTextField ca_socialmedia2;
-    public static JTextArea ca_aboutbrand;
-    //JButton
-    //create_account_Action
-    public static JButton create_account_Action;
-
-    JButton upload;
-    private JPanel Cardcreateaccount(){
-        JPanel cardcreateaccount = new JPanel();
-        //carddiscover.setLayout(new GridLayout(3,3));
-       // cardcreateaccount.setLayout(new GridLayout(8,1));
-        cardcreateaccount.setBackground(Color.green);
-
-/// ///////////////////////////////////////////////////////////////////////////////////////////////////////***
-        JPanel panel_for_accountinfo = new JPanel();
-        panel_for_accountinfo.setBackground(Color.MAGENTA);
-        panel_for_accountinfo.setPreferredSize(new Dimension(400,400));
-        panel_for_accountinfo.setLayout(new GridLayout(8,1));
-        cardcreateaccount.add(panel_for_accountinfo);
-
-        //create a panel to hold this
-        ca_username = new JTextField();
-        ca_username.setText("Username");
-        ca_username.setPreferredSize(new Dimension(100,30));
-
-        //cardcreateaccount.add(ca_username);//***********************************************1
-        panel_for_accountinfo.add(ca_username);
-
-
-        //password
-        ca_password = new JTextField();
-        ca_password.setText("password");
-        ca_password.setPreferredSize(new Dimension(100,30));
-
-        //cardcreateaccount.add(ca_password);//**********************************************2
-        panel_for_accountinfo.add(ca_password);
-
-
-        ca_brandname = new JTextField();
-        ca_brandname.setText("brandname");
-        ca_brandname.setPreferredSize(new Dimension(100,30));
-
-        //cardcreateaccount.add(ca_brandname);//*******************************************3
-        panel_for_accountinfo.add(ca_brandname);
-
-        ca_socialmedia1 = new JTextField();
-        ca_socialmedia1.setText("social media");
-        ca_socialmedia1.setPreferredSize(new Dimension(100,30));
-
-       // cardcreateaccount.add(ca_socialmedia1);//***************************************4
-        panel_for_accountinfo.add(ca_socialmedia1);
-
-        ca_socialmedia2 = new JTextField();
-        ca_socialmedia2.setText("social media");
-        ca_socialmedia2.setPreferredSize(new Dimension(100,30));
-
-        //cardcreateaccount.add(ca_socialmedia2);//****************************************5
-        panel_for_accountinfo.add(ca_socialmedia2);
-        //creating a JTextArea ----> about brand
-        ca_aboutbrand = new JTextArea();
-        ca_aboutbrand.setText("About brand");
-        ca_aboutbrand.setPreferredSize(new Dimension(200,200));
-        //adding JTextArea to JPanel
-        //cardcreateaccount.add(ca_aboutbrand); //****************************************6
-        panel_for_accountinfo.add(ca_aboutbrand);
-        //creating upload button  ---> upload brand logo
-       upload = new JButton("upload brand logo");
-        upload.addActionListener(this);
-        //adding upload button to JPanel
-        //cardcreateaccount.add(upload); //**********************************************7
-        panel_for_accountinfo.add(upload);
-
-
-
-        // create account button --->create account
-        create_account_Action = new JButton("create account");
-        //adding button to JPanel
-        //cardcreateaccount.add(create_account_Action); //*********************************************8
-
-        LoginService.createAccountActionButton();
-
-        panel_for_accountinfo.add(create_account_Action);
-
-
-
-        //returns JPanel
-        return cardcreateaccount;
-    }
-
-//CARD FORGOT
-
-    public static JButton get_password;
-    JTextField secondLoginLabel; // change name
-    private JPanel Cardforgot(){
-        //JPanel
-        JPanel cardforgot = new JPanel();
-        cardforgot.setBackground(Color.black);
-
-
-
-        JPanel panel_for_forgot = new JPanel();
-        panel_for_forgot.setBackground(Color.MAGENTA);
-        panel_for_forgot.setPreferredSize(new Dimension(250,250));
-        panel_for_forgot.setLayout(new GridLayout(2,1));
-
-        cardforgot.add(panel_for_forgot);
-
-
-
-        //JTextField
-        secondLoginLabel = new JTextField();
-        //text inside JTextField
-        secondLoginLabel.setText("Username");
-        secondLoginLabel.setPreferredSize(new Dimension(100,30));
-        //adding JTextField to JPanel
-        //cardforgot.add(login_username);
-
-        panel_for_forgot.add(secondLoginLabel);
-
-        //creating loginAction button
-        get_password = new JButton("Get Password");
-        //adding loginAction button to JPanel
-        //cardforgot.add(get_password);
-        panel_for_forgot.add(get_password);
-
-        LoginService.forgotAccountActionButton();
-
-        //returns JPanel
-        return cardforgot;
-    }
-
-    // Code will switch between pages
+    //for login button, create account button, forgot button (main buttons)
     @Override
     public void actionPerformed(ActionEvent e) {
         //if button gets pressed
@@ -312,9 +112,655 @@ public class Login extends JFrame implements ActionListener {
         }else if(e.getSource() == buttonforgot){
             //show this card from maincard----->cardforgot
             cards.show(maincard, "cardforgot");
-        }else if(e.getSource() == upload){
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.showOpenDialog(null);
         }
+
     }
+
+
+
+
+
+
+
+//******************************************************************************************** Cardlogin
+
+
+    private JTextField login_username;
+    private JTextField login_password;
+
+
+    public String getLoginusername(){
+        return login_username.getText();
+    }
+    public String getLoginpassword(){
+        return login_password.getText();
+    }
+
+    private JPanel Cardlogin(){
+
+        JPanel cardlogin = new JPanel();
+        cardlogin.setSize(500,800);
+        // cardlogin.setBackground(Color.YELLOW);
+        cardlogin.setLayout(new BoxLayout(cardlogin, BoxLayout.Y_AXIS));
+
+
+        //will be the panel holding username objects
+        JPanel username_panel = new JPanel();
+        JLabel username_label = new JLabel("Username:");
+        login_username = new JTextField(10);
+        username_panel.add(username_label);
+        username_panel.add(login_username);
+        //adding to cardlogin
+        cardlogin.add(username_panel);
+
+
+
+        //will be the panel holding password objects
+        JPanel password_panel = new JPanel();
+        JLabel password_label = new JLabel("password:");
+        login_password = new JTextField(10);
+        password_panel.add(password_label);
+        password_panel.add(login_password);
+        //adding to cardlogin
+        cardlogin.add(password_panel);
+
+
+
+
+        //will be the panel holding login objects
+        JPanel login_panel = new JPanel();
+        //JLabel one_time_code_label = new JLabel("One time code:");
+        JButton login_button = new JButton("login");
+        login_button.addActionListener(this);
+        //login_panel.add(one_time_code_label);
+        login_panel.add(login_button);
+        //adding to cardlogin
+        cardlogin.add(login_panel);
+
+
+        //adding action to login button
+        login_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                System.out.println("you are now logged in");
+
+            }
+        });
+
+
+        return cardlogin;
+    }
+
+
+
+    //********************************************************************************************Cardcreateaccount
+    //this private method only holds pages create_account_as_buyer and create_account_as_brand using cardlayout
+    private JPanel Cardcreateaccount(){
+
+        JPanel card_create_account = new JPanel();
+        // card_create_account.setBackground(Color.cyan);
+        card_create_account.setSize(500,800);
+        card_create_account.setLayout(new BorderLayout());
+        //cardlayout ---> cards
+        CardLayout cards = new CardLayout();
+        //creating JPanel
+        JPanel maincard = new JPanel(cards);
+        //maincard.setPreferredSize(new Dimension(300,500));
+
+        card_create_account.add(maincard);
+
+        //adding cards to maincard
+        maincard.add(create_account_as_buyer(), "create_buyer_account");
+        maincard.add(create_account_as_brand(),"create_brand_account");
+
+
+        JPanel buttonpanel = new JPanel();
+        //buttonpanel.setBackground(Color.orange);
+
+        //buttons create_brand_account button and create_buyer_account_button
+        JButton create_brand_account_button = new JButton("create brand account");
+        create_brand_account_button.addActionListener(this);
+        JButton create_buyer_account_button = new JButton("create buyer account");
+        create_buyer_account_button.addActionListener(this);
+
+        //adding buttons to button panel
+        buttonpanel.add(create_buyer_account_button);
+        buttonpanel.add(create_brand_account_button);
+
+        //adding action to create_brand_account button
+        create_brand_account_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "create_brand_account");
+            }
+        });
+
+        //adding action to create_buyer_account button
+        create_buyer_account_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "create_buyer_account");
+            }
+        });
+
+
+        //adding buttonpanel to the top of card_create_account page
+        card_create_account.add(buttonpanel, BorderLayout.NORTH);
+        //returns JPanel
+        return card_create_account;
+    }
+
+
+    //*************************************************************** create_account_as_brand
+    private JTextField brand_username;
+    private JTextField brand_password;
+    private JTextField brand_brandname;
+    private JTextArea brand_about_brand;
+    private JTextField brand_Instagram;
+    private JTextField brand_Tiktok;
+    private JTextField brand_email;
+
+
+    //getters for create_account_as_brand
+    public String get_ca_brand_username(){
+        return brand_username.getText();
+    }
+    public String get_ca_brand_password(){
+        return brand_password.getText();
+    }
+    public String get_ca_brand_brandname(){
+        return brand_brandname.getText();
+    }
+    public String get_ca_brand_aboutbrand(){
+        return brand_about_brand.getText();
+    }
+    public String get_ca_brand_Instagram(){
+        return brand_Instagram.getText();
+    }
+    public String get_ca_brand_Tiktok(){
+        return brand_Tiktok.getText();
+    }
+    public String get_ca_brand_email(){
+        return brand_email.getText();
+    }
+
+
+
+
+    private File path;
+
+
+    public String getPost_photo(){
+        //return path for image
+        return path.getAbsolutePath();
+    }
+
+
+    //allows the brand to select a photo (photo must be a JPEG,PNG, OR JPG) or else message pops up
+    //used within create_account_as_brand
+    void photo_selection(){
+
+        JFileChooser file_clothing_item = new JFileChooser();
+
+        file_clothing_item.setCurrentDirectory(new File("."));
+
+        int i = file_clothing_item.showSaveDialog(null);
+        if(i == JFileChooser.APPROVE_OPTION){
+            //File path global variable
+            //getting the selected file path
+            File selected_file = file_clothing_item.getSelectedFile();
+            String name = selected_file.getName().toLowerCase();
+            //if correct file (JPEG, PNG, JPG)
+            if(name.endsWith(".jpeg") || name.endsWith(".png") || name.endsWith(".jpg") ){
+                //selected file already has the file
+                //set to path
+                path = selected_file;
+            }else{
+                //show message
+                JOptionPane.showMessageDialog(null, "Invalid file type. Please select a JPG or PNG image.");
+            }
+
+        }
+
+
+    }
+
+
+
+
+
+    private JPanel create_account_as_brand(){
+        JPanel create_account_as_brand = new JPanel();
+        create_account_as_brand.setSize(500,800);
+        // create_account_as_brand.setBackground(Color.YELLOW);
+        create_account_as_brand.setLayout(new BoxLayout(create_account_as_brand, BoxLayout.Y_AXIS));
+
+
+        //creating banner
+        JPanel banner = new JPanel();
+        JLabel text_for_banner = new JLabel("fill in all textboxes and text areas please :)");
+        banner.add(text_for_banner);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(banner);
+
+
+        //will hold all username objects
+        JPanel username_panel = new JPanel();
+        JLabel username_label = new JLabel("Username:");
+        brand_username = new JTextField( 20);
+        username_panel.add(username_label);
+        username_panel.add(brand_username);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(username_panel);
+
+        //will hold all password objects
+        JPanel password_panel = new JPanel();
+        JLabel password_label = new JLabel("Password:");
+        brand_password = new JTextField( 20);
+        password_panel.add(password_label);
+        password_panel.add(brand_password);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(password_panel);
+
+        //will hold brandname objects
+        JPanel brandname_panel = new JPanel();
+        JLabel brandname_label = new JLabel("Brandname:");
+        brand_brandname = new JTextField( 20);
+        brandname_panel.add(brandname_label);
+        brandname_panel.add(brand_brandname);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(brandname_panel);
+
+        //will hold logo objects
+        JPanel logo_panel = new JPanel();
+        JLabel logo_label = new JLabel("New Logo:");
+        //creating button
+        JButton logo_button = new JButton("upload");
+        logo_button.addActionListener(this);
+
+        //adding action to logo button
+        logo_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                photo_selection();
+            }
+        });
+
+
+
+
+
+
+        logo_panel.add(logo_label);
+        logo_panel.add(logo_button);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(logo_panel);
+        //will hold about brand objects
+        JPanel about_brand_panel = new JPanel();
+        JLabel about_brand_label = new JLabel("AboutBrand:");
+        brand_about_brand = new JTextArea(3,20);
+        brand_about_brand.setLineWrap(true);
+        about_brand_panel.add(about_brand_label);
+        about_brand_panel.add(brand_about_brand);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(about_brand_panel);
+
+
+
+
+
+
+        //will hold all social media (Instagram and Tiktok)
+        JPanel socialmedia_panel = new JPanel();
+        //will hold instagram objects
+        JPanel instagram_panel = new JPanel();
+        JLabel instagram_label = new JLabel("Instagram:");
+        brand_Instagram = new JTextField(20);
+        instagram_panel.add(instagram_label);
+        instagram_panel.add(brand_Instagram);
+        //will hold tiktok objects
+        JPanel tiktok_panel = new JPanel();
+        JLabel tiktok_label = new JLabel("Tiktok:");
+        brand_Tiktok = new JTextField(20);
+        tiktok_panel.add(tiktok_label);
+        tiktok_panel.add(brand_Tiktok);
+        //adding to socialmedia panel
+        socialmedia_panel.add(instagram_panel);
+        socialmedia_panel.add(tiktok_panel);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(socialmedia_panel);
+
+
+        //will hold email objects
+        JPanel email_panel = new JPanel();
+        JLabel email_label = new JLabel("Email:");
+        brand_email = new JTextField(10);
+        email_panel.add(email_label);
+        email_panel.add(brand_email);
+        //adding to create-account_as_brand
+        create_account_as_brand.add(email_panel);
+
+        //will hold button
+        JPanel button_panel = new JPanel();
+        //creating button
+        JButton create_account_button = new JButton("create account");
+        create_account_button.addActionListener(this);
+
+
+
+        //adding action to create_account button
+        create_account_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("your account(BRAND) has been made!!! go log in ");
+            }
+        });
+
+
+
+        //adding button to button panel
+        button_panel.add(create_account_button);
+        //adding button panel to create_account_as_brand
+        create_account_as_brand.add(button_panel);
+        return create_account_as_brand;
+
+
+    }
+
+
+
+
+
+
+
+
+
+    //******************************************************************create_account_buyer
+    private JTextField buyer_username;
+    private JTextField buyer_password;
+    private JTextField buyer_email;
+
+
+
+    public String get_ca_buyer_username(){
+        return buyer_username.getText();
+    }
+
+    public String get_ca_buyer_password(){
+        return buyer_password.getText();
+    }
+
+    public String get_ca_buyer_email(){
+        return buyer_email.getText();
+    }
+
+
+    private JPanel create_account_as_buyer(){
+
+        JPanel create_account_as_buyer = new JPanel();
+        create_account_as_buyer.setSize(500,800);
+        //create_account_as_buyer.setBackground(Color.YELLOW);
+        create_account_as_buyer.setLayout(new BoxLayout(create_account_as_buyer, BoxLayout.Y_AXIS));
+
+        //creating banner
+        JPanel banner = new JPanel();
+        JLabel text_for_banner = new JLabel("fill in all textboxes and TextAreas please :)");
+        banner.add(text_for_banner);
+        //adding banner to create_account_as_buyer
+        create_account_as_buyer.add(banner);
+
+        //will hold username objects
+        JPanel username_panel = new JPanel();
+        JLabel username_label = new JLabel("Username:");
+        buyer_username = new JTextField( 20);
+        username_panel.add(username_label);
+        username_panel.add(buyer_username);
+        //adding to create_account_as_buyer
+        create_account_as_buyer.add(username_panel);
+
+        //will hold buyer password objects
+        JPanel buyer_password_panel = new JPanel();
+        JLabel password_label = new JLabel("Password:");
+        buyer_password = new JTextField( 20);
+        buyer_password_panel.add(password_label);
+        buyer_password_panel.add(buyer_password);
+        //adding to create_account_as_buyer
+        create_account_as_buyer.add(buyer_password_panel);
+
+
+
+
+
+        //will hold email objects
+        JPanel buyer_email_panel = new JPanel();
+        JLabel email_label = new JLabel("Email:");
+        buyer_email = new JTextField(10);
+        buyer_email_panel.add(email_label);
+        buyer_email_panel.add(buyer_email);
+        create_account_as_buyer.add(buyer_email_panel);
+
+        //will hold button
+        JPanel button_panel = new JPanel();
+        //creating button
+        JButton create_account_as_buyer_button = new JButton("create account");
+        create_account_as_buyer_button.addActionListener(this);
+
+
+
+
+
+        //adding action
+        create_account_as_buyer_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("your account(BUYER) has been made!!! go log in ");
+            }
+        });
+
+
+
+
+
+
+        //adding button to button panel
+        button_panel.add(create_account_as_buyer_button);
+        //adding button panel to create_account_as_buyer
+        create_account_as_buyer.add(button_panel);
+        return create_account_as_buyer;
+
+
+    }
+
+
+
+
+    //************************************************************************************************************ Cardforgot
+    //this private method only holds pages forgot() and one_tine_code_login using cardlayout
+
+    //JButton get_one_time_code;
+
+    private JPanel Cardforgot(){
+
+        JPanel cardforgot = new JPanel();
+        //cardforgot.setBackground(Color.cyan);
+        cardforgot.setPreferredSize(new Dimension(500,800));
+        cardforgot.setLayout(new BorderLayout());
+        //cardlayout cards
+        CardLayout cards = new CardLayout();
+        //creating JPanel
+        JPanel maincard = new JPanel(cards);
+        //maincard.setPreferredSize(new Dimension(300,500));
+
+        //adding maincard to cardforgot
+        cardforgot.add(maincard);
+
+        //adding cards to maincard
+        maincard.add(forgot(), "forgot");
+        maincard.add(one_time_code_login(),"one_time_code_login_button");
+
+        //will hold buttons
+        JPanel buttonpanel = new JPanel();
+        //buttonpanel.setBackground(Color.orange);
+
+        //creating button
+        JButton forgot_button = new JButton("forgot button");
+        forgot_button.addActionListener(this);
+        //creating button
+        JButton one_time_code_login_button = new JButton("one_time_code_login_button");
+        one_time_code_login_button.addActionListener(this);
+        //adding buttons to buttonpanel
+        buttonpanel.add(forgot_button);
+        buttonpanel.add(one_time_code_login_button);
+
+
+        //adding action
+        forgot_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "forgot");
+            }
+        });
+
+        //adding action to one_time_code_login button
+        one_time_code_login_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "one_time_code_login_button");
+            }
+        });
+
+
+
+        cardforgot.add(buttonpanel, BorderLayout.NORTH);
+        //returns JPanel
+        return cardforgot;
+
+
+    }
+
+
+    //************************************************************************************************ forgot
+
+    private JTextField recoverInformation_email;
+
+    public String get_recoverInformation_email(){
+        return recoverInformation_email.getText();
+    }
+
+
+    private JPanel forgot(){
+
+
+        JPanel forgot = new JPanel();
+        forgot.setSize(500,800);
+        // forgot.setBackground(Color.YELLOW);
+        forgot.setLayout(new BoxLayout(forgot, BoxLayout.Y_AXIS));
+
+
+        //will hold email objects
+        JPanel email_panel = new JPanel();
+        JLabel email_label = new JLabel("Email:");
+        recoverInformation_email = new JTextField(10);
+        email_panel.add(email_label);
+        email_panel.add(recoverInformation_email);
+        //adding to forgot
+        forgot.add(email_panel);
+
+        //will hold button
+        JPanel one_time_code_panel = new JPanel();
+        JButton one_time_code_button = new JButton("one time code");
+
+        one_time_code_panel.add(one_time_code_button);
+        //adding to forgot
+        forgot.add(one_time_code_panel);
+
+        //adding action to one_time_code button
+        one_time_code_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //pop up notification for one time code
+                JOptionPane.showMessageDialog(null,"09230493249898");
+
+            }
+        });
+
+
+        return forgot;
+    }
+    //********************************************************************************************************** one_time_code_login
+    // OTCL = one_time_code_login
+
+    private JTextField OTCL_email;
+    private JTextField OTCL_one_time_code;
+    private JTextField OTCL_new_password;
+
+    public String get_OTCL_email(){
+        return OTCL_email.getText();
+    }
+    public String get_OTCL_one_time_code(){
+        return OTCL_one_time_code.getText();
+    }
+    public String get_OTCL_password(){
+        return OTCL_new_password.getText();
+    }
+
+
+
+    JPanel one_time_code_login(){
+        JPanel create_account_as_brand = new JPanel();
+        create_account_as_brand.setSize(500,800);
+        //create_account_as_brand.setBackground(Color.YELLOW);
+        create_account_as_brand.setLayout(new BoxLayout(create_account_as_brand, BoxLayout.Y_AXIS));
+
+
+        //will hold email objects
+        JPanel email_panel = new JPanel();
+        JLabel email_label = new JLabel("Email:");
+        OTCL_email = new JTextField(10);
+        email_panel.add(email_label);
+        email_panel.add(OTCL_email);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(email_panel);
+
+        //will hold one_time_code objects
+        JPanel one_time_code_panel = new JPanel();
+        JLabel one_time_code_label = new JLabel("One time code:");
+        OTCL_one_time_code = new JTextField(10);
+        one_time_code_panel.add(one_time_code_label);
+        one_time_code_panel.add(OTCL_one_time_code);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(one_time_code_panel);
+
+
+        //will hold new password objects
+        JPanel new_password_panel = new JPanel();
+        JLabel new_password_label = new JLabel("New password:");
+        OTCL_new_password = new JTextField(10);
+        new_password_panel.add(new_password_label);
+        new_password_panel.add(OTCL_new_password);
+        //adding to create_account_as_brand
+        create_account_as_brand.add(new_password_panel);
+
+
+
+        //will hold login objects
+        JPanel login_panel = new JPanel();
+        JButton login_button = new JButton("login");
+        login_panel.add(login_button);
+        //adding to create_accunt_as_brand
+        create_account_as_brand.add(login_panel);
+
+        //adding action login button
+        login_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //add pop up notification
+                System.out.println("you logged in using One Time Code Login");
+            }
+        });
+
+        return create_account_as_brand;
+    }
+
 }
