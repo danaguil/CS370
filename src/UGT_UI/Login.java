@@ -1,11 +1,16 @@
 package UGT_UI;
 
+import UGT_Controllers.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import UGT_Data.ResetCode;
+
 
 
 public class Login extends JFrame implements ActionListener {
@@ -177,7 +182,12 @@ public class Login extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("It works!!");
-
+                try {
+                    LoginController.loggingIn(); // calls function
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Login failed due to an error.");
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -451,7 +461,13 @@ public class Login extends JFrame implements ActionListener {
         create_account_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Create Account Button works!!"); // for testing
+                try {
+                    System.out.println("Create Account Button works!!"); // for testing
+                    LoginController.createAccount(true); // calls function
+                } catch (IOException ex) {
+                    // ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
+                }
 
                 System.out.println("your account(BRAND) has been made!!! go log in ");
             }
@@ -550,8 +566,13 @@ public class Login extends JFrame implements ActionListener {
         create_account_as_buyer_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Create Account Button works!!"); // for testing
-
+                try {
+                    System.out.println("Create Account Button works!!"); // for testing
+                    LoginController.createAccount(false); // calls function
+                } catch (IOException ex) {
+                    // ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
+                }
                 System.out.println("your account(BUYER) has been made!!! go log in ");
             }
         });
@@ -677,7 +698,11 @@ public class Login extends JFrame implements ActionListener {
         one_time_code_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    LoginController.forgotAccount();
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 String code = String.valueOf(ResetCode.getCode());
                 //pop up notification for one time code
                 JOptionPane.showMessageDialog(null,code);
@@ -756,6 +781,11 @@ public class Login extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("one_time_cone panel button login work!!"); // for testing
 
+                try {
+                    LoginController.changePassword(Integer.parseInt(String.valueOf(get_OTCL_one_time_code())), get_recoverInformation_email());
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

@@ -15,7 +15,6 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private boolean isBrandAccount = false; // true = brand; false = buyer
     private File profilePicture = new File("src/UGT_Data/Media/defaultProfilePicture.png");
 
     // Initializing when creating a new user
@@ -38,20 +37,13 @@ public class User {
         return password;
     }
 
+
     public File getProfilePicture() {
         return profilePicture;
     }
 
     public void setProfilePicture(File profilePicture) {
         this.profilePicture = profilePicture;
-    }
-
-    public boolean isBrandAccount() {
-        return isBrandAccount;
-    }
-
-    public void setBrandAccount(boolean brandAccount) {
-        isBrandAccount = brandAccount;
     }
 
     // Setter functions to update user information
