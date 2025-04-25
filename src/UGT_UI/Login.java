@@ -1,12 +1,16 @@
 package UGT_UI;
 
-import UGT_UI.UGT_UI_SERVICE.LoginService;
+import UGT_Controllers.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import UGT_Data.ResetCode;
+
 
 
 public class Login extends JFrame implements ActionListener {
@@ -23,7 +27,7 @@ public class Login extends JFrame implements ActionListener {
 
 
     //constructor
-    Login() {
+    public Login() {
         //creating JFrame
         JFrame frame = new JFrame(); //by default frames use borderlayout
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //allows window to close
@@ -125,16 +129,11 @@ public class Login extends JFrame implements ActionListener {
 //******************************************************************************************** Cardlogin
 
 
-    private JTextField login_username;
-    private JTextField login_password;
+    private static JTextField login_username;
+    private static JTextField login_password;
 
 
-    public String getLoginusername(){
-        return login_username.getText();
-    }
-    public String getLoginpassword(){
-        return login_password.getText();
-    }
+
 
     private JPanel Cardlogin(){
 
@@ -182,16 +181,25 @@ public class Login extends JFrame implements ActionListener {
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("you are now logged in");
-
+                System.out.println("It works!!");
+                try {
+                    LoginController.loggingIn(); // calls function
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Login failed due to an error.");
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
 
         return cardlogin;
     }
-
+    public static String getLoginusername(){
+        return login_username.getText();
+    }
+    public static String getLoginpassword(){
+        return login_password.getText();
+    }
 
 
     //********************************************************************************************Cardcreateaccount
@@ -253,35 +261,35 @@ public class Login extends JFrame implements ActionListener {
 
 
     //*************************************************************** create_account_as_brand
-    private JTextField brand_username;
-    private JTextField brand_password;
-    private JTextField brand_brandname;
-    private JTextArea brand_about_brand;
-    private JTextField brand_Instagram;
-    private JTextField brand_Tiktok;
-    private JTextField brand_email;
+    private static JTextField brand_username;
+    private static JTextField brand_password;
+    private static JTextField brand_brandname;
+    private static JTextArea brand_about_brand;
+    private static JTextField brand_Instagram;
+    private static JTextField brand_Tiktok;
+    private static JTextField brand_email;
 
 
     //getters for create_account_as_brand
-    public String get_ca_brand_username(){
+    public static String get_ca_brand_username(){
         return brand_username.getText();
     }
-    public String get_ca_brand_password(){
+    public static String get_ca_brand_password(){
         return brand_password.getText();
     }
-    public String get_ca_brand_brandname(){
+    public static String get_ca_brand_brandname(){
         return brand_brandname.getText();
     }
-    public String get_ca_brand_aboutbrand(){
+    public static String get_ca_brand_aboutbrand(){
         return brand_about_brand.getText();
     }
-    public String get_ca_brand_Instagram(){
+    public static String get_ca_brand_Instagram(){
         return brand_Instagram.getText();
     }
-    public String get_ca_brand_Tiktok(){
+    public static String get_ca_brand_Tiktok(){
         return brand_Tiktok.getText();
     }
-    public String get_ca_brand_email(){
+    public static String get_ca_brand_email(){
         return brand_email.getText();
     }
 
@@ -449,23 +457,27 @@ public class Login extends JFrame implements ActionListener {
 
 
 
-        //adding action to create_account button
+        //adding action to create_account button for brand
         create_account_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    System.out.println("Create Account Button works!!"); // for testing
+                    LoginController.createAccount(true); // calls function
+                } catch (IOException ex) {
+                    // ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
+                }
+
                 System.out.println("your account(BRAND) has been made!!! go log in ");
             }
         });
-
-
 
         //adding button to button panel
         button_panel.add(create_account_button);
         //adding button panel to create_account_as_brand
         create_account_as_brand.add(button_panel);
         return create_account_as_brand;
-
-
     }
 
 
@@ -477,21 +489,21 @@ public class Login extends JFrame implements ActionListener {
 
 
     //******************************************************************create_account_buyer
-    private JTextField buyer_username;
-    private JTextField buyer_password;
-    private JTextField buyer_email;
+    private static JTextField buyer_username;
+    private static JTextField buyer_password;
+    private static JTextField buyer_email;
 
 
 
-    public String get_ca_buyer_username(){
+    public static String get_ca_buyer_username(){
         return buyer_username.getText();
     }
 
-    public String get_ca_buyer_password(){
+    public static String get_ca_buyer_password(){
         return buyer_password.getText();
     }
 
-    public String get_ca_buyer_email(){
+    public static String get_ca_buyer_email(){
         return buyer_email.getText();
     }
 
@@ -540,7 +552,7 @@ public class Login extends JFrame implements ActionListener {
         buyer_email_panel.add(buyer_email);
         create_account_as_buyer.add(buyer_email_panel);
 
-        //will hold button
+        //will hold the button
         JPanel button_panel = new JPanel();
         //creating button
         JButton create_account_as_buyer_button = new JButton("create account");
@@ -554,6 +566,13 @@ public class Login extends JFrame implements ActionListener {
         create_account_as_buyer_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    System.out.println("Create Account Button works!!"); // for testing
+                    LoginController.createAccount(false); // calls function
+                } catch (IOException ex) {
+                    // ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
+                }
                 System.out.println("your account(BUYER) has been made!!! go log in ");
             }
         });
@@ -565,7 +584,7 @@ public class Login extends JFrame implements ActionListener {
 
         //adding button to button panel
         button_panel.add(create_account_as_buyer_button);
-        //adding button panel to create_account_as_buyer
+        //adding a button panel to create_account_as_buyer
         create_account_as_buyer.add(button_panel);
         return create_account_as_buyer;
 
@@ -642,9 +661,9 @@ public class Login extends JFrame implements ActionListener {
 
     //************************************************************************************************ forgot
 
-    private JTextField recoverInformation_email;
+    private static JTextField recoverInformation_email;
 
-    public String get_recoverInformation_email(){
+    public static String get_recoverInformation_email(){
         return recoverInformation_email.getText();
     }
 
@@ -675,13 +694,18 @@ public class Login extends JFrame implements ActionListener {
         //adding to forgot
         forgot.add(one_time_code_panel);
 
-        //adding action to one_time_code button
+        //adding action to the one_time_code button
         one_time_code_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    LoginController.forgotAccount();
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+                String code = String.valueOf(ResetCode.getCode());
                 //pop up notification for one time code
-                JOptionPane.showMessageDialog(null,"09230493249898");
-
+                JOptionPane.showMessageDialog(null,code);
             }
         });
 
@@ -691,17 +715,17 @@ public class Login extends JFrame implements ActionListener {
     //********************************************************************************************************** one_time_code_login
     // OTCL = one_time_code_login
 
-    private JTextField OTCL_email;
-    private JTextField OTCL_one_time_code;
-    private JTextField OTCL_new_password;
+    private static JTextField OTCL_email;
+    private static JTextField OTCL_one_time_code;
+    private static JTextField OTCL_new_password;
 
-    public String get_OTCL_email(){
+    public static String get_OTCL_email(){
         return OTCL_email.getText();
     }
-    public String get_OTCL_one_time_code(){
+    public static String get_OTCL_one_time_code(){
         return OTCL_one_time_code.getText();
     }
-    public String get_OTCL_password(){
+    public static String get_OTCL_password(){
         return OTCL_new_password.getText();
     }
 
@@ -748,15 +772,20 @@ public class Login extends JFrame implements ActionListener {
         JPanel login_panel = new JPanel();
         JButton login_button = new JButton("login");
         login_panel.add(login_button);
-        //adding to create_accunt_as_brand
+        //adding to create_account_as_brand
         create_account_as_brand.add(login_panel);
 
         //adding action login button
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //add pop up notification
-                System.out.println("you logged in using One Time Code Login");
+                System.out.println("one_time_cone panel button login work!!"); // for testing
+
+                try {
+                    LoginController.changePassword(Integer.parseInt(String.valueOf(get_OTCL_one_time_code())), get_recoverInformation_email());
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

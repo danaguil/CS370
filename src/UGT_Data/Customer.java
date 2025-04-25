@@ -27,14 +27,14 @@ public class Customer extends User{
 
     // List of CRUD attributes
     private final ArrayList<String> likedPosts;
-    private final ArrayList<String> followedBrand;
+    private final ArrayList<String> followedBrand = null;
     private final ArrayList<Order> orders_list;
     private final ArrayList<Item> customer_cart;
 
 
     // Constructor for Customer class
     public Customer(String email, String username, String password, String first_name, String last_name, int card_number, String name_on_card,
-                    int exp_month, int exp_year, int cvv, String address, ArrayList<String> likedPosts, ArrayList<String> followedBrand) {
+                    int exp_month, int exp_year, int cvv, String address, ArrayList<String> likedPosts) {
         super(email, username, password);
 
         this.first_name = first_name;
@@ -46,7 +46,6 @@ public class Customer extends User{
         this.cvv = cvv;
         this.address = address;
         this.likedPosts = likedPosts;
-        this.followedBrand = followedBrand;
         this.orders_list = new ArrayList<>();
         this.customer_cart = new ArrayList<>();
     }

@@ -1,20 +1,20 @@
 package UGT_Controllers;
 
 // import auth.ResetCode;
+import UGT_Data.Brand;
+import UGT_Data.Customer;
+import UGT_Data.ResetCode;
 import UGT_UI.Login;
 import UGT_Data.User;
-import UGT_UI.UGT_UI_SERVICE.LoginService;
-
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+
+import static java.lang.System.out;
 
 /*
     This entire UserService will provide the entire login functionality.
-    Here are the function it'll include:
+    Here is the function it'll include:
         - populateHashMap(); When we start a new GUI (after creating multiple accounts), function will add to the
             hashmap using the userInfoFile.txt
             - getUserClass(): helper function, will trim the txt file to get the correct information
@@ -25,8 +25,12 @@ import java.util.Scanner;
  */
 public class LoginController {
     static HashMap<String, User> usernameMap = new HashMap<>(); // init the hashmap
+    static HashMap<String, Brand> brandMap = new HashMap<>();
+    static HashMap<String, Customer> resetCodeMap = new HashMap<>();
+    // static HashMap<String, Customer> customerMap = new HashMap<>(); Not sure if we'll need this yet'
+
     // static Map<String, ResetCode> resetCodeMap = new HashMap<>(); // will add both email and their oneTimeCode when user forgot their password
-    static String directoryPath = "src/UGT_Data/";
+    static String directoryPath = "src/UGT_Data/accountInformation/";
     static String fileName = "userInfoFile.txt";
 
     // Create a File object with the specified path
@@ -34,100 +38,125 @@ public class LoginController {
 
     // Function will populate the hashmap from information from userInfoFile.txt
     public static void populateHashMap() throws FileNotFoundException {
-
-        // If the file doesn't exist, create it with some default users
+        // If the file doesn't exist, create it as an empty file
         if (!userFile.exists()) {
-            System.out.println("userInfoFile.txt not found. Creating default file...");
+            out.println("userInfoFile.txt not found. Creating empty file...");
             try {
                 PrintWriter writer = new PrintWriter(userFile);
                 writer.close();
             } catch (IOException e) {
-                System.out.println("Error creating default userInfoFile.txt");
+                out.println("Error creating userInfoFile.txt");
                 return;
             }
         }
-        // Continue with reading and populating the map
+
         Scanner inFile = new Scanner(userFile);
 
         while (inFile.hasNextLine()) {
-            String line = inFile.nextLine();
-            String[] parts = line.split("\\|");
+            String line = inFile.nextLine().trim();
+            if (line.isEmpty()) continue; // skip blank lines
 
-            for (int i = 0; i < parts.length; i++) {
-                parts[i] = parts[i].trim();
+            String[] parts = line.split(",");
+            if (parts.length != 3) {
+                out.println("Invalid line format: " + line);
+                continue;
             }
 
-            String username = parts[0].substring(10).trim(); // Assumes "Username: " is exactly 10 characters
-            User newUser = getUserClass(parts, username);
+            String username = parts[0].trim();
+            String email = parts[1].trim();
+            String password = parts[2].trim();
+
+            User newUser = new User(email, username, password);
             usernameMap.put(username, newUser);
         }
 
         inFile.close();
 
-        System.out.println("Users in map:");
+        out.println("Users in map:");
         for (String key : usernameMap.keySet()) {
-            System.out.println("-> -" + key + "-");
+            out.println("-> " + key);
         }
     }
 
-    public static User getUserClass(String[] parts, String username) {
-        String email = parts[1].substring(7).trim();      // Remove "Email: " (7 chars)
-        String password = parts[2].substring(10).trim();  // Remove "Password: " (10 chars)
-
-        return new User(email, username, password);
-    }
-
     public static void loggingIn() throws IOException{
-        String username = LoginService.getLoginusername();
+        String username = Login.getLoginusername();
 
         // String email = ui.LoginGUI.getca_email();
 
-        String password = LoginService.getLoginpassword();
+        String password = Login.getLoginpassword();
 
 
         User user = usernameMap.get(username);
 
         if (user != null && user.getPassword().equals(password)) {
-            System.out.println("Login successful! Welcome, " + username);
+            out.println("Login successful! Welcome, " + username);
         } else {
-            System.out.println("Invalid username or password.");
+            out.println("Invalid username or password.");
         }
     }
+    /*
+        Creating account functionality will be using a boolean 'status' to determine if the account
+        was created for a brand or buyer user. Will then add that information to the hashmap/class
 
-    public static void createAccount() throws IOException {
-        // Create account logic
-        String newUsername = LoginService.getca_username();
+        True = brand
+        False = buyer
+     */
+    public static void createAccount(boolean status) throws IOException {
+        String username, password, email;
 
-        // String email = ui.LoginGUI.getca_email();
+        // If a user is trying to create an account as a Brand Owner
+        if(status) {
 
-        String newPassword = LoginService.getca_password();
+            username = Login.get_ca_brand_username();
+            email = Login.get_ca_brand_email();
+            password = Login.get_ca_brand_password();
+            String brandName = Login.get_ca_brand_brandname();
+            String aboutBrand = Login.get_ca_brand_aboutbrand();
+            String instagramHandle = Login.get_ca_brand_Instagram();
+            String tikTokHandle = Login.get_ca_brand_Tiktok();
 
+            Brand brand = new Brand(email,username,password,brandName,aboutBrand,
+                    new File("/UGT_Data/Media/defaultProfilePicture.png"), instagramHandle, tikTokHandle);
+            brandMap.put(brandName, brand);
+        } else { // creating an account as a Buyer
+            username = Login.get_ca_buyer_username();
+            email = Login.get_ca_buyer_email();
+            password = Login.get_ca_buyer_password();
 
-        String email = "temp@gmail.com";
-        // Check if username already exists, if it contains that specific key, then it exist
-        if (usernameMap.containsKey(newUsername)) {
-            System.out.println("Username already exists. Please choose another username.");
+            //Customer customer = new Customer(email,username,password,null,null,
+            //        0,null,0,0,0,null,null);
+            //  customerMap.put(username, customer);
+        }
+        verifyInfo(username,email,password);
+    }
+    /*
+          The Function will check if there are any duplicate usernames in the application
+     */
+    static void verifyInfo(String globalUsername, String globalEmail, String globalPassword) throws IOException {
+        if (usernameMap.containsKey(globalUsername)) {
+            out.println("Username already exists. Please choose another username.");
         } else {
-            // Create a new user and add to HashMap
-            User newUser = new User(email, newUsername, newPassword);
-            usernameMap.put(newUsername, newUser);
+            User newUser = new User(globalEmail, globalUsername, globalPassword);
+            usernameMap.put(globalUsername, newUser);
 
             FileWriter fw = new FileWriter(directoryPath + fileName, true);
             PrintWriter out = new PrintWriter(fw);
 
-            out.println("Username: " + newUser.getUsername() + " | Email: " + newUser.getEmail() +
-                    " | Password: " + newUser.getPassword());
+            out.println(newUser.getUsername() + "," + newUser.getEmail() +
+                    "," + newUser.getPassword());
             out.close();
             System.out.println("Account created successfully! You can now login with your username.");
         }
+
     }
 
     // Function will help user retrieve information for their account to re-login
     // O(n), not as efficient. solution create a hashmap just for emails, or maybe just an arraylist
     // just for emails
     // if the email is invalid, don't mention it, prevents attackers from guessing accounts
-    public static void forgotAccount(){
-        String emailKey = "testemail@gmail.com"; // replace test string with var in loginGUI getter
+    public static void forgotAccount() throws FileNotFoundException {
+        String emailKey = Login.get_recoverInformation_email(); // replace test string with var in loginGUI getter
+
 
         // Traverses through the hashmap
         for(Map.Entry<String, User> entry : usernameMap.entrySet()){
@@ -138,17 +167,95 @@ public class LoginController {
 
             // compares the emailKey and also the emails of all the users
             if(emailKey.equals(user.getEmail())){
+                System.out.println("Email found: " + user.getEmail());
                 // test case: pass
                 Random rand = new Random();
                 LocalDateTime creationTime = LocalDateTime.now();
-                // storing the time when the code was created, should be 10 min max
+                // storing the time when the code was created should be 10 min max
                 int oneTimeCode = rand.nextInt((99999 - 10000) + 1) + 10000;
-
+                new ResetCode(oneTimeCode);
                // resetCodeMap.put(emailKey, new ResetCode(oneTimeCode)); // adding info to hashmap
 
-                System.out.println("Here's your one time key: " + oneTimeCode + "Variable created at: " + creationTime);
+                out.println("Here's your one time key: " + oneTimeCode + "Variable created at: " + creationTime);
+// change from string to int
+                break;
             }
         }
+        // add a boolean "found"
+        out.println("Email not found. Please try again.");
+    }
+
+    public static void changePassword(int oneTimeCode, String emailKey) throws FileNotFoundException {
+        System.out.println("Email: " + emailKey);
+        // checking if the inputted information matches
+        if(String.valueOf(oneTimeCode).equals(Login.get_OTCL_one_time_code()) &&
+                emailKey.equals(Login.get_OTCL_email())){
+            // if inputted matches, then we update the new password for that user
+            String newPassword = Login.get_OTCL_password();
+            //User userToUpdate = new User(user.getEmail(), user.getUsername(), newPassword);
+            //usernameMap.put(key, userToUpdate);
+            //usernameMap.remove(emailKey);
+
+            editUserFile(newPassword, emailKey);
+        }
+
+    }
+
+    public static void editUserFile(String newPassword, String keyEmail) throws FileNotFoundException {
+        // Checking if the files exist, outputs an error if it doesn't
+        if (!userFile.exists()) {
+            out.println("userInfoFile.txt not found.");
+            return;
+        }
+
+        // Ready to view a file
+        Scanner inFile = new Scanner(userFile);
+
+        // Goes through the file to find a matching user with password and email
+        List<String> updatedLines = new ArrayList<>();
+        boolean passwordChanged = false;
+        while (inFile.hasNextLine()) {
+
+            // Entire single line in the text file
+            String line = inFile.nextLine().trim();
+
+            if (line.isEmpty()) {
+                updatedLines.add(""); // keep blank lines
+                continue;
+            }
+
+            // Splits the parts
+            String[] parts = line.split(",");
+
+            String email = parts[1].trim();
+            String oldPassword = parts[2].trim(); // only changing the password
+
+            if(email.equals(keyEmail)) {
+                if (oldPassword.equals(newPassword)) {
+                    out.println("Passwords match. Please try again.");
+                    return;
+                } else {
+                    parts[2] = newPassword;
+                    passwordChanged = true;
+                    out.println("Changed password for " + parts[0] + ": Old Password ->" + oldPassword + " New Password -> " + parts[2]);
+                }
+            }
+            updatedLines.add(String.join(",", parts));
+        }
+
+        inFile.close();
+
+        if(!passwordChanged){
+            System.out.println("Email not found or no change was needed.");
+            return;
+        }
+        // Write updated lines back to the file
+        PrintWriter outFile = new PrintWriter(userFile);
+        for (String updatedLine : updatedLines) {
+            outFile.println(updatedLine);
+        }
+        outFile.close();
+
     }
 /*
     // add the following function will GUI and test them out
@@ -170,11 +277,12 @@ public class LoginController {
         }
     }
 
+ */
+/*
     // Periodically removing codes that are expired from memory to avoid any clutter and extra memory
     public void cleanupExpiredResetCodes() {
         long now = System.currentTimeMillis();
         resetCodeMap.entrySet().removeIf(entry -> now - entry.getValue().getTimestamps() > 10 * 60 * 1000);
     }
 */
-
 }
