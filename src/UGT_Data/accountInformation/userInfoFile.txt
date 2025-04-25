@@ -1,4 +1,6 @@
 dansir,email,23f
-carlos,college,2ef2fef
-paulo,squad,itworked
+carlos,college,mynewpassword
+paulo,squad,didItwork?
 random,randomemail,hw45htr
+iphone,computeremail,random
+dansir3,myemail@gmail.com,e2ee

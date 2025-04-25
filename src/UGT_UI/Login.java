@@ -178,17 +178,8 @@ public class Login extends JFrame implements ActionListener {
 
 
         //adding action to login button
-        login_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("It works!!");
-                try {
-                    LoginController.loggingIn(); // calls function
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Login failed due to an error.");
-                    throw new RuntimeException(ex);
-                }
-            }
+        login_button.addActionListener(e -> {
+            LoginController.loginUser(); // calls function
         });
 
 
@@ -462,14 +453,11 @@ public class Login extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("Create Account Button works!!"); // for testing
-                    LoginController.createAccount(true); // calls function
+                    LoginController.registerUser(); // calls function
                 } catch (IOException ex) {
                     // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
-
-                System.out.println("your account(BRAND) has been made!!! go log in ");
             }
         });
 
@@ -567,13 +555,10 @@ public class Login extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("Create Account Button works!!"); // for testing
-                    LoginController.createAccount(false); // calls function
+                    LoginController.registerUser(); // calls function
                 } catch (IOException ex) {
-                    // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
-                System.out.println("your account(BUYER) has been made!!! go log in ");
             }
         });
 
@@ -699,7 +684,7 @@ public class Login extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LoginController.forgotAccount();
+                    LoginController.recoverAccount();
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -779,10 +764,8 @@ public class Login extends JFrame implements ActionListener {
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("one_time_cone panel button login work!!"); // for testing
-
                 try {
-                    LoginController.changePassword(Integer.parseInt(String.valueOf(get_OTCL_one_time_code())), get_recoverInformation_email());
+                    LoginController.updatePasswordViaOTP();
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
