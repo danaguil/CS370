@@ -69,4 +69,16 @@ public class Brand extends User{
     public void setTiktok_name(String tiktok_name) {
         this.tiktok_name = tiktok_name;
     }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo(); // calls User's displayInfo()
+        System.out.println("Brand Name: " + brand_name);
+        System.out.println("About Brand: " + brand_description);
+        System.out.println("Logo Location: " + brand_image.getPath());
+        System.out.println("Instagram Handle: " + instagram_name);
+        System.out.println("TikTok Handle: " + tiktok_name);
+        System.out.println("---------------------------");
+    }
+
 }
