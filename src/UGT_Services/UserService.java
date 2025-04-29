@@ -142,7 +142,7 @@ public class UserService {
 
 
 
-
+    
 
     /*
         The Function will add the user information (after validating the info) into the userInfoFile.txt file
