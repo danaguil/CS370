@@ -311,6 +311,31 @@ public class Buyer extends JFrame implements ActionListener {
         return carddiscover_panel;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Card like things
     private final ArrayList<JPanel> all_my_liked_post = new ArrayList<>();
     JPanel liked_grid;
@@ -373,7 +398,27 @@ public class Buyer extends JFrame implements ActionListener {
 
 
 
-//Card settings things
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Card settings things
     JTextField usernmae_j;
     JTextField password_j;
     JTextField first_name_j;
@@ -702,20 +747,40 @@ public class Buyer extends JFrame implements ActionListener {
 
 
 
-
-
         buttonpanel.add(account_settings_button);
         buttonpanel.add(report_a_bug_button);
         buttonpanel.add(logout_button);
 
-
-
-
-
-    cardsettings.add(buttonpanel, BorderLayout.NORTH);
+        cardsettings.add(buttonpanel, BorderLayout.NORTH);
 
         return cardsettings;
     }
+
+
+
+
+
+
+
+
+
+
+//done done doen deond eond deodnoneondo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -790,6 +855,36 @@ public class Buyer extends JFrame implements ActionListener {
 
         return cardsearch_panel;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//done done doen doen doen doen done
+
+
+
+
+
+    //taking this
 
 
 //cart things
