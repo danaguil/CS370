@@ -5,13 +5,8 @@ import UGT_Data.User;
 import UGT_Services.UserService;
 import UGT_UI.Login;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-
-import static UGT_Services.UserService.verifySingleInfo;
 
 /*
     This class will handle all the logic for the login and register screens.
@@ -45,7 +40,7 @@ public class LoginController {
 
         // Using username (key), we'll get the user class information
         User user = UserService.userMap.get(username);
-        // As long, it's a valid user, and it matches, it will move the user to the home page
+        // As elong, it's a valid user, and it matches, it will move the user to the home page
         if (user != null && user.getPassword().equals(password)) {
             System.out.println("Login successful. Welcome, " + username + "!");
         } else { // If not, such a user is found
@@ -59,66 +54,59 @@ public class LoginController {
         Will go through various testing if inputted information is valid
         If so, then will add onto userInfoFile.txt and to the hashmap
      */
-    public static void registerUser(String status) throws IOException {
-        // User inputted fields
-        String username, email, password;
+    public static void registerUser() throws IOException {
+        // Gets information from GUI
+        String username = Login.get_ca_buyer_username();
+        String email = Login.get_ca_buyer_email();
+        String password = Login.get_ca_buyer_password();
 
-        // Brand-specific fields
-        String brandName = "";
-        String logoFileLocation = "";
-        String aboutBrand = "";
-        String instagramHandle = "";
-        String tiktokHandle = "";
+        // Boolean will help output a multiple error message if it's necessary.
+        boolean hasError = false;
 
-        // Step 1: Gather user input
-        if (status.equalsIgnoreCase("brand")) {
-            username = Login.get_ca_brand_username();
-            email = Login.get_ca_brand_email();
-            password = Login.get_ca_brand_password();
-            brandName = Login.get_ca_brand_brandname();
-            logoFileLocation = Login.getPost_photo();
-            aboutBrand = Login.get_ca_brand_aboutbrand();
-            instagramHandle = Login.get_ca_brand_Instagram();
-            tiktokHandle = Login.get_ca_brand_Tiktok();
-        } else if (status.equalsIgnoreCase("buyer")) {
-            username = Login.get_ca_buyer_username();
-            email = Login.get_ca_buyer_email();
-            password = Login.get_ca_buyer_password();
-        } else {
-            System.out.println("Invalid status provided.");
-            return;
+        // ALSO, might create a string list for those error messages to display to GUI
+
+        // Checks for empty entries
+        if (username == null || email == null || password == null ||
+                username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
+            System.out.println("Please fill out all fields.");
+            return; // Immediately returns error
         }
 
-        // Step 2: Verify common user fields
-        boolean infoValid = verifySingleInfo(username, "username")
-                && verifySingleInfo(email, "email")
-                && verifySingleInfo(password, "password");
-
-        if (!infoValid) {
-            System.out.println("User information is invalid. Fix errors above.");
-            return;
+        // Checks for any spaces in entries
+        if (username.contains(" ") || password.contains(" ") || email.contains(" ")) {
+            System.out.println("Username, email, or password cannot contain spaces.");
+            hasError = true; // Adds to the error list
         }
 
-        // Step 3: If branded, verify brand-specific fields
-        if (status.equalsIgnoreCase("brand")) {
-            boolean brandInfoValid = verifySingleInfo(brandName, "brand name")
-                    && verifySingleInfo(aboutBrand, "about brand")
-                    && verifySingleInfo(instagramHandle, "instagram handle")
-                    && verifySingleInfo(tiktokHandle, "tiktok handle");
-
-            if (!brandInfoValid) {
-                System.out.println("Brand information is invalid. Fix errors above.");
-                return;
-            }
+        // Check for any commas inputted in entries
+        if (username.contains(",") || password.contains(",") || email.contains(",")) {
+            System.out.println("Inputs cannot contain commas.");
+            hasError = true; // Adds to the error list
         }
 
-        // Step 4: Create a user
-        UserService.createUser(username, email, password, brandName, aboutBrand,
-                logoFileLocation, instagramHandle, tiktokHandle, status);
+        // Check for valid email structure
+        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            System.out.println("Invalid email format.");
+            hasError = true; // Adds to the error list
+        }
 
-        System.out.println("Account created successfully!");
+        // Checks if the inputted username already exists
+        if (UserService.usernameExists(username)) {
+            System.out.println("Username already exists. Please choose another.");
+            hasError = true; // Adds to the error list
+        }
+
+        // Checks if the inputted email already exists
+        if (UserService.emailExists(email)) {
+            System.out.println("Email already exists. Please choose another.");
+            hasError = true; // Adds to the error list
+        }
+
+        // If found NO errors and everything is perfect, we create user a new account
+        if (!hasError) {
+            UserService.createUser(username, email, password);
+        }
     }
-
 
     /*
         Function will guide the user to create a new password if forgotten using a One Time Code, and their email
@@ -162,10 +150,15 @@ public class LoginController {
      */
     public static void updatePasswordViaOTP() throws FileNotFoundException {
         // Get information from GUI
+        String inputCode = Login.get_OTCL_one_time_code();
         String emailKey = Login.get_OTCL_email();
         String newPassword = Login.get_OTCL_password();
 
-        verifySingleInfo(newPassword, "password");
+        // Checks for valid code using ResetCode getter
+        if(inputCode == null || Integer.parseInt(inputCode) != ResetCode.getCode()){
+            System.out.println("Invalid OTP. Please try again.");
+            return; // returns if invalid
+        }
 
         // Finally, update password if code is valid
         UserService.updatePassword(emailKey, newPassword);
@@ -175,39 +168,7 @@ public class LoginController {
     public static void showAllUsers() {
         UserService.displayAllUsers();
     }
-
-    /*
-        The Function will save the selected file to the Media folder in the project directory
-     */
-    public static boolean saveBrandLogo(File selectedFile) {
-        // Checking if a file is selected
-        if (selectedFile == null) {
-            System.out.println("No file selected.");
-            return false;
-        }
-
-        try {
-            // Destination path
-            String mediaDirectory = "src/UGT_Data/Media/";
-            File destFile = new File(mediaDirectory + selectedFile.getName());
-
-            // Copy file content
-            Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            System.out.println("Logo saved successfully: " + destFile.getPath());
-        } catch (IOException e) {
-            System.out.println("Failed to save logo: " + e.getMessage());
-        }
-        return true;
-    }
-
-
-    // work on the file issue where when creating an account and press create an account w no file inserted,
-    // shows an error
-
 }
-
-
 
 /*
     // add the following function will GUI and test them out

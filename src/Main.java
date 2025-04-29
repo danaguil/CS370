@@ -1,6 +1,6 @@
-import UGT_Controllers.LoginController;
 import UGT_UI.*;
 import javax.swing.*;
+import UGT_Controllers.LoginController;
 import java.io.FileNotFoundException;
 
 public class Main extends JFrame {
@@ -8,8 +8,14 @@ public class Main extends JFrame {
         // new Buyer();
         // new BrandProfile();
 
-        LoginController.initialize();
-        new Login();
+        try {
+            LoginController.populateHashMap();
+            new Login();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: userInfoFile.txt not found!");
+            throw new FileNotFoundException();
+        }
 
 
     }
