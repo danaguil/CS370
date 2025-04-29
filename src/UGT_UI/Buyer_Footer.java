@@ -3,10 +3,10 @@ package UGT_UI;
 import javax.swing.*;
 import java.awt.*;
 
-public class BuyerFooter extends JFrame {
+public class Buyer_Footer extends JPanel {
 
     //Button Variables
-    private final JButton buttonfollowing;
+    private final JButton buttonhome;
     private final JButton buttondiscover;
     private final JButton buttonsettings;
     private final JButton buttonlike;
@@ -15,18 +15,18 @@ public class BuyerFooter extends JFrame {
     private final JButton buttoncart; //just added these buttons
 
 
-    public BuyerFooter() {
+    public Buyer_Footer() {
 
-
+        //this.setTitle("barlitos");
+        this.setLayout(new BorderLayout());
+        //this.setBackground(Color.YELLOW);
         this.setSize(500, 800);
 
 
-
-
-        JPanel buttonpanel_header = new JPanel(); //flowlayout
+        JPanel buttonpanel_TOP = new JPanel(); //flowlayout
         //buttonpanel_header.setBackground(Color.black);
-        buttonpanel_header.setPreferredSize(new Dimension(50,50));
-        buttonpanel_header.setLayout(new GridLayout(1,3));
+        buttonpanel_TOP.setPreferredSize(new Dimension(50,50));
+        buttonpanel_TOP.setLayout(new GridLayout(1,3));
 
 
         buttonsearch = new JButton();
@@ -49,17 +49,17 @@ public class BuyerFooter extends JFrame {
         minibanner.add(minibannertext);
         minibanner.setBackground(Color.DARK_GRAY);
 
-        buttonpanel_header.add(minibanner);
-        buttonpanel_header.add(buttonsearch);
-        buttonpanel_header.add(buttoncart);
+        buttonpanel_TOP.add(minibanner);
+        buttonpanel_TOP.add(buttonsearch);
+        buttonpanel_TOP.add(buttoncart);
 
-        this.add(buttonpanel_header, BorderLayout.NORTH);
+        this.add(buttonpanel_TOP, BorderLayout.NORTH);
 
         //by deafualt panels use flowlayout
-        JPanel buttonpanel = new JPanel();
-       // buttonpanel.setBackground(Color.yellow); //yellow will be hidden by the buttons
-        buttonpanel.setLayout(new GridLayout(1, 4)); // 1 row with 5 columns
-        buttonpanel.setPreferredSize(new Dimension(50,50)); //SINCE USING BORRDERLAYOUY 100X100 DOES NOT DO ANYTINGN
+        JPanel buttonpanel_BOTTOM = new JPanel();
+       // buttonpanel_BOTTOM.setBackground(Color.yellow); //yellow will be hidden by the buttons
+        buttonpanel_BOTTOM.setLayout(new GridLayout(1, 4)); // 1 row with 5 columns
+        buttonpanel_BOTTOM.setPreferredSize(new Dimension(50,50)); //SINCE USING BORRDERLAYOUY 100X100 DOES NOT DO ANYTINGN
 
 
         //manipanel *use flowlayout buttons will just flow...
@@ -67,11 +67,11 @@ public class BuyerFooter extends JFrame {
 
         //JButton
         //creating button
-        buttonfollowing = new JButton();
+        buttonhome = new JButton();
         //adding text to button
-        buttonfollowing.setText("following");
+        buttonhome.setText("following");
         //make it so that you won't be able to see rectangle
-        buttonfollowing.setFocusable(false);
+        buttonhome.setFocusable(false);
 
 
         buttondiscover = new JButton();
@@ -89,11 +89,11 @@ public class BuyerFooter extends JFrame {
         buttonsettings.setFocusable(false);
 
 
-        buttonpanel.add(buttonfollowing);
-        buttonpanel.add(buttondiscover);
-        buttonpanel.add(buttonlike);
-        buttonpanel.add(buttonsettings);
-        this.add(buttonpanel,BorderLayout.SOUTH);
+        buttonpanel_BOTTOM.add(buttonhome);
+        buttonpanel_BOTTOM.add(buttondiscover);
+        buttonpanel_BOTTOM.add(buttonlike);
+        buttonpanel_BOTTOM.add(buttonsettings);
+        this.add(buttonpanel_BOTTOM,BorderLayout.SOUTH);
 
 
         this.setVisible(true);
@@ -101,8 +101,8 @@ public class BuyerFooter extends JFrame {
 
 
 
-    public JButton getFollowing_button() {
-        return buttonfollowing;
+    public JButton getHome_button() {
+        return buttonhome;
     }
     public JButton getDiscover_button() {
         return buttondiscover;
@@ -119,6 +119,10 @@ public class BuyerFooter extends JFrame {
     public JButton getSearch_button() {
         return buttonsearch;
     }
+
+
+
+
 
 
 }

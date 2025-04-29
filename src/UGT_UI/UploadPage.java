@@ -385,6 +385,12 @@ public class UploadPage extends JFrame implements ActionListener {
     }
 
 
+
+
+
+
+
+
     // Action Performers
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -586,6 +592,11 @@ public class UploadPage extends JFrame implements ActionListener {
 
     }
 
+
+
+
+
+
     // Creates and Filters the FileChooser
     private static JFileChooser getJFileChooser() {
         JFileChooser fileChooser = new JFileChooser();
@@ -602,6 +613,13 @@ public class UploadPage extends JFrame implements ActionListener {
         });
         return fileChooser;
     }
+
+
+
+
+
+
+
 
 
 
@@ -631,6 +649,13 @@ public class UploadPage extends JFrame implements ActionListener {
     }
 
 
+
+
+
+
+
+
+
     // Check all the Bottom Item data entries in order to enable upload_post_btn
     private void checkBottomFields(){
         boolean check_bottom_type = bottom_type_combo.getSelectedIndex() != 0;
@@ -652,6 +677,13 @@ public class UploadPage extends JFrame implements ActionListener {
             upload_post_btn.setEnabled(true);
         }
     }
+
+
+
+
+
+
+
 
 
     // Check all Shoe Item data entries in order to enable upload_post_btn
