@@ -11,20 +11,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-import static UGT_Services.UserService.verifySingleInfo;
+import static UGT_Services.UserService.Validator.verifySingleInfo;
 
-/*
-    This class will handle all the logic for the login and register screens.
+// Will I need a duplicate username and email and password info for customer and brand???
+/**
+ * Controller for the Login page.
  */
 public class LoginController {
 
-    /*
-        Function will call populateUserMap() and for testing purposes, we will display all the users
-    */
+    /**
+     * Initializes the Login page.
+     */
     public static void initialize() {
         // Calling populateUserMap() function in a try block
         try {
-            UserService.populateUserMap();
+            UserService.populateMap();
         } catch (FileNotFoundException e) {
             // Outputs error if not found
             System.out.println("Error loading user data: " + e.getMessage());
@@ -33,10 +34,8 @@ public class LoginController {
         showAllUsers();
     }
 
-    /*
-        The Function will log in the user with inputted credentials.
-            Will go check the hashmap for the correct username and password.
-            Will output an error if no such user is found
+    /**
+     * Logs in a user with the given username and password.
      */
     public static void loginUser() {
         // Gets information from GUI
@@ -53,14 +52,13 @@ public class LoginController {
         }
     }
 
-    /*
-        Function will efficiently create a new account for either a brand or a customer
-            ----For now it only work for CUSTOMERS!!----
-        Will go through various testing if inputted information is valid
-        If so, then will add onto userInfoFile.txt and to the hashmap
+    /**
+     * Registers a new user with the given information.
+     * @param status The status of the user. Can be either "buyer" or "brand".
+     * @throws IOException If an error occurs while writing to the userInfoFile.txt file.
      */
     public static void registerUser(String status) throws IOException {
-        // User inputted fields
+        // User input fields
         String username, email, password;
 
         // Brand-specific fields
@@ -69,6 +67,8 @@ public class LoginController {
         String aboutBrand = "";
         String instagramHandle = "";
         String tiktokHandle = "";
+
+        String id = IDGenerator.generateID();
 
         // Step 1: Gather user input
         if (status.equalsIgnoreCase("brand")) {
@@ -89,41 +89,45 @@ public class LoginController {
             return;
         }
 
-        // Step 2: Verify common user fields
-        boolean infoValid = verifySingleInfo(username, "username")
-                && verifySingleInfo(email, "email")
-                && verifySingleInfo(password, "password");
+        // Step 2: Verify core user fields
+        boolean validUserInfo = UserService.Validator.verifySingleInfo(username, "username") &&
+                UserService.Validator.verifySingleInfo(email, "email") &&
+                UserService.Validator.verifySingleInfo(password, "password");
 
-        if (!infoValid) {
+        if (!validUserInfo) {
             System.out.println("User information is invalid. Fix errors above.");
             return;
         }
 
-        // Step 3: If branded, verify brand-specific fields
+        // Step 3: Brand-specific field verification (skip logo, it's a file path)
         if (status.equalsIgnoreCase("brand")) {
-            boolean brandInfoValid = verifySingleInfo(brandName, "brand name")
-                    && verifySingleInfo(aboutBrand, "about brand")
-                    && verifySingleInfo(instagramHandle, "instagram handle")
-                    && verifySingleInfo(tiktokHandle, "tiktok handle");
+            boolean validBrandInfo = UserService.Validator.verifySingleInfo(brandName, "brand name") &&
+                    UserService.Validator.verifySingleInfo(aboutBrand, "about brand") &&
+                    UserService.Validator.verifySingleInfo(instagramHandle, "instagram handle") &&
+                    UserService.Validator.verifySingleInfo(tiktokHandle, "tiktok handle");
 
-            if (!brandInfoValid) {
+            if (!validBrandInfo) {
                 System.out.println("Brand information is invalid. Fix errors above.");
+                return;
+            }
+
+            if (logoFileLocation == null || logoFileLocation.trim().isEmpty()) {
+                System.out.println("Logo file is missing.");
                 return;
             }
         }
 
-        // Step 4: Create a user
-        UserService.createUser(username, email, password, brandName, aboutBrand,
-                logoFileLocation, instagramHandle, tiktokHandle, status);
-
-        System.out.println("Account created successfully!");
+        // Step 4: If all valid, create the user
+        UserService.createUser(username, email, password,
+                brandName, aboutBrand, logoFileLocation,
+                instagramHandle, tiktokHandle, status, id);
     }
 
 
-    /*
-        Function will guide the user to create a new password if forgotten using a One Time Code, and their email
-        Will test the correct inputted information
-            and changes their password both in the hashmap and userInfoFile.txt
+
+    /**
+     * Recovers the password for a user with the given email.
+     * @throws FileNotFoundException If the userInfoFile.txt file cannot be found.
      */
     public static void recoverAccount() throws FileNotFoundException {
         // Get information from GUI
@@ -156,9 +160,9 @@ public class LoginController {
         }
     }
 
-    /*
-        Function will update the password both hashmap (working) and in userInfoFile
-        Will call update password function in UserService for future password changes in users' settings
+    /**
+     * Updates the password of a user with the given email and OTP code.
+     * @throws FileNotFoundException If the userInfoFile.txt file cannot be found.
      */
     public static void updatePasswordViaOTP() throws FileNotFoundException {
         // Get information from GUI
@@ -171,13 +175,17 @@ public class LoginController {
         UserService.updatePassword(emailKey, newPassword);
     }
 
-    // Testing Function that displays all users
+    /**
+     * Updates the password of a user with the given email and new password.
+     */
     public static void showAllUsers() {
         UserService.displayAllUsers();
     }
 
-    /*
-        The Function will save the selected file to the Media folder in the project directory
+    /**
+     * Saves the brand logo to the Media folder.
+     * @param selectedFile The file to be saved. Must be a valid file path. Must be a valid image file.
+     * @return true if the file was saved successfully, false otherwise.
      */
     public static boolean saveBrandLogo(File selectedFile) {
         // Checking if a file is selected
@@ -201,11 +209,6 @@ public class LoginController {
 
         return true;
     }
-
-
-    // work on the file issue where when creating an account and press create an account w no file inserted,
-    // shows an error
-
 }
 
 

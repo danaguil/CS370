@@ -7,76 +7,253 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+public class BrandProfile extends JFrame implements ActionListener {
 
-public class ProfilePage extends JFrame implements ActionListener {
+    JButton buttonprofile;
+    JButton buttonpost;
+    JButton buttonsettings;
 
-    // Buttons used for the Brand Footer and for switching to the correct frames
-    JButton upload_btn;
-    JButton settings_btn;
-    JButton profile_btn;
-
-
-    // Brand Header Components
-    JLabel brand_name_label;
-    JTextArea brand_description_label;
-    JLabel brand_socials_label;
+    CardLayout cards;
+    JPanel maincard;
 
 
-    public ProfilePage(){
+    BrandProfile(){
+        JFrame frame = new JFrame(); //by default frames use borderlayout
+        //
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //size of frame
+        frame.setSize(500, 800);
+        //frame will not be resizable
+        frame.setResizable(false);
+        //title of frame
+        frame.setTitle("UnderGroundThreads");
 
-        // Create the Profile Frame
-        JFrame profile_frame = new JFrame();
-        profile_frame.setSize(600, 800);
+        cards = new CardLayout();
+        //will hold all the cards
+        maincard = new JPanel();
+        //setting maincard's layout...using cards to be able to switch cards
+        maincard.setLayout(cards);
 
-        profile_frame.add(getProfilePanel());
+        //adding to maincard ----> JPanel method (card), String is the name of that panel to later use to switch
+        maincard.add(Card_profile(),"profile");
+        maincard.add(Card_post(), "post");
+        maincard.add(Card_settings(), "settings");
 
-        // Profile Frame Characteristics
-        profile_frame.setResizable(false);
-        profile_frame.setLocationRelativeTo(null);
-        profile_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        profile_frame.setVisible(true);
+        //adding the maincard to the frame
+        frame.add(maincard);
+
+        //JPanel to hold all the buttons
+        JPanel buttonpanel = new JPanel();
+
+        buttonpanel.setLayout(new GridLayout(1, 4)); // 1 row with 5 columns
+        buttonpanel.setPreferredSize(new Dimension(50,50)); //SINCE USING BORRDERLAYOUY 100X100 DOES NOT DO ANYTHING
+
+        //this is where the buttons come in
+
+        //creates button
+        buttonprofile = new JButton();
+        //Adding text to button
+        buttonprofile.setText("profile");
+        //so you won't see this rectangle when button clicked
+        buttonprofile.setFocusable(false);
+        //so that the button can have an action
+        buttonprofile.addActionListener(this);
+
+        //creates button
+        buttonpost = new JButton();
+        buttonpost.setText("post");
+        buttonpost.setFocusable(false);
+        buttonpost.addActionListener(this);
+
+        //creates  button
+        buttonsettings = new JButton();
+        buttonsettings.setText("settings");
+        buttonsettings.setFocusable(false);
+        buttonsettings.addActionListener(this);
+
+        //adding buttons to buttonpanel
+        buttonpanel.add(buttonprofile);
+        buttonpanel.add(buttonpost);
+        buttonpanel.add(buttonsettings);
+
+        //Adding buttonpanel to frame
+        frame.add(buttonpanel,BorderLayout.SOUTH);
+        frame.setVisible(true);
+    }
+
+//--------------------------------------------------------------------Cardprofile
+
+    private String Brandname;
+    private String Instagram;
+    private String Tiktok;
+    private String aboutbrandtext;
+
+    //Getters
+    void setBrandname(String Brandname){
+        this.Brandname = Brandname;
+    }
+
+    void setInstagram(String Instagram){
+        this.Instagram = Instagram;
+    }
+
+    void setTiktok(String Tiktok){
+        this.Tiktok = Tiktok;
+    }
+
+    void setAboutbrandtext(String Aboutbrandtext){
+        this.aboutbrandtext = Aboutbrandtext;
     }
 
 
-    // ArrayList to hold all buttons
+
+
+    //arraylist to hold all buttons
     ArrayList<JButton> all_myposts = new ArrayList<>();
-    // Will hold all that all_post
-    JLayeredPane post_grid;
+    //will hold all that all_post
+    JPanel post_grid;
 
 
-    // Create the Profile Panel with all Brand Elements and Posts
-    private JPanel getProfilePanel(){
 
-        // Creates Profile Panel
-        JPanel profile_panel = new JPanel();
-        profile_panel.setSize(600,800);
-        profile_panel.setLayout(null);
-        profile_panel.setBackground(Color.WHITE);
-        profile_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    //----------------------------------------------------------------------------------------------------Cardprofile
+    private JPanel Card_profile(){
+        //creates JPanel
+        JPanel cardprofile = new JPanel();
+        //size of JPanel
+        cardprofile.setSize(500,800);
+        //layout
+        cardprofile.setLayout(new BorderLayout());
+        //background color
+        cardprofile.setBackground(Color.red);
 
-        // Get Brand Footer
-        BrandFooter brand_footer = new BrandFooter();
 
-        // Create/Get the 3 footer buttons and give them ActionListeners
-        profile_btn = brand_footer.getProfile_btn();
-        profile_btn.setEnabled(false);
 
-        upload_btn = brand_footer.getUpload_btn();
-        upload_btn.addActionListener(this);
 
-        settings_btn = brand_footer.getSettings_btn();
-        settings_btn.addActionListener(this);
+        //------------------------------------------------will be the top part of the profile
+        //creates JPanel
+        JPanel profile_info = new JPanel();
+        //background color
+        //profile_info.setBackground(Color.green);
+        //layout
+        profile_info.setLayout(new BorderLayout());
+        //size of this panel
+        profile_info.setPreferredSize(new Dimension(500, 200));
 
-        profile_panel.add(new TitleHeader());
-        profile_panel.add(brand_footer);
-        profile_panel.add(getProfileHeader());
 
+        //adding to cardprofile and placing it
+        cardprofile.add(profile_info, BorderLayout.NORTH);
+
+        //-----------------------------------------------------inside of the profile_info
+        //-----------------------------------------------------this is the brands logo
+        //creates JPanel
+        JPanel profile_logo = new JPanel();
+        //background color
+        profile_logo.setBackground(Color.orange);
+        //size
+        profile_logo.setPreferredSize(new Dimension(200,200));
+
+        //add a jlabel to add a photo onto profile_logo
+
+
+        //ADDING TO PROFILE INFO
+        profile_info.add(profile_logo, BorderLayout.WEST);
+
+
+
+
+
+        //--------------------------------------panel_for_3panels
+        //----------------this is what will hold the Brand name, social medias, and About brand
+        //create JPanel
+        JPanel panel_for_3panels = new JPanel();
+        //background color
+        panel_for_3panels.setBackground(Color.BLACK);
+        //size
+        panel_for_3panels.setPreferredSize(new Dimension(300, 200));
+        //layout GridLayout... so that the panels added later on will be stacked on top of each other
+        panel_for_3panels.setLayout(new GridLayout(3,1));
+        //ADDING PANEL_FOR_3PANELS TO PROFILE INFO
+        profile_info.add(panel_for_3panels);
+
+
+
+
+        //-----------------------------------------------------------------inside of panel_for_3panels
+        //-------------------------------------brandname_panel
+        //creating JPanel
+        JPanel brandname_panel = new JPanel();
+        //size
+        brandname_panel.setSize(new Dimension(300, 50));
+        //background color
+        //brandname_panel.setBackground(Color.BLACK);
+
+
+        //creating JLabel... brandname_ will be the text for the JLabel
+        JLabel brandname_text = new JLabel("RANDOM BRAND");
+        //color for text
+        brandname_text.setForeground(Color.BLACK);
+        //ADDING BRANDNAME_TEXT TO BRANDNAME
+        brandname_panel.add(brandname_text);
+
+        //------------------------------------socialmedia_panel
+        //creating JPanel
+        JPanel socialmedia_panel = new JPanel();
+        //size
+        socialmedia_panel.setSize(new Dimension(300, 50));
+        //background color
+        //socialmedia_panel.setBackground(Color.black);
+
+
+        JTextField socialmedia_text = new JTextField("socialmedia_panel: RANDOMBRAND_123" );
+        //JTextField will not be editable
+        socialmedia_text.setEditable(false);
+        //background color
+        // socialmedia_text.setBackground(Color.black);
+        //text color for JTextField
+        socialmedia_text.setForeground(Color.black);
+        //get rid of Border
+        socialmedia_text.setBorder(null);
+        //ADDING SOCIALMEDIA_TEXT
+        socialmedia_panel.add(socialmedia_text);
+
+
+        //----------------------------------about brand
+        //creating JPanel
+        JPanel aboutbrand = new JPanel();
+        //Layout
+        aboutbrand.setLayout(new BorderLayout());
+        //creating JTextArea
+        JTextArea aboutme_text = new JTextArea("about brand... this is a brand ");
+        //JTextArea will not be editable
+        aboutme_text.setEditable(false);
+        //Text will stay within the TextArea
+        aboutme_text.setLineWrap(true);
+        //background color
+        //aboutme_text.setBackground(Color.BLACK);
+        //text color
+        aboutme_text.setForeground(Color.BLACK);
+
+
+        //ADDING ABOUTME_TEXT TO ABOUTBRAND
+        aboutbrand.add(aboutme_text);
+        //background color
+        aboutbrand.setBackground(Color.BLUE);
+
+
+
+        //ADDING 3 JPANELS TO PANEL_FOR_3PANELS
+        //BRANDNAME
+        //SOCIALMEDIA
+        //ABOUTBRAND
+        panel_for_3panels.add(brandname_panel);
+        panel_for_3panels.add(socialmedia_panel);
+        panel_for_3panels.add(aboutbrand);
 
 
         //-------------------------------------------------------post grid
         //JPanel to hold all the post made by brand
         //creating JPanel
-        post_grid = new JLayeredPane();
+        post_grid = new JPanel();
         //Layout 0 = rows (dynamic) 3 = cols
         post_grid.setLayout(new GridLayout(0,3));
 
@@ -86,85 +263,17 @@ public class ProfilePage extends JFrame implements ActionListener {
         //HORIZONTAL_SCROLLBAR_NEVER
         JScrollPane jsp = new JScrollPane(post_grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         //ADDING JSP TO CARDPROFILE
-        profile_panel.add(jsp);
+        cardprofile.add(jsp);
 
-        return profile_panel;
+        return cardprofile;
     }
 
-    // Panel that holds the Brand Profile Picture, Name, Social Link, and Description
-    private JPanel getProfileHeader(){
-        // Create Profile Header and set its Characteristics
-        JPanel profile_header = new JPanel();
-        profile_header.setBounds(0, 50, 600, 200);
-        profile_header.setBackground(Color.BLACK);
-        profile_header.setBorder(BorderFactory.createLineBorder(Color.black));
-        profile_header.setLayout(new BorderLayout());
 
-        profile_header.add(brandElements("Default Name", "Need to be filled in.", "www.default.com"), BorderLayout.EAST);
-        profile_header.add(brandPicture(new File("defaultProfilePicture.png")), BorderLayout.WEST);
-
-        return profile_header;
-    }
-
-    // Panel to Hold the Brand Name, Social Link, and Description
-    private JPanel brandElements(String name, String description, String social_link){
-        JPanel elements = new JPanel();
-        elements.setPreferredSize(new Dimension(300, 200));
-        elements.setLayout(null);
-        elements.setBackground(Color.WHITE);
-
-        // Create Element Labels
-        brand_name_label = new JLabel(name);
-        brand_name_label.setBounds(10, 20, 280, 20);
-        brand_name_label.setBackground(Color.WHITE);
-        brand_name_label.setOpaque(true);
-
-        brand_socials_label = new JLabel(social_link);
-        brand_socials_label.setBounds(10, 50, 280, 20);
-        brand_socials_label.setBackground(Color.WHITE);
-        brand_socials_label.setOpaque(true);
-
-        brand_description_label = new JTextArea(description);
-        brand_description_label.setBounds(10, 80,280, 100);
-        brand_description_label.setEditable(false);
-        brand_description_label.setLineWrap(true);
-        brand_description_label.setWrapStyleWord(true);
-
-
-        // Add Brand Elements to Element Panel
-        elements.add(brand_name_label, BorderLayout.NORTH);
-        elements.add(brand_socials_label, BorderLayout.CENTER);
-        elements.add(brand_description_label, BorderLayout.SOUTH);
-
-
-        return elements;
-    }
-
-    // Panel that holds the Brand Profile Picture
-    private JPanel brandPicture(File profile_picture){
-        JPanel picture = new JPanel();
-        picture.setPreferredSize(new Dimension(300, 200));
-        picture.setLayout(new BorderLayout());
-        picture.setBackground(Color.WHITE);
-
-        ImageIcon brand_image = new ImageIcon(profile_picture.getAbsolutePath());
-        brand_image.getImage().getScaledInstance(200, 175, Image.SCALE_SMOOTH);
-        JLabel image = new JLabel(brand_image);
-        image.setPreferredSize(new Dimension(200, 150));
-        picture.add(image, BorderLayout.CENTER);
-
-        return picture;
-    }
 
 
 
     //---------------------------------------------------print_grid for post (buttons)
     private void print_grid(){
-
-        post_grid.setBounds(100, 100, 400, 400);
-        post_grid.setBackground(Color.WHITE);
-        post_grid.setBorder(BorderFactory.createLineBorder(Color.black));
-
         //clears all buttons from post_grid
         post_grid.removeAll();
         //if all_posts has a post
@@ -984,13 +1093,19 @@ public class ProfilePage extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == buttonprofile){ //-------------PROFILE BUTTON
+            //show newest grid of brands post
+            print_grid();
+            cards.show(maincard, "profile");
 
-        if(e.getSource() == upload_btn){
-            dispose();
-            new UploadPage(0, 0, 0, 0);
-        }
+        }else if(e.getSource() == buttonpost){ //------------POST BUTTON
+            cards.show(maincard, "post");
+            valid_inputs();
 
-        if(e.getSource() == select_photo_button){ //---SELECT_PHOTO_BUTTON
+        }else if(e.getSource() == buttonsettings){ //--------SETTINGS BUTTON
+            cards.show(maincard, "settings");
+
+        }else if(e.getSource() == select_photo_button){ //---SELECT_PHOTO_BUTTON
             photo_selection();
             valid_inputs();
 

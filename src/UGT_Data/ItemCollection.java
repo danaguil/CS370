@@ -1,6 +1,7 @@
 package UGT_Data;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ItemCollection implements DatabaseInterface {
 
@@ -17,14 +18,14 @@ public class ItemCollection implements DatabaseInterface {
     }
 
     @Override
-    public Item retrieveItem(int itemId) {
+    public Item retrieveItem(String itemId) {
         // Base Case
         if(itemCollection.isEmpty()){
             return null;
         }
 
         for(Item item: itemCollection) {
-            if(item.getItemId() == itemId) {
+            if(Objects.equals(item.getItemId(), itemId)) {
                 return item;
             }
         }

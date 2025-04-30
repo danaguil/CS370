@@ -9,7 +9,7 @@ public interface DatabaseInterface {
     void addItem(Item item);
 
     // Retrieves an item using its unique ID, return objects
-    Item retrieveItem(int itemId);
+    Item retrieveItem(String itemId);
 
     // updates details of existing item identified by itemID
     void updateItem(int itemId, Item itemToUpdate);

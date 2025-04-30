@@ -1,5 +1,7 @@
 package UGT_Data;
 
+import UGT_Controllers.IDGenerator;
+
 import java.util.ArrayList;
 
 /*
@@ -26,8 +28,9 @@ public class Customer extends User{
 
     // Constructor for Customer class
     public Customer(String email, String username, String password, String first_name, String last_name, String address,
-                    ArrayList<String> likedPosts, ArrayList<String> followedBrand, ArrayList<Order> orders_list, ArrayList<Item> customer_cart) {
-        super(email, username, password);
+                    ArrayList<String> likedPosts, ArrayList<String> followedBrand, ArrayList<Order> orders_list,
+                    ArrayList<Item> customer_cart, String id) {
+        super(email, username, password, id);
 
         this.first_name = first_name;
         this.last_name = last_name;
@@ -68,7 +71,6 @@ public class Customer extends User{
         customerCart.add(item);
     }
 
-
     @Override
     public void displayInfo() {
         super.displayInfo(); // calls User's displayInfo()
@@ -79,6 +81,7 @@ public class Customer extends User{
         System.out.println("Followed Brands: " + followedBrand);
         System.out.println("Orders List: " + ordersList);
         System.out.println("Customer Cart: " + customerCart);
+        System.out.println("ID: " + getId());
         System.out.println("---------------------------");
     }
 

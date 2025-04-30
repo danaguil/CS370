@@ -3,9 +3,9 @@ package UGT_Data;
 import java.io.File;
 
 /*
-    User class, will be containing
-        - email, username, and password. All which the user can change if needed
-    We have the function getEmail, getUsername etc... in order to check for valid credentials when logining in
+    User class will contain
+        - email, username, password, and ID. All which the user can change if needed
+    We have the function getEmail, getUsername, etc... to check for valid credentials when logining in
 
    Both customer and brand will then inherit from this user class, each will have their own
     attributes and methods integrated to both
@@ -16,12 +16,14 @@ public class User {
     private String username;
     private String password;
     private File profilePicture = new File("src/UGT_Data/Media/defaultProfilePicture.png");
+    private final String id;
 
     // Initializing when creating a new user
-    public User(String email, String username, String password) {
+    public User(String email, String username, String password, String id) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.id = id;
     }
 
     // Getter functions
@@ -37,6 +39,7 @@ public class User {
         return password;
     }
 
+    public String getId() {return id;}
 
     public File getProfilePicture() {
         return profilePicture;

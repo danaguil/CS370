@@ -1,5 +1,7 @@
 package UGT_Data;
 
+import UGT_Controllers.IDGenerator;
+
 import java.io.File;
 
 public class Brand extends User{
@@ -11,8 +13,8 @@ public class Brand extends User{
     private String tiktok_name;
 
     public Brand(String email, String username, String password, String brand_name, String brand_description,
-                 File brand_image, String instagram_name, String tiktok_name) {
-        super(email, username, password);
+                 File brand_image, String instagram_name, String tiktok_name, String id) {
+        super(email, username, password, id);
         this.brand_name = brand_name;
         this.brand_description = brand_description;
         this.brand_image = brand_image;

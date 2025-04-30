@@ -1,11 +1,1 @@
-dansir,email,23f
-carlos,college,mynewpassword
-paulo,squad,
-random,randomemail,76768
-iphone,computeremail,random
-dansir3,myemail@gmail.com,e2ee
-DanSir,dansir@gmail.com,8thwndr
-DanSir3,dansir3@gmail.com,hello
-myCoolBrand,brands@gmail.com,mynewpasscode
-buyer1,buyer1@gmail.com,pass123
-brand1,brand1@gmail.com,brandpass
+DanSir,helloworld@gmail.com,mypassword,9e760b3b-d777-4a91-9fa1-80a09f4ccc7b

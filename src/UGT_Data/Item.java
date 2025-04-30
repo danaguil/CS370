@@ -1,9 +1,11 @@
 package UGT_Data;
 
+import UGT_Controllers.IDGenerator;
+
 public abstract class Item {
 
     private String name;
-    private int itemId;
+    private final String itemId;
     private double price;
     private int quantity;
     private String description;
@@ -18,11 +20,10 @@ public abstract class Item {
     String[] tagsList;
 
     public Item(String name, double price, int quantity, String description, String material_1, String material_2,
-                String material_3, String color, String tag_1, String tag_2, String tag_3)
+                String material_3, String color, String tag_1, String tag_2, String tag_3, String itemId)
     {
         this.name = name;
-        this.itemId = (int)(Math.random()*100001); // random number 0 to 100000
-        this.price = price;
+        this.itemId = IDGenerator.generateID();
         this.quantity = quantity;
         this.description = description;
         this.color = color;
@@ -148,11 +149,8 @@ public abstract class Item {
         }
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
 }
