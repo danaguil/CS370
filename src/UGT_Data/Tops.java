@@ -9,11 +9,11 @@ public class Tops extends Item {
     private double length;
     private String type;
 
-    public Tops(String name, double price, int quantity, String description, String material_1, String material_2,
+    public Tops(String id, String name, double price, int quantity, String description, String material_1, String material_2,
                 String material_3, String color, String tag_1, String tag_2, String tag_3, String size,
-                double chestSize, double hemSize, double sleeveSize, double length , String type, String id) {
+                double chestSize, double hemSize, double sleeveSize, double length , String type) {
 
-        super(name, price, quantity, description, material_1, material_2, material_3, color, tag_1, tag_2, tag_3, id);
+        super(id, name, price, quantity, description, material_1, material_2, material_3, color, tag_1, tag_2, tag_3);
 
         this.size = size;
         this.chestSize = chestSize;

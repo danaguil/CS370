@@ -2,7 +2,7 @@ package UGT_Controllers;
 
 import java.util.UUID;
 
-// Finished adding the new id generator in each customer, brand, and item, does user need one?
+// Finished adding the new id generator in each customer, brand, and brandItems.txt, does user need one?
 
 /**
  * Utility class for generating unique identifiers with a specified prefix.

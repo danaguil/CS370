@@ -372,7 +372,7 @@ public class BrandProfile extends JFrame implements ActionListener {
 
         //TOP BOTTOM SHOES ---> CAN ONLY SELECT ONE
         //clothing option array for JComboBox
-        String[] clothing = {"select a clothing item","Top", "Bottom", "Shoes"};
+        String[] clothing = {"select a clothing brandItems.txt","Top", "Bottom", "Shoes"};
         //using array to create clothing_box
         clothing_box = new JComboBox(clothing);
         //adding action listener
@@ -554,7 +554,7 @@ public class BrandProfile extends JFrame implements ActionListener {
         button_panel.add(follow_button);
 
         //panel to hold description
-        JPanel description_panel = new JPanel(); //will hold all the clothing item info
+        JPanel description_panel = new JPanel(); //will hold all the clothing brandItems.txt info
         //description_panel.setBackground(Color.BLUE);
         description_panel.setLayout(new BorderLayout());
         //size of panel
@@ -1021,7 +1021,7 @@ public class BrandProfile extends JFrame implements ActionListener {
 
 
 
-    //checking to see if the user selected a valid item from the boxes
+    //checking to see if the user selected a valid brandItems.txt from the boxes
     private void valid_inputs(){
         //if boxes are not the default (select clothing....) option then valid
         boolean valid_photo = path != null;

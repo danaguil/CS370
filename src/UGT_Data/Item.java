@@ -2,7 +2,7 @@ package UGT_Data;
 
 import UGT_Controllers.IDGenerator;
 
-public abstract class Item {
+public class Item {
 
     private String name;
     private final String itemId;
@@ -18,12 +18,14 @@ public abstract class Item {
     private String material_3;
     String[] materialsList;
     String[] tagsList;
+    //String imagePath;
 
-    public Item(String name, double price, int quantity, String description, String material_1, String material_2,
-                String material_3, String color, String tag_1, String tag_2, String tag_3, String itemId)
+    public Item(String itemId, String name, double price, int quantity, String description, String material_1, String material_2,
+                String material_3, String color, String tag_1, String tag_2, String tag_3)
     {
-        this.name = name;
         this.itemId = IDGenerator.generateID();
+        this.name = name;
+        this.price = price;
         this.quantity = quantity;
         this.description = description;
         this.color = color;
@@ -33,6 +35,7 @@ public abstract class Item {
         this.tag_1 = tag_1;
         this.tag_2 = tag_2;
         this.tag_3 = tag_3;
+        //this.imagePath = imagePath;
 
         // Populate the materials list
         materialsList = new String[3];
@@ -45,7 +48,6 @@ public abstract class Item {
         tagsList[0] = this.tag_1;
         tagsList[1] = this.tag_2;
         tagsList[2] = this.tag_3;
-
     }
 
 
@@ -153,4 +155,17 @@ public abstract class Item {
         return itemId;
     }
 
+    /*
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    */
+    public static void displayInfo(){
+        System.out.println("Id: ");
+
+    }
 }

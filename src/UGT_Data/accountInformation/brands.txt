@@ -1,2 +1,1 @@
-myCoolBrand,business101@gmail.com,user123,brand,Cool Brand ,This is my Cool Brand,/Users/dansir/Desktop/logoTest.jpg,MyInsta,myTikTok,06e1b354-e543-41e2-95ec-dd57afa2d4ea
-myCoolBrand2,business102@gmail.com,user123,brand,Cool Brand 2,This is my Cool Brand,/Users/dansir/Desktop/logoTest.jpg,MyInsta,myTikTok,50ed4ded-4544-4e62-ac14-6d25ecb06bad
+brand,myemIl@gmail.com,mypass,brand,brandsss,my cool brand,/Users/dansir/Desktop/logoTest.jpg,myinsta,mytiktok,181dfa4b-e9d6-4bf4-b582-64b16f28dc16

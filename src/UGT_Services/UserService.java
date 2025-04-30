@@ -2,158 +2,23 @@
 package UGT_Services;
 
 import UGT_Controllers.IDGenerator;
+import UGT_Controllers.populateProgram;
 import UGT_Data.*;
 import UGT_UI.Login;
 
 import java.io.*;
 import java.util.*;
 
+import static UGT_Controllers.populateProgram.userMap;
+
 /*
     Functions that help the Login process can be used for users' system information changes
  */
 public class UserService {
-    // Getting the correct file location
-    // Create class for hashmap, file information
-    private static final String directoryPath = "src/UGT_Data/accountInformation/";
-    private static final String usersFileName = "userInfoFile.txt";
-    private static final String brandsFileName = "brands.txt";
-    private static final String customersFileName = "buyers.txt";
-
-    private static final File userFile = new File(directoryPath + usersFileName);
-    private static final File brandFile = new File(directoryPath + brandsFileName);
-    private static final File customerFile = new File(directoryPath + customersFileName);
-
-    public static final HashMap<String, User> userMap = new HashMap<>(); // User hash map
-    public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map
-    public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
-
-    /**
-     * Populates the user hashmap with the information from the userInfoFile.txt file.
-     * @throws FileNotFoundException If the userInfoFile.txt file cannot be found.
-     */
-    public static void populateMap() throws FileNotFoundException {
-        verifyFileExist(userFile);
-
-        readFileLines(userFile);
-        //inFile.close(); // Closes the file as we don't need to read no longer
-    }
-
-    /**
-     * Function can be reused
-     * @param theFile
-     * @throws FileNotFoundException
-     */
-    public static void verifyFileExist(File theFile) {
-        // If a file doesn't exist
-        if (!theFile.exists()) {
-            System.out.println("userInfoFile.txt not found. Creating empty file...");
-            try {
-                // Creating a new file if it doesn't exist
-                PrintWriter writer = new PrintWriter(theFile);
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("Error creating userInfoFile.txt");
-            }
-        }
-    }
-
-    public static void readFileLines(File theFile) throws FileNotFoundException {
-        Scanner inFile = new Scanner(theFile);
-
-        while (inFile.hasNextLine()) {
-            // Trims the line
-            String line = inFile.nextLine().trim();
-            if (line.isEmpty()) continue; // Cont if line is empty
-
-            // Splits line into 3 sections: username, email and password
-            String[] parts = line.split(",");
-
-            if(parts.length == 3) {
-                populateUserMap(parts);
-            } else if(parts.length == 8) {
-                populateBrandMap(parts);
-            } else{
-                populateCustomerMap(parts);
-            }
-        }
-        inFile.close();
-    }
-    public static void populateUserMap(String[] parts){
-        // Parts of the line
-        String username = parts[0].trim();
-        String email = parts[1].trim();
-        String password = parts[2].trim();
-        String id = parts[3].trim();
-
-        // Create a user class with information from userInfoFile.txt
-        User user = new User(email, username, password, id);
-        // Finally, adds that class to the hashmap with the username as the key
-        userMap.put(username, user);
-    }
-
-    public static void populateBrandMap(String[] parts){
-        String username = parts[0].trim();
-        String email = parts[1].trim();
-        String password = parts[2].trim();
-        String brandName = parts[3].trim();
-        String logoFileLocation = parts[4].trim();
-        String aboutBrand = parts[5].trim();
-        String instagramHandle = parts[6].trim();
-        String tiktokHandle = parts[7].trim();
-        String id = parts[8].trim();
-
-        // Create a user class with information from userInfoFile.txt
-        Brand brand = new Brand(email, username, password, brandName,
-                aboutBrand, new File(logoFileLocation), instagramHandle, tiktokHandle, id);
-        // Finally, adds that class to the hashmap with the username as the key
-        brandMap.put(brandName, brand);
-    }
-
-
-    // Function is still at work
-    public static void populateCustomerMap(String[] parts){
-        String username = parts[0].trim();
-        String email = parts[1].trim();
-        String password = parts[2].trim();
-        String firstName = parts[3].trim();
-        String lastName = parts[4].trim();
-        String address = parts[5].trim();
-        String likedPosts = parts[6].trim();
-
-        /*
-        ArrayList<String> likedPostList = new ArrayList<>();
-        if(!likedPosts.equals("")){
-            String[] likedPostsArray = likedPosts.split(",");
-            for(String likedPost : likedPostsArray){
-                likedPostList.add(likedPost);
-            }
-        }
-
-        ArrayList<String> followedBrand = new ArrayList<>();
-        String followedBrandString = parts[7].trim();
-        if(!followedBrandString.equals("")){
-            String[] followedBrandArray = followedBrandString.split(",");
-            for(String brand : followedBrandArray){
-                followedBrand.add(brand);
-            }
-        }
-
-        ArrayList<Order> orderList = new ArrayList<>();
-        String order_listString = parts[8].trim();
-        if(!order_listString.equals("")){
-            String[] orderListArray = order_listString.split(",");
-            orderList.add(orderListArray)
-        }
-
-        Customer customer = new Customer(email, username, password, firstName, lastName, address, likedPostList, followedBrand, orderList, customerCart);
-        customerMap.put(username, customer);
-        */
-
-    }
 
     // Function simply checks if a username exists
     public static boolean usernameExists(String username) {
-        return userMap.containsKey(username);
+        return populateProgram.userMap.containsKey(username);
     }
 
     // Function simply checks if an email exists
@@ -283,7 +148,7 @@ public class UserService {
         userMap.put(username, newUser);
 
         // Opening the userFile and writing the new information into it
-        FileWriter fw = new FileWriter(userFile, true);
+        FileWriter fw = new FileWriter(populateProgram.userFile, true);
         PrintWriter out = new PrintWriter(fw);
         out.println(username + "," + email + "," + password + "," + id);
         out.close();
@@ -300,19 +165,15 @@ public class UserService {
             String lastName = "";
             String address = "";
 
-            ArrayList<String> likedPosts = new ArrayList<>();
-            ArrayList<String> followedBrand = new ArrayList<>();
-            ArrayList<Order> order_list = new ArrayList<>();
-            ArrayList<Item> customer_cart = new ArrayList<>();
 
             // Creating a customer class with the new information and adding it to the customer hashmap
             Customer newCustomer = new Customer(email, username, password, firstName,
-                    lastName, address, likedPosts, followedBrand, order_list, customer_cart, id);
-            customerMap.put(username, newCustomer);
+                    lastName, address, id);
+            populateProgram.customerMap.put(username, newCustomer);
             newCustomer.displayInfo();
 
             // Writing the new information into the customerFile.txt file
-            fw = new FileWriter(customerFile, true);
+            fw = new FileWriter(populateProgram.customerFile, true);
             out = new PrintWriter(fw);
 
             out.println(username + "," + email + "," + password + "," + firstName + "," +
@@ -323,11 +184,11 @@ public class UserService {
             // Creating a brand class with the new information and adding it to the brand hashmap
             Brand newBrand = new Brand(email, username, password, brandName, aboutBrand,
                     new File(logoFileLocation), instagramHandle, tiktokHandle, id);
-            brandMap.put(brandName, newBrand);
+            populateProgram.brandMap.put(brandName, newBrand);
             newBrand.displayInfo();
 
             // Writing the new information into the brandFile.txt file
-            fw = new FileWriter(brandFile, true);
+            fw = new FileWriter(populateProgram.brandFile, true);
             out = new PrintWriter(fw);
 
             out.println(username + "," + email + "," + password + "," + "brand" +
@@ -347,7 +208,7 @@ public class UserService {
      * @throws FileNotFoundException If the userInfoFile.txt file cannot be found.
      */
     public static void updatePassword(String emailKey, String newPassword) throws FileNotFoundException {
-        Scanner inFile = new Scanner(userFile);
+        Scanner inFile = new Scanner(populateProgram.userFile);
         List<String> updatedLines = new ArrayList<>();
 
         while (inFile.hasNextLine()) {
@@ -381,7 +242,7 @@ public class UserService {
         }
         inFile.close();
 
-        PrintWriter outFile = new PrintWriter(userFile);
+        PrintWriter outFile = new PrintWriter(populateProgram.userFile);
         for (String line : updatedLines) {
             outFile.println(line);
         }
@@ -404,16 +265,29 @@ public class UserService {
      * Updates the information of a user with the given username key.
      */
     public static void displayAllUsers() {
-        if (userMap.isEmpty()) {
+        boolean isEmpty = userMap.isEmpty() && populateProgram.brandMap.isEmpty() && populateProgram.customerMap.isEmpty();
+        if (isEmpty) {
             System.out.println("No users in the system.");
             return;
         }
+
+        System.out.println("===== General Users =====");
         for (User user : userMap.values()) {
-            System.out.println("Username: " + user.getUsername());
-            System.out.println("Email: " + user.getEmail());
-            System.out.println("Password: " + user.getPassword());
-            System.out.println("ID: " + user.getId());
-            System.out.println("----------------------");
+            // Only display users that are not Brand or Customer
+            if (!(user instanceof Brand) && !(user instanceof Customer)) {
+                user.displayInfo(); // base user info
+            }
+        }
+
+        System.out.println("===== Brands =====");
+        for (Brand brand : populateProgram.brandMap.values()) {
+            brand.displayInfo(); // full brand info
+        }
+
+        System.out.println("===== Customers =====");
+        for (Customer customer : populateProgram.customerMap.values()) {
+            customer.displayInfo(); // full customer info
         }
     }
+
 }

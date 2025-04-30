@@ -944,7 +944,7 @@ public class Buyer extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //code that will show results for search brand
-                System.out.println("item has been removed");
+                System.out.println("brandItems.txt has been removed");
             }
         });
 
@@ -958,7 +958,7 @@ public class Buyer extends JFrame implements ActionListener {
 
 
         //panel to hold description
-        JPanel description_panel = new JPanel(); //will hold all the clothing item info
+        JPanel description_panel = new JPanel(); //will hold all the clothing brandItems.txt info
         //description_panel.setBackground(Color.BLUE);
         description_panel.setLayout(new BorderLayout());
         //size of panel

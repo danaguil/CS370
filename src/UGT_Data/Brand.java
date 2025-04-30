@@ -3,6 +3,7 @@ package UGT_Data;
 import UGT_Controllers.IDGenerator;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Brand extends User{
 
@@ -11,6 +12,7 @@ public class Brand extends User{
     private File brand_image;
     private String instagram_name;
     private String tiktok_name;
+    ArrayList<Item> brandItems; // Will hold item objects
 
     public Brand(String email, String username, String password, String brand_name, String brand_description,
                  File brand_image, String instagram_name, String tiktok_name, String id) {
@@ -20,6 +22,8 @@ public class Brand extends User{
         this.brand_image = brand_image;
         this.instagram_name = instagram_name;
         this.tiktok_name = tiktok_name;
+
+        this.brandItems = new ArrayList<>();
     }
 
 
@@ -72,6 +76,11 @@ public class Brand extends User{
         this.tiktok_name = tiktok_name;
     }
 
+    // Getter for brand items
+    public ArrayList<Item> getBrandItems() {
+        return brandItems;
+    }
+
     @Override
     public void displayInfo() {
         super.displayInfo(); // calls User's displayInfo()
@@ -80,6 +89,8 @@ public class Brand extends User{
         System.out.println("Logo Location: " + brand_image.getPath());
         System.out.println("Instagram Handle: " + instagram_name);
         System.out.println("TikTok Handle: " + tiktok_name);
+        System.out.println("Brand Items: " + brandItems);
+        System.out.println("ID: " + getId());
         System.out.println("---------------------------");
     }
 

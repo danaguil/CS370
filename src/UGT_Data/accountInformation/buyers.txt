@@ -1,2 +1,0 @@
-DanSir,myemail@gmail.com,helloworld,,,,,,,6390cb19-b7ca-4acd-a0ec-7be77e9af7ee
-DanSir,helloworld@gmail.com,mypassword,,,,,,,9e760b3b-d777-4a91-9fa1-80a09f4ccc7b

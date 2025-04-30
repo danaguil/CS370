@@ -14,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import static UGT_Services.UserService.Validator.verifySingleInfo;
 
 // Will I need a duplicate username and email and password info for customer and brand???
+
 /**
  * Controller for the Login page.
  */
@@ -25,7 +26,7 @@ public class LoginController {
     public static void initialize() {
         // Calling populateUserMap() function in a try block
         try {
-            UserService.populateMap();
+            populateProgram.populateMap();
         } catch (FileNotFoundException e) {
             // Outputs error if not found
             System.out.println("Error loading user data: " + e.getMessage());
@@ -43,7 +44,7 @@ public class LoginController {
         String password = Login.getLoginpassword();
 
         // Using username (key), we'll get the user class information
-        User user = UserService.userMap.get(username);
+        User user = populateProgram.userMap.get(username);
         // As long, it's a valid user, and it matches, it will move the user to the home page
         if (user != null && user.getPassword().equals(password)) {
             System.out.println("Login successful. Welcome, " + username + "!");
@@ -138,7 +139,7 @@ public class LoginController {
         /* Loop through the entire HashMap, can't user username (key) because it's a security risk,
                 Therefore, we are using an email to verify the user
          */
-        for (User user : UserService.userMap.values()) {
+        for (User user : populateProgram.userMap.values()) {
             // if an email is found
             if (user.getEmail().equalsIgnoreCase(emailKey)) {
                 found = true; // Boolean is set to true

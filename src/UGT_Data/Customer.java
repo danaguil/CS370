@@ -1,7 +1,5 @@
 package UGT_Data;
 
-import UGT_Controllers.IDGenerator;
-
 import java.util.ArrayList;
 
 /*
@@ -21,20 +19,24 @@ public class Customer extends User{
     private String address;
 
     // List of CRUD attributes
-    private final ArrayList<String> likedPosts = new ArrayList<>();
-    private final ArrayList<String> followedBrand = new ArrayList<>();
-    private final ArrayList<Order> ordersList = new ArrayList<>();
-    private final ArrayList<Item> customerCart = new ArrayList<>();
+    private final ArrayList<String> likedPosts;
+    private final ArrayList<String> followedBrand ;
+    private final ArrayList<Order> ordersList;
+    private final ArrayList<Item> customerCart;
 
     // Constructor for Customer class
     public Customer(String email, String username, String password, String first_name, String last_name, String address,
-                    ArrayList<String> likedPosts, ArrayList<String> followedBrand, ArrayList<Order> orders_list,
-                    ArrayList<Item> customer_cart, String id) {
+                    String id) {
         super(email, username, password, id);
 
         this.first_name = first_name;
         this.last_name = last_name;
         this.address = address;
+
+        this.likedPosts = new ArrayList<>();
+        this.followedBrand = new ArrayList<>();
+        this.ordersList = new ArrayList<>();
+        this.customerCart = new ArrayList<>();
     }
 
     // All the getters
@@ -69,6 +71,18 @@ public class Customer extends User{
 
     public void addToCart(Item item){
         customerCart.add(item);
+    }
+
+    public ArrayList<String> getLikedPosts() {
+        return likedPosts;
+    }
+
+    public ArrayList<String> getFollowedBrand() {
+        return followedBrand;
+    }
+
+    public ArrayList<Order> getOrdersList() {
+        return ordersList;
     }
 
     @Override

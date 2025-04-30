@@ -1,0 +1,204 @@
+package UGT_Controllers;
+
+import UGT_Data.Brand;
+import UGT_Data.Customer;
+import UGT_Data.Item;
+import UGT_Data.User;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class populateProgram {
+    // Getting the correct file location
+    // Create class for hashmap, file information
+    private static final String directoryPath = "src/UGT_Data/accountInformation/";
+    private static final String usersFileName = "userInfoFile.txt";
+    private static final String brandsFileName = "brands.txt";
+    private static final String customersFileName = "buyers.txt";
+    private static final String itemsFileName = "items.txt";
+
+    public static final File userFile = new File(directoryPath + usersFileName);
+    public static final File brandFile = new File(directoryPath + brandsFileName);
+    public static final File customerFile = new File(directoryPath + customersFileName);
+    public static final File itemsFile = new File(directoryPath + itemsFileName);
+
+    public static final HashMap<String, User> userMap = new HashMap<>(); // User hash map
+    public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map
+    public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
+
+    /**
+     * Populates the user hashmap with the information from the userInfoFile.txt file.
+     * @throws FileNotFoundException If the userInfoFile.txt file cannot be found.
+     */
+    public static void populateMap() throws FileNotFoundException {
+        verifyFileExist(userFile);
+        verifyFileExist(brandFile);
+        verifyFileExist(customerFile);
+        verifyFileExist(itemsFile);
+
+
+        readFileLines(userFile);
+        readFileLines(brandFile);
+        readFileLines(customerFile);
+        readFileLines(itemsFile);
+    }
+
+    /**
+     * Function can be reused
+     * @param theFile The file to be verified. Must be a valid file.
+     */
+    public static void verifyFileExist(File theFile) {
+        // If a file doesn't exist
+        if (!theFile.exists()) {
+            System.out.println(theFile + " not found. Creating empty file...");
+            try {
+                // Creating a new file if it doesn't exist
+                PrintWriter writer = new PrintWriter(theFile);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Error creating " + theFile);
+            }
+        }
+    }
+
+    public static void readFileLines(File theFile) throws FileNotFoundException {
+        Scanner inFile = new Scanner(theFile);
+
+        while (inFile.hasNextLine()) {
+            // Trims the line
+            String line = inFile.nextLine().trim();
+            if (line.isEmpty()) continue; // Cont if line is empty
+
+            // Splits line into 3 sections: username, email and password
+            String[] parts = line.split(",");
+
+            if(parts.length == 3) {
+                populateUserMap(parts);
+            } else if(parts.length == 8) {
+                populateBrandMap(parts);
+            } else if(parts.length == 7){
+                populateCustomerMap(parts);
+            } else if(parts.length == 12){
+                populateItemsMap(parts);
+            } else{
+                System.out.println("Empty!! " + theFile);
+            }
+        }
+        inFile.close();
+    }
+    public static void populateUserMap(String[] parts){
+        // Parts of the line
+        String username = parts[0].trim();
+        String email = parts[1].trim();
+        String password = parts[2].trim();
+        String id = parts[3].trim();
+
+        // Create a user class with information from userInfoFile.txt
+        User user = new User(email, username, password, id);
+        // Finally, adds that class to the hashmap with the username as the key
+        userMap.put(username, user);
+    }
+
+    public static void populateBrandMap(String[] parts){
+        String username = parts[0].trim();
+        String email = parts[1].trim();
+        String password = parts[2].trim();
+        String brandName = parts[3].trim();
+        String logoFileLocation = parts[4].trim();
+        String aboutBrand = parts[5].trim();
+        String instagramHandle = parts[6].trim();
+        String tiktokHandle = parts[7].trim();
+        String id = parts[8].trim();
+
+        // Create a user class with information from userInfoFile.txt
+        Brand brand = new Brand(email, username, password, brandName,
+                aboutBrand, new File(logoFileLocation), instagramHandle, tiktokHandle, id);
+        // Finally, adds that class to the hashmap with the username as the key
+        brandMap.put(brandName, brand);
+        brand.displayInfo();
+    }
+
+
+    // Function is still at work
+    public static void populateCustomerMap(String[] parts){
+        String username = parts[0].trim();
+        String email = parts[1].trim();
+        String password = parts[2].trim();
+        String firstName = parts[3].trim();
+        String lastName = parts[4].trim();
+        String address = parts[5].trim();
+        String id = parts[6].trim();
+
+        Customer customer = new Customer(email, username, password, firstName, lastName, address, id);
+        customerMap.put(username, customer);
+        customer.displayInfo();
+    }
+
+    // brandItems.txt does have an id
+    // each brand has its own id
+
+    // how do we connect brandItems.txt to brand when they upload an brandItems.txt
+
+    // brandItems.txt id is added to brand class
+    // if brandItems.txt id from brand array matches brandItems.txt id from text file
+    // add brandItems.txt to brand arrayList
+    // if customer likes an brandItems.txt
+    // add brandItems.txt id to customer liked items arrayList
+
+    // if brandItems.txt id from customer liked items arrayList matches brandItems.txt id from text file
+    // add brandItems.txt to customer liked items arrayList
+
+    // if brandItems.txt is removed from brand
+    // remove brandItems.txt id from brand arrayList and customer liked items arrayList
+
+    // if brandItems.txt is removed from customer liked items,
+    // remove brandItems.txt id from customer liked items arrayList
+
+    // brandItems.txt text file: info about brandItems.txt then id, brandid, customerid, price, description, image file location
+    // brand text file: info about brand then id, logo file location, about brand, instagram handle, tiktok handle,
+
+
+    // customer text file: info about customer then id, first name, last name, address, liked posts, followed brands, orders
+    // customer cart text file: info about customer cart then id, brandItems.txt id, quantity, price
+    // order text file: info about order then id, customer id, brandItems.txt id, quantity, price, shipping address, status, date placed
+
+    // key = if; value = brandItems.txt
+    public static final HashMap<String, Item> itemMap = new HashMap<>();
+
+    public static void populateItemsMap(String[] parts) {
+        String itemId = parts[0];
+        String name = parts[1];
+        double price = Double.parseDouble(parts[2]);
+        int quantity = Integer.parseInt(parts[3]);
+        String description = parts[4];
+        String material1 = parts[5];
+        String material2 = parts[6];
+        String material3 = parts[7];
+        String color = parts[8];
+        String tag1 = parts[9];
+        String tag2 = parts[10];
+        String tag3 = parts[11];
+        String imagePath = parts[12];
+
+
+        Item item = new Item(itemId, name, price, quantity, description,
+                material1, material2, material3,
+                color, tag1, tag2, tag3);
+
+        itemMap.put(itemId, item);
+        Item.displayInfo();
+    }
+/*
+    public static void addItemsToBrand(HashMap<String, Item> itemMap, HashMap<String, Brand> brandMap) {
+        if(itemMap.isEmpty() || brandMap.isEmpty()) return;
+
+        if(itemMap.getKey)
+    }
+    */
+}
+
+

@@ -62,7 +62,11 @@ public class User {
         this.password = password;
     }
 
-    protected void displayInfo() {
-
+    public void displayInfo() {
+        System.out.println("Username: " + getUsername());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Password: " + getPassword());
+        System.out.println("ID: " + getId());
+        System.out.println("----------------------");
     }
 }
