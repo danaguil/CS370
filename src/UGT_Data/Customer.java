@@ -15,39 +15,28 @@ public class Customer extends User{
     private String first_name;
     private String last_name;
 
-    // Card Information
-    private int card_number;
-    private String name_on_card;
-    private int exp_month;
-    private int exp_year;
-    private int cvv;
-
     // Customers address information
     private String address;
 
     // List of CRUD attributes
     private final ArrayList<String> likedPosts;
-    private final ArrayList<String> followedBrand = null;
-    private final ArrayList<Order> orders_list;
-    private final ArrayList<Item> customer_cart;
-
+    private final ArrayList<String> followedBrand ;
+    private final ArrayList<Order> ordersList;
+    private final ArrayList<Item> customerCart;
 
     // Constructor for Customer class
-    public Customer(String email, String username, String password, String first_name, String last_name, int card_number, String name_on_card,
-                    int exp_month, int exp_year, int cvv, String address, ArrayList<String> likedPosts) {
-        super(email, username, password);
+    public Customer(String email, String username, String password, String first_name, String last_name, String address,
+                    String id) {
+        super(email, username, password, id);
 
         this.first_name = first_name;
         this.last_name = last_name;
-        this.card_number = card_number;
-        this.name_on_card = name_on_card;
-        this.exp_month = exp_month;
-        this.exp_year = exp_year;
-        this.cvv = cvv;
         this.address = address;
-        this.likedPosts = likedPosts;
-        this.orders_list = new ArrayList<>();
-        this.customer_cart = new ArrayList<>();
+
+        this.likedPosts = new ArrayList<>();
+        this.followedBrand = new ArrayList<>();
+        this.ordersList = new ArrayList<>();
+        this.customerCart = new ArrayList<>();
     }
 
     // All the getters
@@ -67,46 +56,6 @@ public class Customer extends User{
         this.last_name = last_name;
     }
 
-    public int getCard_number() {
-        return card_number;
-    }
-
-    public void setCard_number(int card_number) {
-        this.card_number = card_number;
-    }
-
-    public String getName_on_card() {
-        return name_on_card;
-    }
-
-    public void setName_on_card(String name_on_card) {
-        this.name_on_card = name_on_card;
-    }
-
-    public int getExp_month() {
-        return exp_month;
-    }
-
-    public void setExp_month(int exp_month) {
-        this.exp_month = exp_month;
-    }
-
-    public int getExp_year() {
-        return exp_year;
-    }
-
-    public void setExp_year(int exp_year) {
-        this.exp_year = exp_year;
-    }
-
-    public int getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(int cvv) {
-        this.cvv = cvv;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -117,13 +66,37 @@ public class Customer extends User{
 
     public void addOrder(Order order)
     {
-        orders_list.add(order);
+        ordersList.add(order);
     }
 
     public void addToCart(Item item){
-        customer_cart.add(item);
+        customerCart.add(item);
     }
 
+    public ArrayList<String> getLikedPosts() {
+        return likedPosts;
+    }
 
+    public ArrayList<String> getFollowedBrand() {
+        return followedBrand;
+    }
+
+    public ArrayList<Order> getOrdersList() {
+        return ordersList;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo(); // calls User's displayInfo()
+        System.out.println("First Name: " + first_name);
+        System.out.println("Last Name: " + last_name);
+        System.out.println("Address: " + address);
+        System.out.println("Liked Posts: " + likedPosts);
+        System.out.println("Followed Brands: " + followedBrand);
+        System.out.println("Orders List: " + ordersList);
+        System.out.println("Customer Cart: " + customerCart);
+        System.out.println("ID: " + getId());
+        System.out.println("---------------------------");
+    }
 
 }

@@ -1,9 +1,11 @@
 package UGT_Data;
 
-public abstract class Item {
+import UGT_Controllers.IDGenerator;
+
+public class Item {
 
     private String name;
-    private int itemId;
+    private final String itemId;
     private double price;
     private int quantity;
     private String description;
@@ -16,12 +18,13 @@ public abstract class Item {
     private String material_3;
     String[] materialsList;
     String[] tagsList;
+    //String imagePath;
 
-    public Item(String name, double price, int quantity, String description, String material_1, String material_2,
+    public Item(String itemId, String name, double price, int quantity, String description, String material_1, String material_2,
                 String material_3, String color, String tag_1, String tag_2, String tag_3)
     {
+        this.itemId = IDGenerator.generateID();
         this.name = name;
-        this.itemId = (int)(Math.random()*100001); // random number 0 to 100000
         this.price = price;
         this.quantity = quantity;
         this.description = description;
@@ -32,6 +35,7 @@ public abstract class Item {
         this.tag_1 = tag_1;
         this.tag_2 = tag_2;
         this.tag_3 = tag_3;
+        //this.imagePath = imagePath;
 
         // Populate the materials list
         materialsList = new String[3];
@@ -44,7 +48,6 @@ public abstract class Item {
         tagsList[0] = this.tag_1;
         tagsList[1] = this.tag_2;
         tagsList[2] = this.tag_3;
-
     }
 
 
@@ -148,11 +151,21 @@ public abstract class Item {
         }
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    /*
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    */
+    public static void displayInfo(){
+        System.out.println("Id: ");
+
     }
 }

@@ -1,6 +1,1 @@
-dansir,email,23f
-carlos,college,mynewpassword
-paulo,squad,didItwork?
-random,randomemail,hw45htr
-iphone,computeremail,random
-dansir3,myemail@gmail.com,e2ee
+brand,myemIl@gmail.com,mypass,181dfa4b-e9d6-4bf4-b582-64b16f28dc16

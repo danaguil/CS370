@@ -5,16 +5,16 @@ package UGT_Data;
  */
 public interface DatabaseInterface {
 
-    // Adds an item to the database
+    // Adds an brandItems.txt to the database
     void addItem(Item item);
 
-    // Retrieves an item using its unique ID, return objects
-    Item retrieveItem(int itemId);
+    // Retrieves an brandItems.txt using its unique ID, return objects
+    Item retrieveItem(String itemId);
 
-    // updates details of existing item identified by itemID
+    // updates details of existing brandItems.txt identified by itemID
     void updateItem(int itemId, Item itemToUpdate);
 
-    // deletes an item from database
+    // deletes an brandItems.txt from database
     int deleteItem();
 
 }
