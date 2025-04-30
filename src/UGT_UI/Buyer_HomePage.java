@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import java.util.Random;
+
 public class Buyer_HomePage extends JFrame implements ActionListener {
 
     //footer buttons
@@ -52,6 +54,17 @@ public class Buyer_HomePage extends JFrame implements ActionListener {
         button_like.addActionListener(this);
         button_settings = footer.getSettings_button();
         button_settings.addActionListener(this);
+
+        Random r = new Random();
+        for(int i = 0; i < 20; i++){
+            JPanel post = new JPanel();
+
+            add_to_following_post(post);
+        }
+
+
+
+
 
 
         //adding the footer to frame
@@ -114,7 +127,7 @@ public class Buyer_HomePage extends JFrame implements ActionListener {
 
 
     //print following_grid
-    private void print_following_grid(){
+    public void print_following_grid(){
         //clears all buttons from following_grid
         following_grid.removeAll();
         //if all_following_post has a post

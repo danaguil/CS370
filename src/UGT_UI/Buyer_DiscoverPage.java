@@ -96,7 +96,7 @@ public class Buyer_DiscoverPage extends JFrame implements ActionListener {
 
 
     //prints discover_grid
-    private void print_discover_grid(){
+    public void print_discover_grid(){
         //clears all buttons from discover_grid
         discover_grid.removeAll();
         //if all_discover_post has any post (JPanels)

@@ -122,7 +122,7 @@ public class Buyer_CartPage extends JFrame implements ActionListener {
 
 
     //prints cart_grid
-    private void print_cart_grid(){
+    public void print_cart_grid(){
         //clears all buttons from cart_grid
         cart_grid.removeAll();
         //if arraylist "all_items_in_cart" has an item (JPanel)

@@ -13,16 +13,17 @@ public abstract class Main extends JFrame {
 
         // BuyerFooter footer = new BuyerFooter();
 
+        Buyer_HomePage H = new Buyer_HomePage();
+        Buyer_DiscoverPage D = new Buyer_DiscoverPage();
+        Buyer_LikedPage L = new Buyer_LikedPage();
+        Buyer_settings B = new Buyer_settings();
+        Buyer_SearchPage S = new Buyer_SearchPage();
+        Buyer_CartPage C = new Buyer_CartPage();
 
-       // Buyer_CartPage C = new Buyer_CartPage();
-        //Buyer_SearchPage S = new Buyer_SearchPage();
-        //Buyer_LikedPage L = new Buyer_LikedPage();
-        //Buyer_HomePage H = new Buyer_HomePage();
-        //Buyer_DiscoverPage D = new Buyer_DiscoverPage();
-        // Buyer_settings b = new Buyer_settings();
+        //ProfilePage profile = new ProfilePage();
 
-         ProfilePage profile = new ProfilePage();
 
+        CforCardL c = new CforCardL(H,D,L,B,S,C );
 
 
 

@@ -111,7 +111,7 @@ public class Buyer_LikedPage extends JFrame implements ActionListener {
 
 
     //print liked_grid
-    private void print_liked_grid(){
+    public void print_liked_grid(){
         //clears all buttons from liked_grid
         liked_grid.removeAll();
         //if all_my_liked_post has a post
