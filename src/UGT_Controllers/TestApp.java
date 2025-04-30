@@ -1,53 +1,16 @@
-import UGT_Controllers.IDGenerator;
-import UGT_Controllers.LoginController;
+package UGT_Controllers;
+
 import UGT_Data.Brand;
 import UGT_Data.Customer;
 import UGT_Data.Item;
-import UGT_UI.*;
-import javax.swing.*;
-import UGT_Controllers.LoginController;
+
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Main extends JFrame {
+public class TestApp {
 
-
-
-
-    public static void main(String[] args) throws FileNotFoundException{
-
-
-        // BuyerFooter footer = new BuyerFooter();
-
-        Buyer_HomePage H = new Buyer_HomePage();
-        Buyer_DiscoverPage D = new Buyer_DiscoverPage();
-        Buyer_LikedPage L = new Buyer_LikedPage();
-        Buyer_settings B = new Buyer_settings();
-        Buyer_SearchPage S = new Buyer_SearchPage();
-        Buyer_CartPage C = new Buyer_CartPage();
-
-        //ProfilePage profile = new ProfilePage();
-
-
-        CforCardL c = new CforCardL(H,D,L,B,S,C );
-
-
-
-
-
-
-
-
-        /*
-        try {
-            LoginController.populateHashMap();
-            new Login();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: userInfoFile.txt not found!");
-            throw new FileNotFoundException();
-        }
+    public static void main(String[] args) {
         // Create brand
         Brand brand = new Brand(
                 "brand@email.com", "branduser", "password123",
@@ -93,10 +56,5 @@ public abstract class Main extends JFrame {
                 System.out.println("Liked: " + likedItem.getName() + " - $" + likedItem.getPrice());
             }
         }
-/*
-        LoginController.initialize();
-        new Login();
-*/
-
     }
 }

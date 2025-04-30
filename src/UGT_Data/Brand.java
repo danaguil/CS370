@@ -81,6 +81,11 @@ public class Brand extends User{
         return brandItems;
     }
 
+    public void addItem(Item itemToAdd) {
+        brandItems.add(itemToAdd);
+        System.out.println("UGTData.Item added to brandItems.");
+    }
+
     @Override
     public void displayInfo() {
         super.displayInfo(); // calls User's displayInfo()
