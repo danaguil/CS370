@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Brand_pages extends JFrame implements ActionListener {
+public class CforCardL extends JFrame implements ActionListener {
 
 
 
@@ -31,7 +31,7 @@ public class Brand_pages extends JFrame implements ActionListener {
     JPanel maincard;
 
     //CONSTRUCTOR
-    public Brand_pages(Buyer_HomePage home, Buyer_DiscoverPage discover, Buyer_LikedPage liked, Buyer_settings settings, Buyer_SearchPage search, Buyer_CartPage cart ) {
+    public CforCardL(Buyer_HomePage home, Buyer_DiscoverPage discover, Buyer_LikedPage liked, Buyer_settings settings, Buyer_SearchPage search, Buyer_CartPage cart ) {
         //frame
         this.setTitle("Buyer Cart");
         this.setSize(500, 800);
