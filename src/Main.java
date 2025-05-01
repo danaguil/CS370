@@ -13,26 +13,8 @@ import java.util.HashMap;
 public class Main extends JFrame {
     public static void main(String[] args) throws FileNotFoundException{
 
-
-        // BuyerFooter footer = new BuyerFooter();
-/*
-        Buyer_HomePage H = new Buyer_HomePage();
-        Buyer_DiscoverPage D = new Buyer_DiscoverPage();
-        Buyer_LikedPage L = new Buyer_LikedPage();
-        Buyer_settings B = new Buyer_settings();
-        Buyer_SearchPage S = new Buyer_SearchPage();
-        Buyer_CartPage C = new Buyer_CartPage();
-
-        //ProfilePage profile = new ProfilePage();
-
-
-        CforCardL c = new CforCardL(H,D,L,B,S,C );
-
-*/
-
-
-
-
+    Buyer_Pages buyer_pages = new Buyer_Pages();
+    Brand_Pages brand_pages = new Brand_Pages();
 
 
         /*
@@ -45,6 +27,9 @@ public class Main extends JFrame {
             throw new FileNotFoundException();
         }
         */
+
+
+        /*
         // Create brand
         Brand brand = new Brand(
                 "brand@email.com", "branduser", "password123",
@@ -58,7 +43,7 @@ public class Main extends JFrame {
                 "Cotton", "Polyester", "", "Red",
                 "Warm", "Winter", "Trendy"// brandId stored inside Item
         );
-        brand.addItem(item); // Add item to brand
+        //brand.addItem(item); // Add item to brand
         System.out.println("Brand posted item: " + item.getName());
 
         // Create customer
@@ -90,10 +75,14 @@ public class Main extends JFrame {
                 System.out.println("Liked: " + likedItem.getName() + " - $" + likedItem.getPrice());
             }
         }
+
+         */
 /*
         LoginController.initialize();
         new Login();
 */
+
+
 
     }
 }

@@ -5,50 +5,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Buyer_settings extends JFrame implements ActionListener {
+public class Buyer_settings extends JPanel implements ActionListener {
 
-    //footer buttons
-    JButton button_search;
-    JButton button_cart;
-    JButton button_Home;
-    JButton button_discover;
-    JButton button_like;
-    JButton button_settings;
+
     //class button
     JButton save_changes_button;
 
     //constructor
     public Buyer_settings () {
-        //frame
-        this.setTitle("Buyer Settings");
         this.setSize(500, 800);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        //creating footer to use
-        Buyer_Footer footer = new Buyer_Footer();
-
-
-        //creating buttons from footer and adding action listener
-        button_search = footer.getSearch_button();
-        button_search.addActionListener(this);
-        button_cart = footer.getCart_button();
-        button_cart.addActionListener(this);
-        button_Home = footer.getHome_button();
-        button_Home.addActionListener(this);
-        button_discover = footer.getDiscover_button();
-        button_discover.addActionListener(this);
-        button_like = footer.getLike_button();
-        button_like.addActionListener(this);
-        button_settings = footer.getSettings_button();
-        button_settings.addActionListener(this);
-
-
-
-
-        //adding the footer to frame
-        this.add(footer);
-        //adding account_settings_page() to footer
-        footer.add(settings_page( "username", "password",  "first_name", "last_name", "name_on_card", "card_number", "card_month_exp", "card_year_exp", "card_cvv", "address","email"),BorderLayout.CENTER);
+        this.add(settings_page("username", "password",  "first_name", "last_name", "name_on_card", "card_number", "card_month_exp", "card_year_exp", "card_cvv", "address","email"),BorderLayout.CENTER);
+        //footer.add(settings_page( "username", "password",  "first_name", "last_name", "name_on_card", "card_number", "card_month_exp", "card_year_exp", "card_cvv", "address","email"),BorderLayout.CENTER);
         this.setVisible(true);
     }
 
@@ -248,6 +216,9 @@ public class Buyer_settings extends JFrame implements ActionListener {
     //actions for footer buttons
     @Override
     public void actionPerformed(ActionEvent e) {
+
+
+        /*
         //Switch to Search page
         if(e.getSource() == button_search){
             System.out.println("your search button pressed");
@@ -287,13 +258,14 @@ public class Buyer_settings extends JFrame implements ActionListener {
             new Buyer_settings();
         }
 
+         */
+
 
         if(e.getSource() == save_changes_button){
 
             System.out.println("save changes");
-            savehanges();
-            dispose();
-            new Buyer_settings();
+
+
         }
 
     }

@@ -10,13 +10,20 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
+//change out JFrame to JPanel
 
 public class UploadPage extends JFrame implements ActionListener {
 
     // Buttons used throughout the Upload Page
+    /*
     JButton profile_btn; // Profile Button for the footer (cannot be used on this page)
     JButton upload_btn;
     JButton settings_btn;
+
+     */
+
+
+
     JButton tops_btn; // Button used to display top data input fields
     JButton bottoms_btn; // Button used to display bottom data input fields
     JButton shoes_btn; // Button used to display shoes data input fields
@@ -108,6 +115,8 @@ public class UploadPage extends JFrame implements ActionListener {
         upload_panel.setLayout(null);
         upload_panel.setPreferredSize(new Dimension(600, 800));
 
+
+        /*
         // Get Brand Footer
         BrandFooter footer_panel = new BrandFooter();
 
@@ -122,10 +131,12 @@ public class UploadPage extends JFrame implements ActionListener {
         settings_btn = footer_panel.getSettings_btn();
         settings_btn.addActionListener(this);
 
+         */
+
 
         // Add Footer and Header Components to the Upload Panel
         upload_panel.add(new TitleHeader());
-        upload_panel.add(footer_panel);
+        //upload_panel.add(footer_panel);
 
 
         // If no item type has been Selected
@@ -396,10 +407,13 @@ public class UploadPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         // Switch to Profile Page
+        /*
         if (e.getSource() == profile_btn) {
             dispose();
             new ProfilePage();
         }
+
+         */
 
         // User selects which item type to upload
         if(e.getSource() == tops_btn) {

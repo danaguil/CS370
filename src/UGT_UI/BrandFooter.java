@@ -20,7 +20,7 @@ public class BrandFooter extends JLayeredPane {
     public BrandFooter() {
         // Create the panel to fix the footer on and its properties
         this.setBounds(0, 720, 600, 60);
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 0));
         this.setBackground(Color.WHITE);
         //this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 

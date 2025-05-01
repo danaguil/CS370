@@ -8,12 +8,16 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class ProfilePage extends JFrame implements ActionListener {
+public class ProfilePage extends JPanel implements ActionListener {
 
     // Buttons used for the Brand Footer and for switching to the correct frames
+
+    /*
     JButton upload_btn;
     JButton settings_btn;
     JButton profile_btn;
+
+     */
 
 
     // Brand Header Components
@@ -25,16 +29,17 @@ public class ProfilePage extends JFrame implements ActionListener {
     public ProfilePage(){
 
         // Create the Profile Frame
-        JFrame profile_frame = new JFrame();
-        profile_frame.setSize(600, 800);
+        //JFrame profile_frame = new JFrame();
+        //this.setSize(600, 800);
+        this.setLayout(new BorderLayout());
 
-        profile_frame.add(getProfilePanel());
+        this.add(getProfilePanel(), BorderLayout.CENTER);
 
         // Profile Frame Characteristics
-        profile_frame.setResizable(false);
-        profile_frame.setLocationRelativeTo(null);
-        profile_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        profile_frame.setVisible(true);
+        //this.setResizable(false);
+        //this.setLocationRelativeTo(null);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setVisible(true);
     }
 
 
@@ -54,6 +59,8 @@ public class ProfilePage extends JFrame implements ActionListener {
         profile_panel.setBackground(Color.WHITE);
         profile_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+
+        /*
         // Get Brand Footer
         BrandFooter brand_footer = new BrandFooter();
 
@@ -67,8 +74,10 @@ public class ProfilePage extends JFrame implements ActionListener {
         settings_btn = brand_footer.getSettings_btn();
         settings_btn.addActionListener(this);
 
+         */
+
         profile_panel.add(new TitleHeader());
-        profile_panel.add(brand_footer);
+        //profile_panel.add(brand_footer);
         profile_panel.add(getProfileHeader());
 
 
@@ -155,6 +164,20 @@ public class ProfilePage extends JFrame implements ActionListener {
 
         return picture;
     }
+
+
+
+
+
+
+    //***
+
+
+
+
+
+
+
 
 
 
@@ -985,10 +1008,14 @@ public class ProfilePage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        /*
+
         if(e.getSource() == upload_btn){
             dispose();
             new UploadPage(0, 0, 0, 0);
         }
+
+         */
 
         if(e.getSource() == select_photo_button){ //---SELECT_PHOTO_BUTTON
             photo_selection();

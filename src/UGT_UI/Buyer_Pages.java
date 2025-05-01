@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CforCardL extends JFrame implements ActionListener {
+
+public class Buyer_Pages extends JFrame implements ActionListener {
+
 
 
 
@@ -17,39 +19,30 @@ public class CforCardL extends JFrame implements ActionListener {
     JButton button_like;
     JButton button_settings;
 
-    //variables
-    Buyer_HomePage home;
-    Buyer_DiscoverPage discover;
-    Buyer_LikedPage liked;
-    Buyer_settings settings;
-    Buyer_SearchPage search;
-    Buyer_CartPage cart;
-
 
 
     CardLayout cards;
     JPanel maincard;
 
+
+    Buyer_CartPage cartPage;
+    Buyer_SearchPage searchPage;
+    Buyer_HomePage homePage;
+    Buyer_DiscoverPage discoverPage;
+    Buyer_LikedPage likedPage;
+    Buyer_settings settingsPage;
+
     //CONSTRUCTOR
-    public CforCardL(Buyer_HomePage home, Buyer_DiscoverPage discover, Buyer_LikedPage liked, Buyer_settings settings, Buyer_SearchPage search, Buyer_CartPage cart ) {
+    public Buyer_Pages() {
         //frame
-        this.setTitle("Buyer Cart");
         this.setSize(500, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
+        //this.setLayout(new BorderLayout());
 
 
-        this.home = home;
-        this.discover = discover;
-        this.liked = liked;
-        this.settings = settings;
-        this.search = search;
-        this.cart = cart;
 
-        //create footer to use
-        //adding footer to frame
+
         Buyer_Footer footer = new Buyer_Footer();
-        add(footer, BorderLayout.CENTER);
 
 
 
@@ -58,19 +51,38 @@ public class CforCardL extends JFrame implements ActionListener {
         maincard = new JPanel();
         maincard.setLayout(cards);
 
-        //adding cards to maincard (JPanels)
-        maincard.add(home,"home");
-        maincard.add(discover, "discover");
-        maincard.add(liked, "liked");
-        maincard.add(settings, "settings");
-        maincard.add(search, "search");
-        maincard.add(cart, "cart");
 
-        //adding maincard to footer
-        footer.add(maincard);
+
+        cartPage = new Buyer_CartPage();
+
+        searchPage = new Buyer_SearchPage();
+
+        homePage = new Buyer_HomePage();
+
+        discoverPage = new Buyer_DiscoverPage();
+
+        likedPage = new Buyer_LikedPage();
+
+        settingsPage = new Buyer_settings();
+
+
+
+
+        maincard.add(cartPage, "cartPage");
+        maincard.add(searchPage, "searchPage");
+        maincard.add(homePage, "homePage");
+        maincard.add(discoverPage, "discoverPage");
+        maincard.add(likedPage, "likedPage");
+        maincard.add(settingsPage, "settingsPage");
+
+
+
+        footer.add(maincard, BorderLayout.CENTER);
+
 
 
         //creating buttons from footer and adding action listener
+
         button_search = footer.getSearch_button();
         button_search.addActionListener(this);
         button_cart = footer.getCart_button();
@@ -83,7 +95,14 @@ public class CforCardL extends JFrame implements ActionListener {
         button_like.addActionListener(this);
         button_settings = footer.getSettings_button();
         button_settings.addActionListener(this);
+
+        this.add(footer, BorderLayout.CENTER);
+        this.setVisible(true);
     }
+
+
+
+
 
 
 
@@ -91,31 +110,52 @@ public class CforCardL extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button_Home) {
-            home.print_following_grid();
-            cards.show(maincard, "home");
+            System.out.println("button_Home");
+            homePage.print_following_grid();
+            cards.show(maincard, "homePage");
+
+
+
+
+
         }
         if (e.getSource() == button_discover) {
-            discover.print_discover_grid();
-            cards.show(maincard, "discover");
+            System.out.println("discover");
+            discoverPage.print_discover_grid();
+            cards.show(maincard, "discoverPage");
+
+
 
         }
         if (e.getSource() == button_like) {
-            liked.print_liked_grid();
-            cards.show(maincard, "liked");
+            System.out.println("like");
+            likedPage.print_liked_grid();
+            cards.show(maincard, "likedPage");
+
+
 
         }
         if (e.getSource() == button_settings) {
-            //?????
-            cards.show(maincard, "settings");
+            System.out.println("settings");
+            cards.show(maincard, "settingsPage");
+
+
 
         }
         if (e.getSource() == button_search) {
-            cards.show(maincard, "search");
+            System.out.println("search");
+            cards.show(maincard, "searchPage");
+
+
 
         }
         if (e.getSource() == button_cart) {
-            cart.print_cart_grid();
-            cards.show(maincard, "cart");
+            System.out.println("cart");
+            cartPage.print_cart_grid();
+            cards.show(maincard, "cartPage");
+
+
+
 
         }
 

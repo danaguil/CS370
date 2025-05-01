@@ -6,15 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Buyer_LikedPage extends JFrame implements ActionListener {
+public class Buyer_LikedPage extends JPanel implements ActionListener {
 
-    //footer buttons
-    JButton button_search;
-    JButton button_cart;
-    JButton button_Home;
-    JButton button_discover;
-    JButton button_like;
-    JButton button_settings;
 
 
     //array list that hold all of user's liked post
@@ -35,41 +28,10 @@ public class Buyer_LikedPage extends JFrame implements ActionListener {
 
     //constructor
     public Buyer_LikedPage() {
-        //frame
-        this.setTitle("Buyer Liked");
-        this.setSize(500, 800);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         this.setLayout(new BorderLayout());
-        //create footer to use
-        Buyer_Footer footer = new Buyer_Footer();
+        this.add(like_page(), BorderLayout.CENTER);
 
-
-        //creating buttons from footer and adding action listener
-        button_search = footer.getSearch_button();
-        button_search.addActionListener(this);
-        button_cart = footer.getCart_button();
-        button_cart.addActionListener(this);
-        button_Home = footer.getHome_button();
-        button_Home.addActionListener(this);
-        button_discover = footer.getDiscover_button();
-        button_discover.addActionListener(this);
-        button_like = footer.getLike_button();
-        button_like.addActionListener(this);
-        button_settings = footer.getSettings_button();
-        button_settings.addActionListener(this);
-
-        //adding footer to frame
-        this.add(footer);
-
-
-
-
-
-        //adding like_page() to footer
-        footer.add(like_page(),BorderLayout.CENTER);
-        //printing grid
-        print_liked_grid();
-        this.setVisible(true);
     }
 
 
@@ -152,43 +114,6 @@ public class Buyer_LikedPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
 
-        //Switch to Search page
-        if(e.getSource() == button_search){
-            System.out.println("your search button pressed");
-            dispose();
-            new Buyer_SearchPage();
-        }
-        //Switch to Cart page
-        if(e.getSource() == button_cart){
-            System.out.println("your cart button pressed");
-            dispose();
-            new Buyer_CartPage();
-        }
-        //Switch to Home page
-        if(e.getSource() == button_Home){
-            System.out.println("your home button pressed");
-            dispose();
-            new Buyer_HomePage();
-        }
-        //Switch to Discover button
-        if(e.getSource() == button_discover){
-            System.out.println("your discover button pressed");
-            dispose();
-            new Buyer_DiscoverPage();
-        }
-        //Switch to Like page
-        if(e.getSource() == button_like){
-            System.out.println("your like button pressed");
-            dispose();
-            new Buyer_LikedPage();
-
-        }
-        //Switch to Settings page
-        if(e.getSource() == button_settings){
-            System.out.println("your settings button pressed");
-            dispose();
-            new Buyer_settings();
-        }
 
 
     }

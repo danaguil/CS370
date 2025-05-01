@@ -178,8 +178,17 @@ public class Login extends JFrame implements ActionListener {
 
 
         //adding action to login button
-        login_button.addActionListener(e -> {
-            LoginController.loginUser(); // calls function
+        login_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("It works!!");
+                try {
+                    LoginController.loggingIn(); // calls function
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Login failed due to an error.");
+                    throw new RuntimeException(ex);
+                }
+            }
         });
 
 
@@ -287,29 +296,35 @@ public class Login extends JFrame implements ActionListener {
 
 
 
-    private static File path = null;
+    private File path;
+
+
+    public String getPost_photo(){
+        //return path for image
+        return path.getAbsolutePath();
+    }
+
 
     //allows the brand to select a photo (photo must be a JPEG,PNG, OR JPG) or else message pops up
     //used within create_account_as_brand
     void photo_selection(){
+
         JFileChooser file_clothing_item = new JFileChooser();
 
         file_clothing_item.setCurrentDirectory(new File("."));
 
         int i = file_clothing_item.showSaveDialog(null);
-
         if(i == JFileChooser.APPROVE_OPTION){
             //File path global variable
             //getting the selected file path
             File selected_file = file_clothing_item.getSelectedFile();
             String name = selected_file.getName().toLowerCase();
-
             //if correct file (JPEG, PNG, JPG)
             if(name.endsWith(".jpeg") || name.endsWith(".png") || name.endsWith(".jpg") ){
                 //selected file already has the file
                 //set to path
                 path = selected_file;
-            } else {
+            }else{
                 //show message
                 JOptionPane.showMessageDialog(null, "Invalid file type. Please select a JPG or PNG image.");
             }
@@ -319,13 +334,6 @@ public class Login extends JFrame implements ActionListener {
 
     }
 
-    public static String getPost_photo(){
-        // return a path for image
-        if(!LoginController.saveBrandLogo(path)){
-            return null;
-        };
-        return path.getAbsolutePath();
-    }
 
 
 
@@ -374,16 +382,15 @@ public class Login extends JFrame implements ActionListener {
 
         //will hold logo objects
         JPanel logo_panel = new JPanel();
-        JLabel logo_label = new JLabel("Brands Logo:");
+        JLabel logo_label = new JLabel("New Logo:");
         //creating button
-        JButton logo_button = new JButton("Upload");
+        JButton logo_button = new JButton("upload");
         logo_button.addActionListener(this);
 
-        //adding action to the logo button, uploading an image
+        //adding action to logo button
         logo_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("This is before error");
                 photo_selection();
             }
         });
@@ -450,16 +457,19 @@ public class Login extends JFrame implements ActionListener {
 
 
 
-        //adding action to the create_account button for brand
+        //adding action to create_account button for brand
         create_account_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LoginController.registerUser("brand"); // calls function
+                    System.out.println("Create Account Button works!!"); // for testing
+                    LoginController.createAccount(true); // calls function
                 } catch (IOException ex) {
                     // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
+
+                System.out.println("your account(BRAND) has been made!!! go log in ");
             }
         });
 
@@ -557,10 +567,13 @@ public class Login extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LoginController.registerUser("buyer"); // calls function
+                    System.out.println("Create Account Button works!!"); // for testing
+                    LoginController.createAccount(false); // calls function
                 } catch (IOException ex) {
+                    // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
+                System.out.println("your account(BUYER) has been made!!! go log in ");
             }
         });
 
@@ -686,13 +699,13 @@ public class Login extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LoginController.recoverAccount();
-                    String code = String.valueOf(ResetCode.getCode());
-                    //pop up notification for one time code
-                    JOptionPane.showMessageDialog(null,code);
+                    LoginController.forgotAccount();
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
+                String code = String.valueOf(ResetCode.getCode());
+                //pop up notification for one time code
+                JOptionPane.showMessageDialog(null,code);
             }
         });
 
@@ -766,8 +779,10 @@ public class Login extends JFrame implements ActionListener {
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("one_time_cone panel button login work!!"); // for testing
+
                 try {
-                    LoginController.updatePasswordViaOTP();
+                    LoginController.changePassword(Integer.parseInt(String.valueOf(get_OTCL_one_time_code())), get_recoverInformation_email());
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
