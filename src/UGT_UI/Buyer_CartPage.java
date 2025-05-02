@@ -16,13 +16,23 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
     //Cart page constructor
     public Buyer_CartPage() {
-        //JPanel page = new JPanel();
-        //age.setBackground(Color.RED);
         this.setLayout(new BorderLayout());
-        this.setSize(500, 800);
-        this.add(Cart_page(), BorderLayout.CENTER);
-       // page.setVisible(true);
 
+
+
+        for(int i = 0; i < 30; i++){
+            JPanel post = new JPanel();
+            post.setBorder(BorderFactory.createLineBorder(Color.white));
+            post.setBackground(new Color(i,i,120));
+            add_to_cart(post);
+
+        }
+
+
+
+
+
+        this.add(Cart_page(), BorderLayout.CENTER);
     }
 
 
@@ -96,8 +106,25 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
             for (int i = 0; i < all_items_in_cart.size(); i++) {
                 //creating JPanel
                 JPanel item = all_items_in_cart.get(i);
+
+
                 //size
                 item.setPreferredSize(new Dimension(500,200));
+                item.setLayout(new BorderLayout());
+
+
+
+                JPanel image_panel = new JPanel();
+               // JLabel image_label = new JLabel(item.getBackground().toString());
+                image_panel.setPreferredSize(new Dimension(200,200));
+                image_panel.setBackground(Color.gray);
+
+                item.add(image_panel, BorderLayout.WEST);
+
+
+
+
+
                 //adding item (JPanel) to cart_grid
                 cart_grid.add(item);
             }

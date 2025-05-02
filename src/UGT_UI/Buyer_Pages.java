@@ -20,11 +20,11 @@ public class Buyer_Pages extends JFrame implements ActionListener {
     JButton button_settings;
 
 
-
+    //creating cards and maincard
     CardLayout cards;
     JPanel maincard;
 
-
+    //creating objects
     Buyer_CartPage cartPage;
     Buyer_SearchPage searchPage;
     Buyer_HomePage homePage;
@@ -37,52 +37,48 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         //frame
         this.setSize(500, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setLayout(new BorderLayout());
 
 
 
 
+        //creating footer
         Buyer_Footer footer = new Buyer_Footer();
 
 
-
+        //will be cardlayout
         cards = new CardLayout();
         //this JPanel (maincard) will be used to hold all cards
         maincard = new JPanel();
+        //setting up layout
         maincard.setLayout(cards);
 
 
-
+        //init
         cartPage = new Buyer_CartPage();
-
         searchPage = new Buyer_SearchPage();
-
         homePage = new Buyer_HomePage();
-
         discoverPage = new Buyer_DiscoverPage();
-
         likedPage = new Buyer_LikedPage();
-
         settingsPage = new Buyer_settings();
 
 
 
-
+        //adding cards to maincard
+        maincard.add(discoverPage, "discoverPage");
         maincard.add(cartPage, "cartPage");
         maincard.add(searchPage, "searchPage");
         maincard.add(homePage, "homePage");
-        maincard.add(discoverPage, "discoverPage");
+
         maincard.add(likedPage, "likedPage");
         maincard.add(settingsPage, "settingsPage");
 
 
-
+        //adding maincard to footer
         footer.add(maincard, BorderLayout.CENTER);
 
 
 
         //creating buttons from footer and adding action listener
-
         button_search = footer.getSearch_button();
         button_search.addActionListener(this);
         button_cart = footer.getCart_button();
@@ -95,8 +91,19 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         button_like.addActionListener(this);
         button_settings = footer.getSettings_button();
         button_settings.addActionListener(this);
-
+        //adding footer
         this.add(footer, BorderLayout.CENTER);
+
+
+        /*
+        System.out.println("discover");
+        //prints out grid
+        discoverPage.print_discover_grid();
+        //shows page
+        cards.show(maincard, "discoverPage");
+
+         */
+
         this.setVisible(true);
     }
 
@@ -111,7 +118,9 @@ public class Buyer_Pages extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button_Home) {
             System.out.println("button_Home");
+            //prints out grid
             homePage.print_following_grid();
+            //shows page
             cards.show(maincard, "homePage");
 
 
@@ -121,7 +130,9 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         }
         if (e.getSource() == button_discover) {
             System.out.println("discover");
+            //prints out grid
             discoverPage.print_discover_grid();
+            //shows page
             cards.show(maincard, "discoverPage");
 
 
@@ -129,7 +140,9 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         }
         if (e.getSource() == button_like) {
             System.out.println("like");
+            //prints out grid
             likedPage.print_liked_grid();
+            //shows page
             cards.show(maincard, "likedPage");
 
 
@@ -137,6 +150,7 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         }
         if (e.getSource() == button_settings) {
             System.out.println("settings");
+            //shows page
             cards.show(maincard, "settingsPage");
 
 
@@ -144,6 +158,7 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         }
         if (e.getSource() == button_search) {
             System.out.println("search");
+            //shows page
             cards.show(maincard, "searchPage");
 
 
@@ -151,7 +166,9 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         }
         if (e.getSource() == button_cart) {
             System.out.println("cart");
+            //prints grid
             cartPage.print_cart_grid();
+            //shows page
             cards.show(maincard, "cartPage");
 
 

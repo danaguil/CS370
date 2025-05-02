@@ -49,6 +49,7 @@ public class ProfilePage extends JPanel implements ActionListener {
     JLayeredPane post_grid;
 
 
+
     // Create the Profile Panel with all Brand Elements and Posts
     private JPanel getProfilePanel(){
 
@@ -182,7 +183,7 @@ public class ProfilePage extends JPanel implements ActionListener {
 
 
     //---------------------------------------------------print_grid for post (buttons)
-    private void print_grid(){
+    public void print_grid(){
 
         post_grid.setBounds(100, 100, 400, 400);
         post_grid.setBackground(Color.WHITE);
@@ -358,17 +359,15 @@ public class ProfilePage extends JPanel implements ActionListener {
 
 
 
-
-
-
     //-------------------------------------------------------------------------------post_maker
 
     private JButton post_maker(String clothing_item, String color, String size, String price, String brandname,String post_photo){
-        //creating button
+        //creating button ---> post
         JButton post = new JButton();
         //adding the image to the button
         ImageIcon path = new ImageIcon(getPost_photo());
         JLabel img = new JLabel(path);
+        //post is a button
         post.add(img);
         //allows users to click on post(button).. once user clicks on post additional information pops up (the actual post)
         post.addActionListener(new ActionListener() {

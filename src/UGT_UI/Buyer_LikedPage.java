@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+
 public class Buyer_LikedPage extends JPanel implements ActionListener {
 
 
@@ -28,8 +29,25 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
 
     //constructor
     public Buyer_LikedPage() {
-
         this.setLayout(new BorderLayout());
+
+
+
+
+
+
+        for(int i = 0; i < 30; i++){
+            JPanel post = new JPanel();
+            post.setBorder(BorderFactory.createLineBorder(Color.black));
+            post.setBackground(new Color(i,i,128));
+            add_to_all_my_liked_post(post);
+
+        }
+
+
+
+
+
         this.add(like_page(), BorderLayout.CENTER);
 
     }

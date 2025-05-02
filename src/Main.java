@@ -13,8 +13,11 @@ import java.util.HashMap;
 public class Main extends JFrame {
     public static void main(String[] args) throws FileNotFoundException{
 
-    Buyer_Pages buyer_pages = new Buyer_Pages();
-    Brand_Pages brand_pages = new Brand_Pages();
+
+
+
+        Buyer_Pages buyer_pages = new Buyer_Pages();
+        //Brand_Pages brand_pages = new Brand_Pages();
 
 
         /*

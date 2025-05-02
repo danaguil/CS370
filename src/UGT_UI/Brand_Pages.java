@@ -36,11 +36,11 @@ public class Brand_Pages extends JFrame implements ActionListener {
         maincard.setLayout(cards);
 
         profilePage = new ProfilePage();
-        //uploadPage = new UploadPage(0,0,0,0);
+        uploadPage = new UploadPage(0,0,0,0);
         settingsPage = new SettingsPage();
 
         maincard.add(profilePage, "profile");
-        //maincard.add(uploadPage, "upload");
+        maincard.add(uploadPage, "upload");
         maincard.add(settingsPage, "settings");
 
 

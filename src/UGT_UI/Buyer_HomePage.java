@@ -27,11 +27,22 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
 
     //constructor
     public Buyer_HomePage() {
-
         this.setLayout(new BorderLayout());
+
+
+
+
+        for(int i = 0; i < 30; i++){
+            JPanel post = new JPanel();
+            post.setBorder(BorderFactory.createLineBorder(Color.white));
+            post.setBackground(new Color(i,i,234));
+            add_to_following_post(post);
+
+        }
+
+
+
         this.add(following_page(), BorderLayout.CENTER);
-
-
     }
 
 

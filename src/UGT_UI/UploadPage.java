@@ -12,7 +12,7 @@ import java.io.IOException;
 
 //change out JFrame to JPanel
 
-public class UploadPage extends JFrame implements ActionListener {
+public class UploadPage extends JPanel implements ActionListener {
 
     // Buttons used throughout the Upload Page
     /*
@@ -417,18 +417,18 @@ public class UploadPage extends JFrame implements ActionListener {
 
         // User selects which item type to upload
         if(e.getSource() == tops_btn) {
-            dispose();
+
             new UploadPage(1, 1, 0, 0);
         }
 
         if (e.getSource() == bottoms_btn) {
-            dispose();
+
             new UploadPage(1, 0, 1, 0);
 
         }
 
         if(e.getSource() == shoes_btn) {
-            dispose();
+
             new UploadPage(1, 0, 0, 1);
         }
 
@@ -582,7 +582,7 @@ public class UploadPage extends JFrame implements ActionListener {
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            dispose();
+
             new ProfilePage();
         }
 
