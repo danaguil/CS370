@@ -1,5 +1,7 @@
 package UGT_UI;
 
+import UGT_Controllers.SearchController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,6 +48,7 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
 
     }
 
+    private static JTextField searchforthisbrand;
 
     //main page
     public JPanel Search(ArrayList<String> brands){
@@ -61,7 +64,7 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
         //size of search panel
         search_panel.setPreferredSize(new Dimension(500,40));
         //text field for user to enter the brand that user is looking for
-        JTextField searchforthisbrand = new JTextField(20);
+        searchforthisbrand = new JTextField(20);
         //creating button
         JButton search_button = new JButton("search");
 
@@ -78,30 +81,33 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
         //grid.setBackground(Color.YELLOW);
 
 
+
         //action for search_button
-        search_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        search_button.addActionListener(e -> {
 
-                //System.out.println(":)");
-                //the brand we are looking for grabbed from the JTextField
-                String brand_name = searchforthisbrand.getText();
-                //clear all_results
-                all_results.clear();
+            SearchController searchController = new SearchController();
 
-                //looking for the brandname, if found will add a button to arraylist "all_results"
-                for(int i = 0; i < brands.size(); i++){
-                    if (brands.get(i).equals(brand_name)){
-                        JButton result  = new JButton(brands.get(i));
-                        //adding to arraylist
-                        all_results.add(result);
+            searchController.search();
 
-                    }
+            /*
+            //System.out.println(":)");
+            //the brand we are looking for grabbed from the JTextField
+            String brand_name = searchforthisbrand.getText();
+            //clear all_results
+            all_results.clear();
+
+            //looking for the brandname, if found will add a button to arraylist "all_results"
+            for(int i = 0; i < brands.size(); i++){
+                if (brands.get(i).equals(brand_name)){
+                    JButton result  = new JButton(brands.get(i));
+                    //adding to arraylist
+                    all_results.add(result);
+
                 }
-                //printing out grid
-                print_search_grid();
-
             }
+            //printing out grid
+            print_search_grid();
+            */
         });
 
         //adding to search_page
@@ -111,14 +117,12 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
         search_page.add(search_grid, BorderLayout.CENTER);
 
         return search_page;
+
     }
 
-
-
-
-
-
-
+    public static String getSearchedText(){
+        return searchforthisbrand.getText();
+    }
 
 
     //shows the newest grid

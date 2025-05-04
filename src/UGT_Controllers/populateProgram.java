@@ -27,7 +27,7 @@ public class populateProgram {
     public static final File itemsFile = new File(directoryPath + itemsFileName);
 
     public static final HashMap<String, User> userMap = new HashMap<>(); // User hash map
-    public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map
+    public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map, key = brand name, value = brand class object
     public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
 
     /**
@@ -35,37 +35,28 @@ public class populateProgram {
      * @throws FileNotFoundException If the userInfoFile.txt file cannot be found.
      */
     public static void populateMap() throws FileNotFoundException {
-        verifyFileExist(userFile);
-        verifyFileExist(brandFile);
-        verifyFileExist(customerFile);
-        verifyFileExist(itemsFile);
-
-
-        readFileLines(userFile);
-        readFileLines(brandFile);
-        readFileLines(customerFile);
-        readFileLines(itemsFile);
+        verifyFileExist(userFile, "user");
+        verifyFileExist(itemsFile, "item");
     }
 
     /**
      * Function can be reused
      * @param theFile The file to be verified. Must be a valid file.
      */
-    public static void verifyFileExist(File theFile) {
-        // If a file doesn't exist
+    public static void verifyFileExist(File theFile, String fileType) throws FileNotFoundException {
         if (!theFile.exists()) {
             System.out.println(theFile + " not found. Creating empty file...");
             try {
-                // Creating a new file if it doesn't exist
                 PrintWriter writer = new PrintWriter(theFile);
                 writer.close();
             } catch (IOException e) {
-                System.out.println("Error creating " + theFile);
+                System.out.println("Error creating file: " + e.getMessage());
             }
         }
+        readFileLines(theFile, fileType);
     }
 
-    public static void readFileLines(File theFile) throws FileNotFoundException {
+    public static void readFileLines(File theFile, String fileType) throws FileNotFoundException {
         Scanner inFile = new Scanner(theFile);
 
         while (inFile.hasNextLine()) {
@@ -76,67 +67,94 @@ public class populateProgram {
             // Splits line into 3 sections: username, email and password
             String[] parts = line.split(",");
 
-            if(parts.length == 3) {
-                populateUserMap(parts);
-            } else if(parts.length == 8) {
-                populateBrandMap(parts);
-            } else if(parts.length == 7){
-                populateCustomerMap(parts);
-            } else if(parts.length == 12){
-                populateItemsMap(parts);
-            } else{
-                System.out.println("Empty!! " + theFile);
+            switch (fileType.toLowerCase()) {
+                case "user" -> populateUserMap(parts);
+                case "item" -> populateItemsMap(parts);
+                default -> System.out.println("Unknown file type: " + fileType);
             }
         }
         inFile.close();
     }
     public static void populateUserMap(String[] parts){
-        // Parts of the line
         String username = parts[0].trim();
-        String email = parts[1].trim();
-        String password = parts[2].trim();
         String id = parts[3].trim();
+        String type = parts[4].trim().toLowerCase(); // brand or buyer
 
-        // Create a user class with information from userInfoFile.txt
-        User user = new User(email, username, password, id);
-        // Finally, adds that class to the hashmap with the username as the key
-        userMap.put(username, user);
-    }
-
-    public static void populateBrandMap(String[] parts){
-        String username = parts[0].trim();
-        String email = parts[1].trim();
-        String password = parts[2].trim();
-        String brandName = parts[3].trim();
-        String logoFileLocation = parts[4].trim();
-        String aboutBrand = parts[5].trim();
-        String instagramHandle = parts[6].trim();
-        String tiktokHandle = parts[7].trim();
-        String id = parts[8].trim();
-
-        // Create a user class with information from userInfoFile.txt
-        Brand brand = new Brand(email, username, password, brandName,
-                aboutBrand, new File(logoFileLocation), instagramHandle, tiktokHandle, id);
-        // Finally, adds that class to the hashmap with the username as the key
-        brandMap.put(brandName, brand);
-        brand.displayInfo();
+        if (type.equals("brand")) {
+            Brand brand = populateBrandFromFile(id);
+            if (brand != null) {
+                userMap.put(username, brand);
+                brandMap.put(brand.getBrand_name().toLowerCase(), brand);
+            }
+        } else if (type.equals("buyer")) {
+            Customer customer = populateCustomerFromFile(id);
+            if (customer != null) {
+                userMap.put(username, customer);
+                customerMap.put(username, customer);
+            }
+        } else {
+            System.out.println("Unknown user type: " + type);
+        }
     }
 
 
-    // Function is still at work
-    public static void populateCustomerMap(String[] parts){
-        String username = parts[0].trim();
-        String email = parts[1].trim();
-        String password = parts[2].trim();
-        String firstName = parts[3].trim();
-        String lastName = parts[4].trim();
-        String address = parts[5].trim();
-        String id = parts[6].trim();
 
-        Customer customer = new Customer(email, username, password, firstName, lastName, address, id);
-        customerMap.put(username, customer);
-        customer.displayInfo();
+    public static Brand populateBrandFromFile(String idToFind) {
+        try (Scanner scanner = new Scanner(brandFile)) {
+            while (scanner.hasNextLine()) {
+                String[] parts = scanner.nextLine().split(",", -1);
+                if (parts.length < 9) continue;
+
+                String username = parts[0].trim();
+                String email = parts[1].trim();
+                String password = parts[2].trim();
+                String brandName = parts[3].trim();
+                String aboutBrand = parts[4].trim();
+                String logoFileLocation = parts[5].trim();
+                String instagram = parts[6];
+                String tiktok = parts[7];
+                String id = parts[8].trim();
+
+                if (id.equals(idToFind)) {
+                    return new Brand(email, username, password, brandName,
+                            aboutBrand, new File(logoFileLocation), instagram, tiktok, id);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Brand file not found: " + e.getMessage());
+        }
+        return null;
     }
+
+
+
+    public static Customer populateCustomerFromFile(String idToFind) {
+        try (Scanner scanner = new Scanner(customerFile)) {
+            while (scanner.hasNextLine()) {
+                String[] parts = scanner.nextLine().split(",", -1);
+
+
+                if (parts.length < 7) continue;
+
+                String username = parts[0].trim();
+                String email = parts[1].trim();
+                String password = parts[2].trim();
+                String firstName = parts[3];
+                String lastName = parts[4];
+                String address = parts[5];
+                String id = parts[6].trim();
+
+
+                if (id.equals(idToFind)) {
+                    return new Customer(email, username, password, firstName, lastName, address, id);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Customer file not found: " + e.getMessage());
+        }
+        return null;
+    }
+
 
     // brandItems.txt does have an id
     // each brand has its own id
@@ -183,14 +201,15 @@ public class populateProgram {
         String tag2 = parts[10];
         String tag3 = parts[11];
         String imagePath = parts[12];
+        String brandId = parts[13];
 
 
-        Item item = new Item(itemId, name, price, quantity, description,
+        Item item = new Item(name, price, quantity, description,
                 material1, material2, material3,
-                color, tag1, tag2, tag3);
+                color, tag1, tag2, tag3, imagePath, itemId, brandId);
 
         itemMap.put(itemId, item);
-        Item.displayInfo();
+        item.displayInfo();
     }
 /*
     public static void addItemsToBrand(HashMap<String, Item> itemMap, HashMap<String, Brand> brandMap) {

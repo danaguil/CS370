@@ -60,7 +60,8 @@ public class UserService {
          * @return true if validation passes, false otherwise.
          */
         private static boolean checkCommonRestrictions(String info, String fieldType) {
-            if (info == null || info.trim().isEmpty()) {
+            if (info == null || info.trim().isEmpty() && !fieldType.equalsIgnoreCase("tiktok handle")
+                    && !fieldType.equalsIgnoreCase("instagram handle")) {
                 System.out.println(fieldType + " cannot be empty.");
                 return false;
             }
@@ -119,7 +120,7 @@ public class UserService {
          * @return true if the password is valid, false otherwise.
          */
         private static boolean checkPassword(String password) {
-            if (password.length() < 6) {
+            if (password.length() <= 4) {
                 System.out.println("Password too short (minimum 6 characters).");
                 return false;
             }
@@ -150,7 +151,7 @@ public class UserService {
         // Opening the userFile and writing the new information into it
         FileWriter fw = new FileWriter(populateProgram.userFile, true);
         PrintWriter out = new PrintWriter(fw);
-        out.println(username + "," + email + "," + password + "," + id);
+        out.println(username + "," + email + "," + password + "," + id + "," + status);
         out.close();
 
         System.out.println("Account created successfully for: " + username);
@@ -159,7 +160,8 @@ public class UserService {
             Now we need to add the user to the correct hashmap based on the status of the user and add
             the necessary information into the hashmap as well.
          */
-        if (status.equals("buyer")) {
+        System.out.println("Adding " + username + " to the " + status + " hashmap...");
+        if (status.equalsIgnoreCase("buyer")) {
             // Users and system will populate these variables, initializing to make it clean
             String firstName = "";
             String lastName = "";
@@ -177,27 +179,26 @@ public class UserService {
             out = new PrintWriter(fw);
 
             out.println(username + "," + email + "," + password + "," + firstName + "," +
-                    lastName + "," + address + ",,,," + id);
+                    lastName + "," + address + "," + id);
 
             out.close();
-        } else if (status.equals("brand")) {
+        } else if (status.equalsIgnoreCase("brand")) {
             // Creating a brand class with the new information and adding it to the brand hashmap
             Brand newBrand = new Brand(email, username, password, brandName, aboutBrand,
                     new File(logoFileLocation), instagramHandle, tiktokHandle, id);
-            populateProgram.brandMap.put(brandName, newBrand);
+            populateProgram.brandMap.put(brandName.toLowerCase(), newBrand);
             newBrand.displayInfo();
 
             // Writing the new information into the brandFile.txt file
             fw = new FileWriter(populateProgram.brandFile, true);
             out = new PrintWriter(fw);
 
-            out.println(username + "," + email + "," + password + "," + "brand" +
-                    "," + brandName + "," + aboutBrand + "," + logoFileLocation + "," + instagramHandle + "," + tiktokHandle + "," + id);
+            out.println(username + "," + email + "," + password +
+                    "," + brandName + "," + aboutBrand + "," + logoFileLocation + "," + instagramHandle +
+                    "," + tiktokHandle + "," + id);
 
             out.close();
         }
-
-
     }
 
 
@@ -273,10 +274,8 @@ public class UserService {
 
         System.out.println("===== General Users =====");
         for (User user : userMap.values()) {
-            // Only display users that are not Brand or Customer
-            if (!(user instanceof Brand) && !(user instanceof Customer)) {
+            // Only display users
                 user.displayInfo(); // base user info
-            }
         }
 
         System.out.println("===== Brands =====");
