@@ -14,11 +14,9 @@ public class Main extends JFrame {
     public static void main(String[] args) throws FileNotFoundException{
 
 
-
         // TODO: add item name to lowercase and add to hashmap
         LoginController.initialize();
         new Login();
         new Buyer_Pages();
-       // new Buyer_HomePage();
     }
 }

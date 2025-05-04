@@ -39,18 +39,16 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
     public Buyer_DiscoverPage() {
         this.setLayout(new BorderLayout());
 
-/*
-        for(int i = 0; i < 30; i++){
-            JButton post = new JButton("post " + i);
-            post.setBorder(BorderFactory.createLineBorder(Color.black));
-            post.setBackground(new Color(i,i,120));
-            add_post_to_discover(post);
+        JButton post33 = post("CFORCARLITOS","a company that cares ", String.valueOf(barlitosPhoto),"69");
+        add_post_to_discover(post33);
 
-        }
 
- */
 
-        JButton post = post("Barlitos","a company that cares", String.valueOf(barlitosPhoto),"$69");
+        JButton post3 = post("Stussy","tüssy (/ˈstuːsi/) is an American privately held fashion house founded in the early 1980s by Shawn Stussy. It benefited from the surfwear trend originating in Orange County, California, but was later adopted by the skateboard and hip hop scenes.", String.valueOf(barlitosPhoto),"69");
+        add_post_to_discover(post3);
+
+
+        JButton post = post("Huf","HUF-founder Keith Hufnagel grew up skateboarding in the gritty streets of 1980s New York City. He was part of an early street skating generation that came up amongst a melting pot of city countercultures—hip hop, punk, graffiti, streetwear, and other underground movements.", String.valueOf(barlitosPhoto),"45");
         add_post_to_discover(post);
 
 
@@ -137,15 +135,19 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         //post is a button
         post.add(img);
         //allows users to click on post(button).. once user clicks on post additional information pops up (the actual post)
+
+
+
+
+
         post.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //will create the pop up for the button(post) when the button is clicked
-                JOptionPane.showMessageDialog(null,PostPopUp(brandname,description,photo_path,price)," ",JOptionPane.PLAIN_MESSAGE);
+                Window parentWindow = SwingUtilities.getWindowAncestor(Buyer_DiscoverPage.this);
+                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price)," ",JOptionPane.PLAIN_MESSAGE);
 
             }
         });
-
 
         return post;
     }
@@ -158,13 +160,14 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
         //creating a panel
         JPanel makeapost = new JPanel();
+        makeapost.setBackground(Color.GREEN);
         //makeapost.setBackground(Color.orange);
         //size of the post
         makeapost.setPreferredSize(new Dimension(250,400) );
         makeapost.setLayout(new BoxLayout(makeapost,BoxLayout.Y_AXIS));
         //
         JPanel brandname_banner = new JPanel();
-        //brandname_banner.setPreferredSize(new Dimension(250,50));
+        brandname_banner.setPreferredSize(new Dimension(250,50));
         brandname_banner.setLayout(new GridLayout(1,1));
 
         JButton brandname_button = new JButton(brandname);
@@ -221,13 +224,14 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         //to hold buttons
         //holds: like, AddCart, Follow
         JPanel button_panel = new JPanel();
+        button_panel.setBackground(Color.WHITE);
         //so buttons sit nice, no gaps
         button_panel.setLayout(new GridLayout(1,3));
         //BUTTONS
         JButton like_button = new JButton("like");
         //gets rid of rectangle
         like_button.setFocusable(false);
-        //like_button.setEnabled(false);
+
 
 
 
@@ -268,7 +272,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         JButton follow_button = new JButton("Follow");
         //gets rid of rectangle
         follow_button.setFocusable(false);
-        //follow_button.setEnabled(false);
+
 
 
 
@@ -279,6 +283,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         follow_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
                 System.out.println("you clicked follow button");
             }
@@ -300,8 +305,9 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         //size of panel
         description_panel.setPreferredSize(new Dimension(250,100));
         //creating JTextArea will hold the actual text
-        JTextArea description = new JTextArea("Clothing: " + post_description + price, 4,20);
-
+        JTextArea description = new JTextArea("Clothing details: " + post_description + "\n Price:$"+ price, 4,20);
+        description.setLineWrap(true);
+        description.setEditable(false);
         description.setEditable(false);
 
         //adding description to description_panel
