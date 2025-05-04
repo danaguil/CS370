@@ -12,10 +12,6 @@ public class UploadController {
 
     public static void uploadItem(String itemType) {
         Brand currentBrand = programSession.getLoggedInBrand();
-        if (itemType == null) {
-            System.out.println("error");
-            return;
-        }
 
         if(currentBrand == null){
             return;
@@ -37,7 +33,7 @@ public class UploadController {
         String material3 = Objects.requireNonNull(UploadPage.material_3_combo.getSelectedItem()).toString();
         String color = Objects.requireNonNull(UploadPage.color_combo.getSelectedItem()).toString();
 
-        // Tags based on item type (example)
+        // Tags based on an item type (example)
         String tag1 = "idk";
         String tag2 = "Clothing";
         String tag3 = "UGThreads";

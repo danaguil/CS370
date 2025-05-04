@@ -649,16 +649,18 @@ public class UploadPage extends JPanel implements ActionListener {
         // Check if all size fields do not equal null
         boolean check_top_type = top_type_combo.getSelectedIndex() != 0;
         boolean check_size = size_combo.getSelectedIndex() != 0;
-        boolean check_chest_size = chest_size_combo.getSelectedIndex() != 0;
+
         boolean check_length = length_combo.getSelectedIndex() != 0;
-        boolean check_hem_size = hem_size_combo.getSelectedIndex() != 0;
-        boolean check_sleeve_length = sleeve_length_combo.getSelectedIndex() != 0;
         boolean check_material_1 = material_1_combo.getSelectedIndex() != 0;
         boolean check_material_2 = material_2_combo.getSelectedIndex() != 0;
         boolean check_material_3 = material_3_combo.getSelectedIndex() != 0;
         boolean check_color = color_combo.getSelectedIndex() != 0;
         boolean check_description = !description_text.getText().isEmpty();
         boolean check_price = !price_text.getText().isEmpty();
+
+        boolean check_chest_size = chest_size_combo.getSelectedIndex() != 0;
+        boolean check_hem_size = hem_size_combo.getSelectedIndex() != 0;
+        boolean check_sleeve_length = sleeve_length_combo.getSelectedIndex() != 0;
 
         if(check_top_type && check_size && check_chest_size && check_length && check_hem_size && check_sleeve_length && check_material_1 && check_material_2 && check_material_3 && check_color && check_description && check_price){
             System.out.println("YIPPEE");
@@ -670,10 +672,7 @@ public class UploadPage extends JPanel implements ActionListener {
     private void checkBottomFields(){
         boolean check_bottom_type = bottom_type_combo.getSelectedIndex() != 0;
         boolean check_size = size_combo.getSelectedIndex() != 0;
-        boolean check_waist_size = waist_size_combo.getSelectedIndex() != 0;
-        boolean check_inseam_size = inseam_combo.getSelectedIndex() != 0;
-        boolean check_rise_size = rise_combo.getSelectedIndex() != 0;
-        boolean check_thigh_size = thigh_size_combo.getSelectedIndex() != 0;
+
         boolean check_length = length_combo.getSelectedIndex() != 0;
         boolean check_material_1 = material_1_combo.getSelectedIndex() != 0;
         boolean check_material_2 = material_2_combo.getSelectedIndex() != 0;
@@ -681,6 +680,11 @@ public class UploadPage extends JPanel implements ActionListener {
         boolean check_color = color_combo.getSelectedIndex() != 0;
         boolean check_description = !description_text.getText().isEmpty();
         boolean check_price = !price_text.getText().isEmpty();
+
+        boolean check_waist_size = waist_size_combo.getSelectedIndex() != 0;
+        boolean check_inseam_size = inseam_combo.getSelectedIndex() != 0;
+        boolean check_rise_size = rise_combo.getSelectedIndex() != 0;
+        boolean check_thigh_size = thigh_size_combo.getSelectedIndex() != 0;
 
         if(check_bottom_type && check_size && check_inseam_size && check_waist_size && check_rise_size && check_thigh_size && check_length && check_material_1 && check_material_2 && check_material_3 && check_color && check_description && check_price){
             System.out.println("YIPPEE");
@@ -692,6 +696,7 @@ public class UploadPage extends JPanel implements ActionListener {
     private void checkShoeFields(){
         boolean check_shoes_type = shoes_type_combo.getSelectedIndex() != 0;
         boolean check_shoe_size = shoes_size_combo.getSelectedIndex() != 0;
+
         boolean check_material_1 = shoes_material1_combo.getSelectedIndex() != 0;
         boolean check_material_2 = shoes_material2_combo.getSelectedIndex() != 0;
         boolean check_material_3 = shoes_material3_combo.getSelectedIndex() != 0;
