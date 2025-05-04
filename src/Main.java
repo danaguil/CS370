@@ -16,7 +16,13 @@ public class Main extends JFrame {
 
 
 
-        Buyer_Pages buyer_pages = new Buyer_Pages();
+       ///// Buyer_Pages buyer_pages = new Buyer_Pages();
+
+
+       // LoginController.initialize();
+       // new login();
+
+
         //Brand_Pages brand_pages = new Brand_Pages();
 
 
