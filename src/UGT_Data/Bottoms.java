@@ -10,10 +10,10 @@ public class Bottoms extends Item {
 
 
     public Bottoms(String name, double price, int quantity, String description, String material_1, String material_2,
-                   String material_3, String color, String tag_1, String tag_2, String tag_3, int size,
-                   double waistSize, double inseam, double rise, String type, String id) {
+                   String material_3, String color, String tag_1, String tag_2, String tag_3, String imagePath, String itemId, String brandId, int size,
+                   double waistSize, double inseam, double rise, String type) {
 
-        super(id,name, price, quantity, description, material_1, material_2, material_3, color, tag_1, tag_2, tag_3);
+        super(name, price, quantity, description, material_1, material_2, material_3, color, tag_1, tag_2, tag_3, imagePath, itemId, brandId);
 
         this.size = size;
         this.waistSize = waistSize;

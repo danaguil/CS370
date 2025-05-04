@@ -1,5 +1,8 @@
 package UGT_UI;
 
+import UGT_Controllers.LoginController;
+import UGT_Controllers.UploadController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -37,25 +40,25 @@ public class UploadPage extends JPanel implements ActionListener {
     private final int shoes_selected;
 
     // Arrays for Combo Boxes
-    String [] top_type_array = {"", "Shirt", "Sweater", "Jacket", "Fleece", "Tank Top", "Coat", "Vest"};
-    String[] size_array = {"", "XS", "S", "M", "L", "XL", "XX", "XXL"};
-    String[] measurement_array = {"", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
+    static String [] top_type_array = {"", "Shirt", "Sweater", "Jacket", "Fleece", "Tank Top", "Coat", "Vest"};
+    static String[] size_array = {"", "XS", "S", "M", "L", "XL", "XX", "XXL"};
+    static String[] measurement_array = {"", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
             , "32", "33", "34", "35", "36", "37", "38", "39","40", "41","42", "43", "44", "45", "46", "47", "48", "49", "50", "51"};
-    String [] top_material_array = {"", "Cotton", "Silk", "Wool", "Polyester", "Denim"};
-    String [] color_array = {"", "Red", "Blue", "Green", "Yellow", "Orange", "Light Blue", "Dark Blue", "Purple", "Violet", "Cyan", "Black", "White", "Gray", "Light Gray"};
-    String [] bottom_type_array = {"", "Jeans", "Sweatpants", "Shorts", "Skirt", "Leggings"};
-    String [] rise_array = {"", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
-    String [] shoes_type_array = {"", "Sneakers", "Sandals", "Slippers", "Boots", "Socks", "Tennis Shoes"};
-    String [] shoes_material_array = {"", "Leather", "Braided", "Canvas", "Cork", "Nylon", "Foam", "Velvet", "Rubber"};
-    String [] shoes_size_array = {"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
+    static String [] top_material_array = {"", "Cotton", "Silk", "Wool", "Polyester", "Denim"};
+    static String [] color_array = {"", "Red", "Blue", "Green", "Yellow", "Orange", "Light Blue", "Dark Blue", "Purple", "Violet", "Cyan", "Black", "White", "Gray", "Light Gray"};
+    static String [] bottom_type_array = {"", "Jeans", "Sweatpants", "Shorts", "Skirt", "Leggings"};
+    static String [] rise_array = {"", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
+    static String [] shoes_type_array = {"", "Sneakers", "Sandals", "Slippers", "Boots", "Socks", "Tennis Shoes"};
+    static String [] shoes_material_array = {"", "Leather", "Braided", "Canvas", "Cork", "Nylon", "Foam", "Velvet", "Rubber"};
+    static String [] shoes_size_array = {"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
 
     // General Combo Boxes
-    JComboBox<String> length_combo = new JComboBox<>(measurement_array);
-    JComboBox<String> material_1_combo = new JComboBox<>(top_material_array);
-    JComboBox<String> material_2_combo = new JComboBox<>(top_material_array);
-    JComboBox<String> material_3_combo =  new JComboBox<>(top_material_array);
-    JComboBox<String> color_combo = new JComboBox<>(color_array);
-    JComboBox<String> size_combo = new JComboBox<>(size_array);
+    public static JComboBox<String> length_combo = new JComboBox<>(measurement_array);
+    public static JComboBox<String> material_1_combo = new JComboBox<>(top_material_array);
+    public static JComboBox<String> material_2_combo = new JComboBox<>(top_material_array);
+    public static JComboBox<String> material_3_combo =  new JComboBox<>(top_material_array);
+    public static JComboBox<String> color_combo = new JComboBox<>(color_array);
+    public static JComboBox<String> size_combo = new JComboBox<>(size_array);
 
     // Tops Combo Boxes
     JComboBox<String> top_type_combo = new JComboBox<>(top_type_array);
@@ -193,7 +196,7 @@ public class UploadPage extends JPanel implements ActionListener {
 
 
     // The Layered Panel used to show the price
-    JTextField price_text;
+    static JTextField price_text;
     private JLayeredPane price_panel(int y){
         JLabel price_label;
         price_text = new JTextField();
@@ -214,9 +217,13 @@ public class UploadPage extends JPanel implements ActionListener {
         return price_panel;
     }
 
+    public static String getPrice(){
+        return price_text.getText();
+    }
+
 
     // The LayeredPane to show the item description TextArea
-    JTextArea description_text;
+    static JTextArea description_text;
     private JLayeredPane description_panel(int y){
         JLayeredPane description_panel = new JLayeredPane();
         description_panel.setLayout(null);
@@ -226,7 +233,6 @@ public class UploadPage extends JPanel implements ActionListener {
         JLabel description_label;
         description_label = new JLabel("Enter Description:");
         description_label.setBounds(10 ,0, 150, 30);
-
         description_text = new JTextArea();
         description_text.setBounds(10, 24, 290, 75);
         description_text.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -241,7 +247,11 @@ public class UploadPage extends JPanel implements ActionListener {
         return description_panel;
     }
 
-    JTextField item_name_text;
+    public static String getDescription(){
+        return description_text.getText();
+    }
+
+    static JTextField item_name_text;
     JLayeredPane item_name_panel(){
         JLayeredPane item_name_panel = new JLayeredPane();
         item_name_text = new JTextField();
@@ -263,6 +273,11 @@ public class UploadPage extends JPanel implements ActionListener {
 
         return item_name_panel;
     }
+
+    public static String getItemName(){
+        return item_name_text.getText();
+    }
+
 
     // Upload Post Button
     private JButton getUploadPostButton() {
@@ -401,10 +416,11 @@ public class UploadPage extends JPanel implements ActionListener {
 
 
 
-
     // Action Performers
     @Override
     public void actionPerformed(ActionEvent e) {
+        String itemType = ""; // stays active until Upload is clicked
+
 
         // Switch to Profile Page
         /*
@@ -419,17 +435,25 @@ public class UploadPage extends JPanel implements ActionListener {
         if(e.getSource() == tops_btn) {
 
             new UploadPage(1, 1, 0, 0);
+
+            itemType = "Tops";
+            System.out.println("Selected item type: Tops");
         }
 
         if (e.getSource() == bottoms_btn) {
 
             new UploadPage(1, 0, 1, 0);
 
+            itemType = "Bottoms";
+            System.out.println("Selected item type: Bottoms");
         }
 
         if(e.getSource() == shoes_btn) {
 
             new UploadPage(1, 0, 0, 1);
+
+            itemType = "Shoes";
+            System.out.println("Selected item type: Shoes");
         }
 
         // Check Top Inputs to see if upload_post_btn should be enabled
@@ -558,85 +582,66 @@ public class UploadPage extends JPanel implements ActionListener {
 
 
         if(e.getSource() == upload_post_btn) {
+
             System.out.println("Item Successfully uploaded!");
 
-            File imagesDir = new File("src/UGT_Data/Images");
-            if(!imagesDir.exists()){
-                imagesDir.mkdir();
-            }
-
-            // Generate a unique file name to prevent overwrites
-            String originalFilename = selected_file.getName();
-            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String newFileName = "image_" + System.currentTimeMillis() + extension;
-            File outputFile = new File(imagesDir, newFileName);
-
-            try {
-                // Save the image
-                ImageIO.write(image_file, extension.substring(1), outputFile);
-                JOptionPane.showMessageDialog(null,
-                        "Image saved successfully to: Images",
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error saving image",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
 
 
             new ProfilePage();
+
+            UploadController.uploadItem(itemType);
+
         }
 
         if (e.getSource() == image_upload_btn) {
-            // Create a JFileChooser for taking in item image
-            JFileChooser fileChooser = getJFileChooser();
+            photo_selection();
+        }
+    }
 
-            int returnVal = fileChooser.showOpenDialog(this);
-            if(returnVal == JFileChooser.APPROVE_OPTION) {
-                selected_file = fileChooser.getSelectedFile();
 
-                try{
-                    image_file = ImageIO.read(selected_file);
-                    upload_post_btn.setEnabled(true);
-                } catch (IOException exception) {
-                    JOptionPane.showMessageDialog(null, "Error loading image.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+
+
+    private static File path = null;
+
+    //allows the brand to select a photo (photo must be a JPEG,PNG, OR JPG) or else message pops up
+    //used within create_account_as_brand
+    void photo_selection(){
+        JFileChooser itemPhoto = new JFileChooser();
+
+        itemPhoto.setCurrentDirectory(new File("."));
+
+        int i = itemPhoto.showSaveDialog(null);
+
+        if(i == JFileChooser.APPROVE_OPTION){
+            //File path global variable
+            //getting the selected file path
+            File selected_file = itemPhoto.getSelectedFile();
+            String name = selected_file.getName().toLowerCase();
+
+            //if correct file (JPEG, PNG, JPG)
+            if(name.endsWith(".jpeg") || name.endsWith(".png") || name.endsWith(".jpg") ){
+                //selected file already has the file
+                //set to path
+                path = selected_file;
+                upload_post_btn.setEnabled(true);
+            } else {
+                //show message
+                JOptionPane.showMessageDialog(null, "Invalid file type. Please select a JPG or PNG image.");
             }
 
         }
 
+
     }
 
+    public static String getPost_photo(){
+        // return a path for image
+        if(!LoginController.saveBrandLogo(path)){
+            return null;
+        };
 
-
-
-
-
-    // Creates and Filters the FileChooser
-    private static JFileChooser getJFileChooser() {
-        JFileChooser fileChooser = new JFileChooser();
-
-        // Set File Filter to only allow files ending in .jpeg, .jpg, and .png
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
-            public boolean accept(File f) {
-                String name = f.getName().toLowerCase();
-                return name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png") || f.isDirectory();
-            }
-            public String getDescription() {
-                return "Image files: *.jpg, *.jpeg, *.png";
-            }
-        });
-        return fileChooser;
+        return path.getAbsolutePath();
     }
-
-
-
-
-
-
-
-
-
-
 
     // Check all the Top Item data entries in order to enable upload_post_btn
     private void checkTopFields(){
@@ -659,16 +664,7 @@ public class UploadPage extends JPanel implements ActionListener {
             System.out.println("YIPPEE");
             upload_post_btn.setEnabled(true);
         }
-
     }
-
-
-
-
-
-
-
-
 
     // Check all the Bottom Item data entries in order to enable upload_post_btn
     private void checkBottomFields(){
@@ -692,14 +688,6 @@ public class UploadPage extends JPanel implements ActionListener {
         }
     }
 
-
-
-
-
-
-
-
-
     // Check all Shoe Item data entries in order to enable upload_post_btn
     private void checkShoeFields(){
         boolean check_shoes_type = shoes_type_combo.getSelectedIndex() != 0;
@@ -717,7 +705,5 @@ public class UploadPage extends JPanel implements ActionListener {
         }
 
     }
-
-
 
 }

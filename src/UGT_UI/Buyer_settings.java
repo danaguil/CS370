@@ -93,7 +93,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
         // change_username_panel.setBackground(Color.MAGENTA);
         change_username_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel username_label = new JLabel("username:");
-        usernmae_j = new JTextField(username,20);
+        usernmae_j = new JTextField(20);
         change_username_panel.add(username_label);
         change_username_panel.add(usernmae_j);
         //adding to settings_page
@@ -103,7 +103,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
         JPanel change_password_panel = new JPanel();
         change_password_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel password_label = new JLabel("password:");
-        password_j = new JTextField(password,20);
+        password_j = new JTextField(20);
         change_password_panel.add(password_label);
         change_password_panel.add(password_j);
         //adding to settings_page
@@ -115,14 +115,14 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
         JPanel first_name_panel = new JPanel();
         JLabel first_name_label = new JLabel("1st name:");
-        first_name_j = new JTextField(first_name,20);
+        first_name_j = new JTextField(20);
         first_name_panel.add(first_name_label);
         first_name_panel.add(first_name_j);
         change_first_and_last_name_panel.add(first_name_panel);
         //lastname
         JPanel last_name_panel = new JPanel();
         JLabel last_name_label = new JLabel("last name:");
-        last_name_j = new JTextField(last_name,20);
+        last_name_j = new JTextField(20);
         last_name_panel.add(last_name_label);
         last_name_panel.add(last_name_j);
         change_first_and_last_name_panel.add(last_name_panel);
@@ -183,7 +183,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
         JPanel change_address_panel = new JPanel();
         JLabel addresss_label = new JLabel("address:");
-        address_j = new JTextField(address,20);
+        address_j = new JTextField(20);
         change_address_panel.add(addresss_label);
         change_address_panel.add(address_j);
         //adding to settings_page
@@ -193,7 +193,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
         JPanel change_email_panel = new JPanel();
         JLabel email_label = new JLabel("email:");
-        email_j = new JTextField(email,20);
+        email_j = new JTextField(20);
         change_email_panel.add(email_label);
         change_email_panel.add(email_j);
         //adding to settings_page

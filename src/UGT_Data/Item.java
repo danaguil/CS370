@@ -6,6 +6,7 @@ public class Item {
 
     private String name;
     private final String itemId;
+    private final String brandId;
     private double price;
     private int quantity;
     private String description;
@@ -18,12 +19,13 @@ public class Item {
     private String material_3;
     String[] materialsList;
     String[] tagsList;
-    //String imagePath;
+    private String imagePath;
 
-    public Item(String itemId, String name, double price, int quantity, String description, String material_1, String material_2,
-                String material_3, String color, String tag_1, String tag_2, String tag_3)
-    {
-        this.itemId = IDGenerator.generateID();
+    public Item(String name, double price, int quantity, String description,
+                String material_1, String material_2, String material_3,
+                String color, String tag_1, String tag_2, String tag_3, String imagePath, String itemId, String brandId) {
+        this.itemId = itemId;
+        this.brandId = brandId;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -35,7 +37,7 @@ public class Item {
         this.tag_1 = tag_1;
         this.tag_2 = tag_2;
         this.tag_3 = tag_3;
-        //this.imagePath = imagePath;
+        this.imagePath = imagePath;
 
         // Populate the materials list
         materialsList = new String[3];
@@ -155,7 +157,11 @@ public class Item {
         return itemId;
     }
 
-    /*
+    public String getBrandId() {
+        return brandId;
+    }
+
+
     public String getImagePath() {
         return imagePath;
     }
@@ -163,9 +169,9 @@ public class Item {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-    */
-    public static void displayInfo(){
-        System.out.println("Id: ");
 
+    public void displayInfo(){
+        System.out.println("Name: " + name);
+        System.out.println("Id: " + getItemId());
     }
 }
