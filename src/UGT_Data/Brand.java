@@ -81,6 +81,8 @@ public class Brand extends User{
         return brandItems;
     }
 
+    public void addItem(Item itemToAdd) {}
+
     @Override
     public void displayInfo() {
         super.displayInfo(); // calls User's displayInfo()
