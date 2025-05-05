@@ -41,11 +41,12 @@ public class Buyer_Footer extends JPanel {
         buttoncart.setFocusable(false);
 
 
-        JLabel minibannertext = new JLabel();
+        JLabel minibannertext = new JLabel("UndergroundThreads", SwingConstants.CENTER);
         minibannertext.setForeground(Color.WHITE);
-        minibannertext.setText("UndergroundThreads");
+
 
         JPanel minibanner = new JPanel();
+        minibanner.setLayout(new BorderLayout());
         minibanner.add(minibannertext);
         minibanner.setBackground(Color.DARK_GRAY);
 

@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Buyer_Pages extends JFrame implements ActionListener {
+public class Buyer_Pages extends JPanel implements ActionListener {
 
 
 
@@ -32,11 +32,12 @@ public class Buyer_Pages extends JFrame implements ActionListener {
     Buyer_LikedPage likedPage;
     Buyer_settings settingsPage;
 
+
+
+
     //CONSTRUCTOR
-    public Buyer_Pages() {
-        //frame
-        this.setSize(500, 800);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public Buyer_Pages(UndergroundThreads UGT) {
+        this.setLayout(new BorderLayout());
 
 
 
@@ -59,7 +60,7 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         homePage = new Buyer_HomePage();
         discoverPage = new Buyer_DiscoverPage();
         likedPage = new Buyer_LikedPage();
-        settingsPage = new Buyer_settings();
+        settingsPage = new Buyer_settings(UGT);
 
 
 
@@ -104,7 +105,7 @@ public class Buyer_Pages extends JFrame implements ActionListener {
 
          */
 
-        this.setVisible(true);
+       //////// this.setVisible(true);
     }
 
 
@@ -150,6 +151,7 @@ public class Buyer_Pages extends JFrame implements ActionListener {
         }
         if (e.getSource() == button_settings) {
             System.out.println("settings");
+            //settingsPage.
             //shows page
             cards.show(maincard, "settingsPage");
 

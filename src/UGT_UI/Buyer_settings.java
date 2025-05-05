@@ -10,15 +10,173 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
     //class button
     JButton save_changes_button;
+    JButton logout_button;
+
+  UndergroundThreads UGT;
 
     //constructor
-    public Buyer_settings () {
-        this.setSize(500, 800);
+    public Buyer_settings (UndergroundThreads UGT) {
+
+
+        this.UGT = UGT;
+
+
+        //this.setLayout(new BorderLayout());
+        //this.add(settings_page("username", "password",  "first_name", "last_name", "name_on_card", "card_number", "card_month_exp", "card_year_exp", "card_cvv", "address","email"),BorderLayout.CENTER);
         this.setLayout(new BorderLayout());
-        this.add(settings_page("username", "password",  "first_name", "last_name", "name_on_card", "card_number", "card_month_exp", "card_year_exp", "card_cvv", "address","email"),BorderLayout.CENTER);
-        //footer.add(settings_page( "username", "password",  "first_name", "last_name", "name_on_card", "card_number", "card_month_exp", "card_year_exp", "card_cvv", "address","email"),BorderLayout.CENTER);
-        this.setVisible(true);
+        this.add(all_settings_pages(UGT));
+
+
+
     }
+
+
+    //to be placed in the constructor
+    //this includes all pages that make up the settings... settingspage, report, logout
+    private JPanel all_settings_pages(UndergroundThreads UGT) {
+
+        //creating panel to hold everything
+        JPanel settings_page = new JPanel();
+        settings_page.setBackground(Color.cyan);
+        settings_page.setPreferredSize(new Dimension(300,800));
+        settings_page.setLayout(new BorderLayout());
+
+        //cardlayout
+        CardLayout cards = new CardLayout();
+        //creating JPanel maincard to hold all the cards, so that we can call specific card within action listener
+        JPanel maincard = new JPanel(cards);
+
+        //adding maincard to settings_page
+        settings_page.add(maincard);
+
+        //adding cards sto maincard
+        maincard.add(settings_page("username1","password123","Danny","Dan'slastname","3449MoragaRd","ihaveacat@gamil.com"),"settings");
+        maincard.add(report_page(), "report");
+        maincard.add(logout_page(UGT), "logout");
+
+        //creating buttonpanel to hold buttons
+        JPanel buttonpanel = new JPanel();
+        buttonpanel.setBackground(Color.lightGray);
+        //buttonpanel.setBackground(Color.orange);
+
+
+
+        JButton settings_button = new JButton("account");
+        settings_button.addActionListener(this);
+        JButton report_button = new JButton("report");
+        report_button.addActionListener(this);
+        JButton logout_button = new JButton("Logout");
+        logout_button.addActionListener(this);
+
+        buttonpanel.add(settings_button);
+        buttonpanel.add(report_button);
+        buttonpanel.add(logout_button);
+
+
+        settings_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "settings");
+            }
+        });
+
+        report_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "report");
+            }
+        });
+
+        logout_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cards.show(maincard, "logout");
+            }
+        });
+
+
+        settings_page.add(buttonpanel, BorderLayout.NORTH);
+        return settings_page;
+    }
+
+
+
+
+
+
+
+
+
+
+    private JPanel report_page(){
+        //creating panel
+        JPanel report_page = new JPanel();
+        //size
+        report_page.setSize(500,200);
+        //color
+        //report_page.setBackground(Color.green);
+        //layout
+        report_page.setLayout(new BoxLayout(report_page, BoxLayout.Y_AXIS));
+        //creating bug_report_panel to hold all objects: label, textarea
+        JPanel bug_report_panel = new JPanel();
+        JLabel bug_report_label = new JLabel("Report a brand:");
+        JTextField report_brand_text_field = new JTextField(20);
+        //report_brand_text_field.setText();
+        bug_report_panel.add(bug_report_label);
+        bug_report_panel.add(report_brand_text_field);
+        //adding bug_report_panel to report_page
+        report_page.add(bug_report_panel);
+
+        //creating button_panel to hold button
+        JPanel button_panel = new JPanel();
+        //creating button submit_report
+        JButton submit_report = new JButton("report");
+
+        //ACTION LISTENER
+        submit_report.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("you submitted your bug report!!!!!");
+            }
+        });
+
+        //adding submit_report to button_panel
+        button_panel.add(submit_report);
+        //adding button_panel to report_page
+        report_page.add(button_panel);
+
+
+
+
+
+        return report_page;
+    }
+    private JPanel logout_page(UndergroundThreads UGT) {
+        //creating logout_panel to hold everything
+        JPanel logout_panel = new JPanel();
+        logout_panel.setLayout(null);
+
+        //creating button
+        logout_button = new JButton("logout");
+        logout_button.setBounds(200,250,100,30);
+        logout_button.addActionListener(this);
+        //ACTION LISTENER
+        logout_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("you been logged out :(");
+                UGT.go_to_login_pages();
+
+            }
+        });
+
+        //adding button (logout_button) to logout_panel
+        logout_panel.add(logout_button);
+
+        return logout_panel;
+    }
+
+
 
 
 
@@ -29,11 +187,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
     private static JTextField password_j;
     private static JTextField first_name_j;
     private static JTextField last_name_j;
-    //private static JTextField cardinfo_j;
-    //private static JTextField card_number_j;
-    //private static JTextField card_month_exp_j;
-    //private static JTextField card_year_exp_j;
-    //private static JTextField card_cvv_j;
+
     private static JTextField address_j;
     private static JTextField email_j;
 
@@ -61,37 +215,23 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
 
 
-    /*
-    public static String get_cardinfo_TextField() {
-        return cardinfo_j.getText();
-    }
-    public static String get_cardnumber_TextField() {
-        return card_number_j.getText();
-    }
-    public static String get_cardmonth_exp_TextField() {
-        return card_month_exp_j.getText();
-    }
-    public static String get_cardyear_exp_TextField() {
-        return card_year_exp_j.getText();
-    }
-    */
-
-
-
     //main page
-    private JPanel settings_page(String username, String password, String first_name, String last_name, String name_on_card, String card_number, String card_month_exp, String card_year_exp, String card_cvv, String address, String email ){
+    private JPanel settings_page(String username, String password, String first_name, String last_name, String address, String email ){
         JPanel settings_page = new JPanel();
         //settings_page.setBackground(Color.red);
         settings_page.setLayout(new BoxLayout(settings_page, BoxLayout.Y_AXIS));
         //banner to help out user
         JPanel banner = new JPanel();
+        banner.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        banner.setBackground(Color.cyan);
         JLabel text_for_banner = new JLabel("fill in any new changes then press save :)");
         banner.add(text_for_banner);
         settings_page.add(banner);
 
         JPanel change_username_panel = new JPanel();
-        // change_username_panel.setBackground(Color.MAGENTA);
-        change_username_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        //change_username_panel.setPreferredSize(new Dimension(300,10));
+        change_username_panel.setBackground(Color.MAGENTA);
+        change_username_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         JLabel username_label = new JLabel("username:");
         usernmae_j = new JTextField(20);
         change_username_panel.add(username_label);
@@ -101,7 +241,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
 
         JPanel change_password_panel = new JPanel();
-        change_password_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        //change_password_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel password_label = new JLabel("password:");
         password_j = new JTextField(20);
         change_password_panel.add(password_label);
@@ -131,57 +271,9 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
 
 
-        /*
-        JPanel change_name_on_ecard_panel = new JPanel();
-        JLabel cardinfo_label = new JLabel("name on card:");
-        cardinfo_j = new JTextField(name_on_card,20);
-        change_name_on_ecard_panel.add(cardinfo_label);
-        change_name_on_ecard_panel.add(cardinfo_j);
-        //adding to settings_page
-        settings_page.add(change_name_on_ecard_panel);
-
-
-        JPanel change_card_number_panel = new JPanel();
-        JLabel card_number_label = new JLabel("card number:");
-        card_number_j = new JTextField(card_number,20);
-        change_card_number_panel.add(card_number_label);
-        change_card_number_panel.add(card_number_j);
-        //adding to settings_page
-        settings_page.add(change_card_number_panel);
-
-
-        JPanel change_card_month_exp_panel = new JPanel();
-        JLabel card_month_exp_label = new JLabel("month exp:");
-        //might change this to drop down
-        card_month_exp_j = new JTextField(card_month_exp,20);
-        change_card_month_exp_panel.add(card_month_exp_label);
-        change_card_month_exp_panel.add(card_month_exp_j);
-        //adding to settings_page
-        settings_page.add(change_card_month_exp_panel);
-
-
-        JPanel change_card_year_exp_panel = new JPanel();
-        JLabel card_year_exp_label = new JLabel("name on card:");
-        card_year_exp_j = new JTextField(card_year_exp,20);
-        change_card_year_exp_panel.add(card_year_exp_label);
-        change_card_year_exp_panel.add(card_year_exp_j);
-        //adding to settings_page
-        settings_page.add(change_card_year_exp_panel);
-
-
-        JPanel change_card_cvv_panel = new JPanel();
-        JLabel card_cvv_label = new JLabel("name on card:");
-        card_cvv_j = new JTextField(card_cvv,20);
-        change_card_cvv_panel.add(card_cvv_label);
-        change_card_cvv_panel.add(card_cvv_j);
-        //adding to settings_page
-        settings_page.add(change_card_cvv_panel);
-
-         */
-
-
 
         JPanel change_address_panel = new JPanel();
+        change_address_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel addresss_label = new JLabel("address:");
         address_j = new JTextField(20);
         change_address_panel.add(addresss_label);
@@ -190,8 +282,8 @@ public class Buyer_settings extends JPanel implements ActionListener {
         settings_page.add(change_address_panel);
 
 
-
         JPanel change_email_panel = new JPanel();
+        change_email_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel email_label = new JLabel("email:");
         email_j = new JTextField(20);
         change_email_panel.add(email_label);
@@ -218,47 +310,6 @@ public class Buyer_settings extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
 
-        /*
-        //Switch to Search page
-        if(e.getSource() == button_search){
-            System.out.println("your search button pressed");
-            dispose();
-            new Buyer_SearchPage();
-        }
-        //Switch to Cart page
-        if(e.getSource() == button_cart){
-            System.out.println("your cart button pressed");
-            dispose();
-            new Buyer_CartPage();
-        }
-        //Switch to Home page
-        if(e.getSource() == button_Home){
-            System.out.println("your home button pressed");
-            dispose();
-            new Buyer_HomePage();
-        }
-        //Switch to Discover button
-        if(e.getSource() == button_discover){
-            System.out.println("your discover button pressed");
-            dispose();
-            new Buyer_DiscoverPage();
-        }
-        //Switch to Like page
-        if(e.getSource() == button_like){
-            System.out.println("your like button pressed");
-            dispose();
-            new Buyer_LikedPage();
-
-        }
-        //Switch to Settings page
-        if(e.getSource() == button_settings){
-            System.out.println("your settings button pressed");
-
-            dispose();
-            new Buyer_settings();
-        }
-
-         */
 
 
         if(e.getSource() == save_changes_button){

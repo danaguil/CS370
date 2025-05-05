@@ -45,6 +45,8 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
     public Buyer_DiscoverPage() {
         this.setLayout(new BorderLayout());
 
+        JButton post33 = post("CFORCARLITOS","a company that cares ", String.valueOf(barlitosPhoto),"69");
+        add_post_to_discover(post33);
 
         // gets all items from the hashmap
         List<Item> allItems = new ArrayList<>(populateProgram.itemMap.values());
@@ -140,7 +142,8 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
     }
 
 
-    private JButton post(String brandname,String description ,String photo_path,String price, Item item){
+
+    private JButton post(String brandname,String description ,String photo_path,String price){
         //creating button ---> post
         JButton post = new JButton();
         //adding the image to the button
@@ -158,7 +161,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Window parentWindow = SwingUtilities.getWindowAncestor(Buyer_DiscoverPage.this);
-                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price, item)," ",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price)," ",JOptionPane.PLAIN_MESSAGE);
 
             }
         });
@@ -170,7 +173,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
 
     //this will create the actual post (once the button (post) is clicked this pops up)
-    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price, Item item){
+    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price ){
 
         //creating a panel
         JPanel makeapost = new JPanel();
@@ -187,6 +190,10 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         JButton brandname_button = new JButton(brandname);
         //so you wont see a rectangle
         brandname_button.setFocusable(false);
+
+
+
+
 
 
         brandname_button.addActionListener(new ActionListener() {
@@ -273,6 +280,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
                 // UserInteractions.addToCart(item);
                 UserInteractions.addToCart(item);
                 System.out.println("you clicked cart button");
+
             }
         });
 

@@ -38,7 +38,7 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
 
 
         for(int i = 0; i < 30; i++){
-            JPanel post = PostPopUp("brandpost" + i, "a brand that cares about you", String.valueOf(barlitosPhoto),"89");
+            JPanel post = PostPopUp("brandpost" + i, "a brand that cares about you", String.valueOf(barlitosPhoto),"89","Xll");
             add_to_following_post(post);
         }
 
@@ -131,11 +131,11 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
 
 
     //this will create the actual post (once the button (post) is clicked this pops up)
-    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price ){
+    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price, String size ){
 
         //creating a panel
         JPanel makeapost = new JPanel();
-        makeapost.setBackground(Color.GREEN);
+        //makeapost.setBackground(Color.GREEN);
         //makeapost.setBackground(Color.orange);
         //size of the post
         makeapost.setPreferredSize(new Dimension(500,460) );
@@ -250,7 +250,7 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
         //size of panel
         description_panel.setPreferredSize(new Dimension(500,200));
         //creating JTextArea will hold the actual text
-        JTextArea description = new JTextArea("Clothing details: " + post_description + "\n Price:$"+ price, 4,20);
+        JTextArea description = new JTextArea("Clothing details: " + post_description +"\n Size:" +size + "\n Price:$"+ price, 4,20);
         description.setLineWrap(true);
         description.setEditable(false);
         description.setEditable(false);

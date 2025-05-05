@@ -13,7 +13,7 @@ import UGT_Data.ResetCode;
 
 
 
-public class Login extends JFrame implements ActionListener {
+public class Login extends JPanel implements ActionListener {
     //buttons
     //will be used to switch from window to window
     JButton buttonlogin;
@@ -25,15 +25,20 @@ public class Login extends JFrame implements ActionListener {
     //hold all the cards
     JPanel maincard;
 
+    UndergroundThreads UGT;
+
 
     //constructor
-    public Login() {
-        //creating JFrame
-        JFrame frame = new JFrame(); //by default frames use borderlayout
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //allows window to close
-        frame.setSize(500, 800); //size of window
-        frame.setTitle("UnderGroundThreads"); //title of window
-        frame.setResizable(false);
+    public Login(UndergroundThreads UGT) {
+
+
+       this.UGT = UGT;
+
+        this.setLayout(new BorderLayout());
+        this.setPreferredSize(new Dimension(500, 800));
+
+
+
         // cards is cardlayout
         cards = new CardLayout();
         //will be used to hold all the cards
@@ -41,15 +46,17 @@ public class Login extends JFrame implements ActionListener {
         maincard.setLayout(cards);
 
         //adding card to maincard
+
+
         //adding Cardlogin method-----> will be called cardlogin
-        maincard.add(Cardlogin(),"cardlogin");
+        maincard.add(Cardlogin(this.UGT),"cardlogin");
         //adding Cardcreateaccount method-----> will be called cardcreateaccountr
         maincard.add(Cardcreateaccount(),"cardcreateaccountr");
         //adding Cardforgot method-----> will be called cardforgot
         maincard.add(Cardforgot(),"cardforgot");
 
         //adding maincard to frame (maincard will hold all the cards (windows) needed)
-        frame.add(maincard);
+        this.add(maincard);
 
 
 
@@ -96,10 +103,10 @@ public class Login extends JFrame implements ActionListener {
         buttonpanel.add(buttoncreateaccount);
         buttonpanel.add(buttonforgot);
         //adding buttonpanel to frame
-        frame.add(buttonpanel,BorderLayout.NORTH);
+        this.add(buttonpanel,BorderLayout.NORTH);
 
         //able to see frame
-        frame.setVisible(true);
+        //frame.setVisible(true);
     }
 
 
@@ -135,7 +142,9 @@ public class Login extends JFrame implements ActionListener {
 
 
 
-    private JPanel Cardlogin(){
+    private JPanel Cardlogin(UndergroundThreads UGT) {
+
+
 
         JPanel cardlogin = new JPanel();
         cardlogin.setSize(500,800);
@@ -181,8 +190,14 @@ public class Login extends JFrame implements ActionListener {
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("It works!!");
                 LoginController.loginUser(); // calls function
+
+                UGT.go_to_buyer_pages();
+
+
+
             }
         });
 
@@ -589,6 +604,28 @@ public class Login extends JFrame implements ActionListener {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //************************************************************************************************************ Cardforgot
     //this private method only holds pages forgot() and one_tine_code_login using cardlayout
 
@@ -654,6 +691,28 @@ public class Login extends JFrame implements ActionListener {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //************************************************************************************************ forgot
 
     private static JTextField recoverInformation_email;
@@ -707,6 +766,44 @@ public class Login extends JFrame implements ActionListener {
 
         return forgot;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //********************************************************************************************************** one_time_code_login
     // OTCL = one_time_code_login
 

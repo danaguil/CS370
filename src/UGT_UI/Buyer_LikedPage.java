@@ -43,7 +43,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
 
         for (int i = 0; i < 10; i++) {
 
-            JButton post = post("OBEY","OBEY is a brand founded by American street artist Shepard Fairey in 2001, primarily known for its streetwear and clothing line. ", String.valueOf(barlitosPhoto),"90");
+            JButton post = post("OBEY","OBEY is a brand founded by American street artist Shepard Fairey in 2001, primarily known for its streetwear and clothing line. ", String.valueOf(barlitosPhoto),"90","XLL");
             add_to_all_my_liked_post(post);
 
 
@@ -134,7 +134,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
 
 
 
-    private JButton post(String brandname,String description ,String photo_path,String price){
+    private JButton post(String brandname,String description ,String photo_path,String price,String size){
         //creating button ---> post
         JButton post = new JButton();
         //adding the image to the button
@@ -149,7 +149,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Window parentWindow = SwingUtilities.getWindowAncestor(Buyer_LikedPage.this);
-                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price)," ",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price,size)," ",JOptionPane.PLAIN_MESSAGE);
 
             }
         });
@@ -166,11 +166,11 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
 
 
     //this will create the actual post (once the button (post) is clicked this pops up)
-    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price ){
+    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price,String size){
 
         //creating a panel
         JPanel makeapost = new JPanel();
-        makeapost.setBackground(Color.GREEN);
+        //makeapost.setBackground(Color.GREEN);
         //makeapost.setBackground(Color.orange);
         //size of the post
         makeapost.setPreferredSize(new Dimension(250,400) );
@@ -306,7 +306,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
         //size of panel
         description_panel.setPreferredSize(new Dimension(250,100));
         //creating JTextArea will hold the actual text
-        JTextArea description = new JTextArea("Clothing details: " + post_description + "\n Price:$"+ price, 4,20);
+        JTextArea description = new JTextArea("Clothing details: " + post_description  + "\n Size:" +size+ "\n Price:$"+ price, 4,20);
         description.setLineWrap(true);
         description.setEditable(false);
         description.setEditable(false);
