@@ -1,33 +1,19 @@
 package UGT_Data;
 
+/**
+ * Bottoms class that extends Item class
+ * waistSize: e.g. "34", "35", "36"
+ */
 public class Bottoms extends Item {
 
-    private int size;
     private double waistSize;
-    private double inseam;
-    private double rise;
-    private String type;
 
+    public Bottoms(String name, String size, double waistSize, double price, String description, String color,
+                   String imagePath, String itemId, String brandId) {
 
-    public Bottoms(String name, double price, int quantity, String description, String material_1, String material_2,
-                   String material_3, String color, String tag_1, String tag_2, String tag_3, String imagePath, String itemId, String brandId, int size,
-                   double waistSize, double inseam, double rise, String type) {
+        super(name, size, price, description, color, imagePath, itemId, brandId);
 
-        super(name, price, quantity, description, material_1, material_2, material_3, color, tag_1, tag_2, tag_3, imagePath, itemId, brandId);
-
-        this.size = size;
         this.waistSize = waistSize;
-        this.inseam = inseam;
-        this.rise = rise;
-        this.type = type;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public double getWaistSize() {
@@ -36,29 +22,5 @@ public class Bottoms extends Item {
 
     public void setWaistSize(double waistSize) {
         this.waistSize = waistSize;
-    }
-
-    public double getInseam() {
-        return inseam;
-    }
-
-    public void setInseam(double inseam) {
-        this.inseam = inseam;
-    }
-
-    public double getRise() {
-        return rise;
-    }
-
-    public void setRise(double rise) {
-        this.rise = rise;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

@@ -1,11 +1,7 @@
 // New File: UGT_Services/UserService.java
 package UGT_Services;
-
-import UGT_Controllers.IDGenerator;
 import UGT_Controllers.populateProgram;
 import UGT_Data.*;
-import UGT_UI.Login;
-
 import java.io.*;
 import java.util.*;
 

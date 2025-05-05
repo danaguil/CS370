@@ -2,57 +2,107 @@ package UGT_Controllers;
 import UGT_Data.*;
 import UGT_UI.*;
 
-import java.util.HashMap;
-import java.util.Objects;
+// imported the hashmaps with the classes
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-// imported the hasmaps with the classes
-import static UGT_Controllers.populateProgram.brandMap;
 import static UGT_Controllers.populateProgram.itemMap;
+import static UGT_UI.UploadPage.*;
+
+/**
+ * Controller for the upload page, going to be used to upload items to the database.
+ */
 public class UploadController {
 
-    public static void uploadItem(String itemType) {
+    /**
+     * Uploads an item to the database.
+     * @throws IOException If an error occurs while writing to the item file.
+     */
+    public static void uploadItem() throws IOException {
         Brand currentBrand = programSession.getLoggedInBrand();
 
-        if(currentBrand == null){
-            return;
+        if (currentBrand == null) {
+            System.out.println("Please log in as a brand to upload an item.");
         }
-
         System.out.println("Uploading item for BRAND:");
         System.out.println("Brand Name: " + currentBrand.getBrand_name());
-        System.out.println("Brand ID: " + currentBrand.getId());
 
-        String itemID = IDGenerator.generateID();
-        String name = UploadPage.getItemName();
+
+        // Basic components of an item
+
+        String itemType = getItemTypes();
+        String itemName = UploadPage.getItemName();
+        String size = getSelected(size_combo);
+        String color = getSelected(color_combo);
         double price = Double.parseDouble(UploadPage.getPrice());
-        //int quantity = Integer.parseInt(UploadPage.getQuantity());
-        int quantity = 1;
+        String imagePath = UploadPage.getPost_photo();
         String description = UploadPage.getDescription();
 
-        String material1 = Objects.requireNonNull(UploadPage.material_1_combo.getSelectedItem()).toString();
-        String material2 = Objects.requireNonNull(UploadPage.material_2_combo.getSelectedItem()).toString();
-        String material3 = Objects.requireNonNull(UploadPage.material_3_combo.getSelectedItem()).toString();
-        String color = Objects.requireNonNull(UploadPage.color_combo.getSelectedItem()).toString();
+        String itemID = IDGenerator.generateID();
+        String brandId = currentBrand.getId();
 
-        // Tags based on an item type (example)
-        String tag1 = "idk";
-        String tag2 = "Clothing";
-        String tag3 = "UGThreads";
+        String sleeveLength = "";
+        String shoeType = "";
 
-        String imagePath = UploadPage.getPost_photo();
+        int waistSize = 0;
+        Item item = null;
 
-        Item item = new Item(name, price, quantity, description,
-                material1, material2, material3, color,
-                tag1, tag2, tag3, imagePath, itemID, currentBrand.getId()); // assuming current brand
-
-        itemMap.put(item.getItemId(), item);
+        switch (itemType) {
+            case "Tops" -> {
+                System.out.println("Going to make class");
+                sleeveLength = getSelected(sleeve_length_combo);
+                item = new Tops(itemName, size, sleeveLength, price, color, description,
+                        imagePath, itemID, brandId);
+            }
+            case "Bottoms" -> {
+                waistSize = Integer.parseInt(getSelected(waist_size_combo));item = new Bottoms(itemName, size, waistSize, price, color, description,
+                      imagePath, itemID, brandId);
+            }
+            case "Shoes" -> {
+                shoeType = getSelected(shoes_type_combo);
+                item = new Shoes(itemName, size, shoeType, price, color, description,
+                        imagePath, itemID, brandId);
+            }
+        }
+        System.out.println(sleeveLength);
+        itemMap.put(itemID,item);
         currentBrand.addItem(item); // add to brand class
 
-        System.out.println("Uploaded item: " + name);
-        System.out.println("Item ID: " + item.getItemId());
-        System.out.println("↳ Uploaded by brand ID: " + item.getBrandId());
+        System.out.println("Uploaded item: " + itemName);
+        System.out.println("Item ID: " + itemID);
+        System.out.println("↳ Uploaded by brand ID: " + brandId);
 
-        item.displayInfo();
+        writeItemtoTextFile(itemName, size, color, price,
+                imagePath, description, itemID, brandId,
+                sleeveLength, waistSize, shoeType, itemType);
     }
+
+
+    public static void writeItemtoTextFile(String itemName, String size, String color, double price,
+                                            String imagePath, String description, String itemID, String brandID,
+                                           String sleeveLength, int waistSize, String shoeType, String itemType) throws IOException {
+        FileWriter fw = new FileWriter(populateProgram.itemsFile, true);
+        PrintWriter out = new PrintWriter(fw);
+
+        System.out.println(sleeveLength);
+
+        if(itemType.equals("Tops")) {
+            out.println(itemName + "," + size + "," + sleeveLength + "," + price + "," + description + "," + color +
+                    "," + imagePath + "," + itemID + "," + itemType + ',' + brandID);
+        } else if(itemType.equals("Bottoms")){
+            out.println(itemName + "," + size + "," + waistSize + "," + price + "," + description + "," + color +
+                    "," + imagePath + "," + itemID + "," + itemType + ',' + brandID);
+        } else if(itemType.equals("Shoes")){
+            out.println(itemName + "," + size + "," + shoeType + "," + price + "," + description + "," + color +
+                    "," + imagePath + "," + itemID + "," + itemType + ',' + brandID);
+        } else {
+            System.out.println("Unknown item type: " + itemType);
+        }
+
+        out.close();
+    }
+
 
 
 

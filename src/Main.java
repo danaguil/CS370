@@ -18,5 +18,6 @@ public class Main extends JFrame {
         LoginController.initialize();
         new Login();
         new Buyer_Pages();
+        // new Brand_Pages();
     }
 }

@@ -4,6 +4,9 @@ import UGT_Controllers.IDGenerator;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
+
+import static UGT_Controllers.populateProgram.brandMap;
 
 public class Brand extends User{
 
@@ -81,7 +84,19 @@ public class Brand extends User{
         return brandItems;
     }
 
-    public void addItem(Item itemToAdd) {}
+    public void addItem(Item item){
+       brandItems.add(item);
+    }
+
+    public static String getBrandUsernameById(String brandId) {
+        for (Map.Entry<String, Brand> entry : brandMap.entrySet()) {
+            if (entry.getValue().getId().equals(brandId)) {
+                return entry.getKey(); // the username
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void displayInfo() {

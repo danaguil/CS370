@@ -1,22 +1,24 @@
 package UGT_Data;
 
+/**
+ * Shoes class that extends Item class
+ * shoeType: e.g. "running", "sneakers", "high heels"
+ */
 public class Shoes extends Item {
+    private String shoeType;
 
-    private int size;
+    public Shoes(String name, String size, String shoeType, double price, String color,
+                 String description, String imagePath, String itemId, String brandId) {
+        super(name, size, price, description, color, imagePath, itemId, brandId);
 
-
-    public Shoes(String name, double price, int quantity, String description, String material_1, String material_2,
-                 String material_3, String color, String tag_1, String tag_2, String tag_3, String imagePath, String itemId, String brandId, int size) {
-        super(name, price, quantity, description, material_1, material_2, material_3, color, tag_1, tag_2, tag_3, imagePath, itemId, brandId);
-
-        this.size = size;
+        this.shoeType = shoeType;
     }
 
-    public int getSize() {
-        return size;
+    public String getshoesType() {
+        return shoeType;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void getshoesType(String shoeType) {
+        this.shoeType = shoeType;
     }
 }

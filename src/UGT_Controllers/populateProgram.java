@@ -1,9 +1,6 @@
 package UGT_Controllers;
 
-import UGT_Data.Brand;
-import UGT_Data.Customer;
-import UGT_Data.Item;
-import UGT_Data.User;
+import UGT_Data.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,6 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import static UGT_Data.Brand.getBrandUsernameById;
 
 public class populateProgram {
     // Getting the correct file location
@@ -154,70 +153,48 @@ public class populateProgram {
         }
         return null;
     }
-
-
-    // brandItems.txt does have an id
-    // each brand has its own id
-
-    // how do we connect brandItems.txt to brand when they upload an brandItems.txt
-
-    // brandItems.txt id is added to brand class
-    // if brandItems.txt id from brand array matches brandItems.txt id from text file
-    // add brandItems.txt to brand arrayList
-    // if customer likes an brandItems.txt
-    // add brandItems.txt id to customer liked items arrayList
-
-    // if brandItems.txt id from customer liked items arrayList matches brandItems.txt id from text file
-    // add brandItems.txt to customer liked items arrayList
-
-    // if brandItems.txt is removed from brand
-    // remove brandItems.txt id from brand arrayList and customer liked items arrayList
-
-    // if brandItems.txt is removed from customer liked items,
-    // remove brandItems.txt id from customer liked items arrayList
-
-    // brandItems.txt text file: info about brandItems.txt then id, brandid, customerid, price, description, image file location
-    // brand text file: info about brand then id, logo file location, about brand, instagram handle, tiktok handle,
-
-
-    // customer text file: info about customer then id, first name, last name, address, liked posts, followed brands, orders
-    // customer cart text file: info about customer cart then id, brandItems.txt id, quantity, price
-    // order text file: info about order then id, customer id, brandItems.txt id, quantity, price, shipping address, status, date placed
-
     // key = if; value = brandItems.txt
     public static final HashMap<String, Item> itemMap = new HashMap<>();
 
     public static void populateItemsMap(String[] parts) {
-        String itemId = parts[0];
-        String name = parts[1];
-        double price = Double.parseDouble(parts[2]);
-        int quantity = Integer.parseInt(parts[3]);
+        String name = parts[0];
+        String size = parts[1];
+        String uniqueField = parts[2]; // sleeveLength OR waistSize OR shoeType
+        double price = Double.parseDouble(parts[3]);
         String description = parts[4];
-        String material1 = parts[5];
-        String material2 = parts[6];
-        String material3 = parts[7];
-        String color = parts[8];
-        String tag1 = parts[9];
-        String tag2 = parts[10];
-        String tag3 = parts[11];
-        String imagePath = parts[12];
-        String brandId = parts[13];
+        String color = parts[5];
+        String imagePath = parts[6];
+        String itemId = parts[7];
+        String itemType = parts[8];
+        String brandId = parts[9];
 
+        Item item = null;
 
-        Item item = new Item(name, price, quantity, description,
-                material1, material2, material3,
-                color, tag1, tag2, tag3, imagePath, itemId, brandId);
+        switch (itemType.toLowerCase()) {
+            case "tops" -> {
+                item = new Tops(name, size, uniqueField, price, color, description, imagePath, itemId, brandId);
+            }
+            case "bottoms" -> {
+                int waistSize = Integer.parseInt(uniqueField);
+                item = new Bottoms(name, size, waistSize, price, color, description, imagePath, itemId, brandId);
+            }
+            case "shoes" -> {
+                item = new Shoes(name, size, uniqueField, price, color, description, imagePath, itemId, brandId);
+            }
+        }
 
         itemMap.put(itemId, item);
+        assert item != null;
         item.displayInfo();
-    }
-/*
-    public static void addItemsToBrand(HashMap<String, Item> itemMap, HashMap<String, Brand> brandMap) {
-        if(itemMap.isEmpty() || brandMap.isEmpty()) return;
 
-        if(itemMap.getKey)
+        // Optionally: connect to brand
+        Brand brand = brandMap.getOrDefault(getBrandUsernameById(brandId), null);
+        if (brand != null) {
+            brand.addItem(item);
+        }
+        assert brand != null;
+        brand.displayInfo();
     }
-    */
 }
 
 

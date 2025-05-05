@@ -1,16 +1,22 @@
 package UGT_UI;
 
+import UGT_Controllers.UserInteractions;
+import UGT_Controllers.populateProgram;
+import UGT_Data.Item;
+import UGT_Data.Brand;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
+
+import static UGT_Data.Brand.getBrandUsernameById;
 
 // item hashmap <itemid,itemclass>
-import java.util.List; // list class code
-import java.util.HashMap;
-import java.util.Map;
+
 // call the item class, item.getItemName
 // static hashmap for item
 
@@ -39,18 +45,27 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
     public Buyer_DiscoverPage() {
         this.setLayout(new BorderLayout());
 
-        JButton post33 = post("CFORCARLITOS","a company that cares ", String.valueOf(barlitosPhoto),"69");
-        add_post_to_discover(post33);
 
+        // gets all items from the hashmap
+        List<Item> allItems = new ArrayList<>(populateProgram.itemMap.values());
+        Collections.shuffle(allItems); // shuffles them randomly
 
+        int numberOfItems = Math.min(allItems.size(), 10); // 10 or fewer
 
-        JButton post3 = post("Stussy","tüssy (/ˈstuːsi/) is an American privately held fashion house founded in the early 1980s by Shawn Stussy. It benefited from the surfwear trend originating in Orange County, California, but was later adopted by the skateboard and hip hop scenes.", String.valueOf(barlitosPhoto),"69");
-        add_post_to_discover(post3);
+        List<Item> randomItems = allItems.subList(0, numberOfItems); // gets the first 10 items
 
+        //  Goes through the list of items and creates a button for each one.
+        for (Item item : randomItems) {
+            // gets information from the item class
+            String brandName = getBrandUsernameById(item.getBrandId());
+            String desc = item.getDescription();
+            String photoPath = item.getImagePath(); // Assuming it's a path or ImageIcon source
+            String price = String.valueOf(item.getPrice());
 
-        JButton post = post("Huf","HUF-founder Keith Hufnagel grew up skateboarding in the gritty streets of 1980s New York City. He was part of an early street skating generation that came up amongst a melting pot of city countercultures—hip hop, punk, graffiti, streetwear, and other underground movements.", String.valueOf(barlitosPhoto),"45");
-        add_post_to_discover(post);
-
+            // creates a button with the item's information
+            JButton postButton = post(brandName, desc, photoPath, price, item);
+            add_post_to_discover(postButton);
+        }
 
         this.add(discover_page(), BorderLayout.CENTER);
     }
@@ -125,8 +140,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
     }
 
 
-
-    private JButton post(String brandname,String description ,String photo_path,String price){
+    private JButton post(String brandname,String description ,String photo_path,String price, Item item){
         //creating button ---> post
         JButton post = new JButton();
         //adding the image to the button
@@ -144,7 +158,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Window parentWindow = SwingUtilities.getWindowAncestor(Buyer_DiscoverPage.this);
-                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price)," ",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(parentWindow,PostPopUp(brandname,description,photo_path,price, item)," ",JOptionPane.PLAIN_MESSAGE);
 
             }
         });
@@ -156,7 +170,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
 
     //this will create the actual post (once the button (post) is clicked this pops up)
-    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price ){
+    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price, Item item){
 
         //creating a panel
         JPanel makeapost = new JPanel();
@@ -173,10 +187,6 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         JButton brandname_button = new JButton(brandname);
         //so you wont see a rectangle
         brandname_button.setFocusable(false);
-
-
-
-
 
 
         brandname_button.addActionListener(new ActionListener() {
@@ -260,8 +270,9 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         add_to_cart_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // UserInteractions.addToCart(item);
+                UserInteractions.addToCart(item);
                 System.out.println("you clicked cart button");
-
             }
         });
 

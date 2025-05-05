@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 //change out JFrame to JPanel
 
@@ -61,21 +64,21 @@ public class UploadPage extends JPanel implements ActionListener {
     public static JComboBox<String> size_combo = new JComboBox<>(size_array);
 
     // Tops Combo Boxes
-    JComboBox<String> top_type_combo = new JComboBox<>(top_type_array);
-    JComboBox<String> chest_size_combo = new JComboBox<>(measurement_array);
-    JComboBox<String> hem_size_combo = new JComboBox<>(measurement_array);
-    JComboBox<String> sleeve_length_combo = new JComboBox<>(measurement_array);
+    static JComboBox<String> top_type_combo = new JComboBox<>(top_type_array);
+    static JComboBox<String> chest_size_combo = new JComboBox<>(measurement_array);
+    static JComboBox<String> hem_size_combo = new JComboBox<>(measurement_array);
+    public static JComboBox<String> sleeve_length_combo = new JComboBox<>(measurement_array);
 
 
     // Bottoms Combo Boxes
     JComboBox<String> bottom_type_combo = new JComboBox<>(bottom_type_array);
     JComboBox<String> inseam_combo = new JComboBox<>(measurement_array);
     JComboBox<String> rise_combo = new JComboBox<>(rise_array);
-    JComboBox<String> waist_size_combo = new JComboBox<>(measurement_array);
+    public static JComboBox<String> waist_size_combo = new JComboBox<>(measurement_array);
     JComboBox<String> thigh_size_combo = new JComboBox<>(measurement_array);
 
     // Shoes Combo Boxes
-    JComboBox<String> shoes_type_combo = new JComboBox<>(shoes_type_array);
+    public static JComboBox<String> shoes_type_combo = new JComboBox<>(shoes_type_array);
     JComboBox<String> shoes_material1_combo = new JComboBox<>(shoes_material_array);
     JComboBox<String> shoes_material2_combo = new JComboBox<>(shoes_material_array);
     JComboBox<String> shoes_material3_combo = new JComboBox<>(shoes_material_array);
@@ -355,11 +358,9 @@ public class UploadPage extends JPanel implements ActionListener {
         tops_panel.add(description_panel(394), 0, 4);
         tops_panel.add(getUploadPostButton(), 0, 5);
         tops_panel.add(image_btn(508), 0, 6);
-
-
-
         return tops_panel;
     }
+
 
     // Data Input Fields for Bottom Item
     private JLayeredPane getBottomsPanel() {
@@ -389,6 +390,12 @@ public class UploadPage extends JPanel implements ActionListener {
         return bottoms_panel;
     }
 
+
+    public static String getSelected(JComboBox<String> topTypeCombo) {
+        Object selected = topTypeCombo.getSelectedItem();
+        return selected != null ? selected.toString() : "";
+    }
+
     private JLayeredPane getShoesPanel(){
         JLayeredPane shoes_panel = new JLayeredPane();
         shoes_panel.setBounds(50, 50, 500, 660);
@@ -413,13 +420,13 @@ public class UploadPage extends JPanel implements ActionListener {
 
 
 
+    public static String itemType = ""; // stays active until Upload is clicked
 
 
 
     // Action Performers
     @Override
     public void actionPerformed(ActionEvent e) {
-        String itemType = ""; // stays active until Upload is clicked
 
 
         // Switch to Profile Page
@@ -583,13 +590,16 @@ public class UploadPage extends JPanel implements ActionListener {
 
         if(e.getSource() == upload_post_btn) {
 
-            System.out.println("Item Successfully uploaded!");
-
-
 
             new ProfilePage();
 
-            UploadController.uploadItem(itemType);
+            try {
+                UploadController.uploadItem();
+                System.out.println("Item Successfully uploaded!");
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
         }
 
@@ -597,6 +607,11 @@ public class UploadPage extends JPanel implements ActionListener {
             photo_selection();
         }
     }
+
+    public static String getItemTypes(){
+        return itemType;
+    }
+
 
 
 
@@ -642,6 +657,8 @@ public class UploadPage extends JPanel implements ActionListener {
 
         return path.getAbsolutePath();
     }
+
+
 
     // Check all the Top Item data entries in order to enable upload_post_btn
     private void checkTopFields(){
@@ -710,5 +727,4 @@ public class UploadPage extends JPanel implements ActionListener {
         }
 
     }
-
 }

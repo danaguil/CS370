@@ -187,8 +187,11 @@ public class LoginController {
         // Get information from GUI
         String emailKey = Login.get_OTCL_email();
         String newPassword = Login.get_OTCL_password();
+        boolean validOTP = false;
 
-        verifySingleInfo(newPassword, "password");
+        while(!validOTP){
+            validOTP = verifySingleInfo(newPassword, "password");
+        };
 
         // Finally, update password if code is valid
         UserService.updatePassword(emailKey, newPassword);
