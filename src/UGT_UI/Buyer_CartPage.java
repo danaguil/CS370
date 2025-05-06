@@ -1,11 +1,19 @@
 package UGT_UI;
 
+import UGT_Controllers.UserInteractions;
+import UGT_Controllers.populateProgram;
+import UGT_Data.Customer;
+import UGT_Data.Item;
+import UGT_Data.programSession;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+
+import static UGT_Data.Brand.getBrandUsernameById;
 
 public class Buyer_CartPage extends JPanel implements ActionListener {
 
@@ -16,6 +24,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     File barlitosPhoto = new File("src/barlitos.jpg");
 
     double total_price = 0.00;
+    private final JPanel cartContainer; // Add this at the top of your class
 
 
 
@@ -23,33 +32,37 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     public Buyer_CartPage() {
         this.setLayout(new BorderLayout());
 
-
-
-
-
-       JPanel posts = post("danny","a brand that cares", String.valueOf(barlitosPhoto), 10.00);
-        add_to_cart(posts);
-
-
-
-        JPanel postss = post("paulo","a brand that cares", String.valueOf(barlitosPhoto), 10.00);
-        add_to_cart(postss);
-
-
-
-        JPanel dayrel = post("carlitos","a brand that cares", String.valueOf(barlitosPhoto), 20.00);
-        add_to_cart(dayrel);
-
-
-
-        JPanel postssss = post("barlitos","a brand that cares", String.valueOf(barlitosPhoto), 10.00);
-        add_to_cart(postssss);
-
+        cartContainer = new JPanel();
+        cartContainer.setLayout(new BoxLayout(cartContainer, BoxLayout.Y_AXIS));
 
         this.add(Cart_page(), BorderLayout.CENTER);
+
+        refreshCartPage();
     }
 
+    public void refreshCartPage(){
 
+        Customer customer = programSession.getLoggedInCustomer();
+
+        System.out.println("customer id: " + customer.getId());
+        for(String id : customer.getCart()){
+
+            // gets information from the item class
+            Item item = populateProgram.itemMap.get(id);
+
+            String brandName = getBrandUsernameById(item.getBrandId());
+            String desc = item.getDescription();
+            String photoPath = item.getImagePath(); // Assuming it's a path or ImageIcon source
+            double price = item.getPrice();
+
+            System.out.println(brandName + "added " + desc + " " + photoPath + " " + price);
+            // creates a button with the item's information
+            JPanel post = post(brandName, desc, photoPath, price, item);
+            add_to_cart(post);
+        }
+        //cartContainer.revalidate();
+       // cartContainer.repaint();
+    }
 
     //arraylist that holds the users items
     private final ArrayList<JPanel> all_items_in_cart = new ArrayList<>();
@@ -168,11 +181,6 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
                         }
                     });
 
-
-
-
-
-
                     //adding button to total_panel
                     total_panel.add(buy_button);
                     cart_grid.add(total_panel);
@@ -199,7 +207,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     }
 
 
-    private JPanel post(String brandname,String description ,String photo_path,double price){
+    private JPanel post(String brandname, String description , String photo_path, double price, Item item){
         //creating button ---> post
         JPanel post = new JPanel();
         post.setLayout(new BorderLayout());
@@ -258,6 +266,8 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
               all_items_in_cart.remove(post);
+
+              UserInteractions.removeFromCart(item);
               print_cart_grid();
             }
         });
@@ -321,8 +331,6 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     //footer buttons
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
 
     }
 

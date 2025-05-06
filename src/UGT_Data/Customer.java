@@ -22,7 +22,7 @@ public class Customer extends User{
     private final ArrayList<String> likedPosts;
     private final ArrayList<String> followedBrand ;
     private final ArrayList<Order> ordersList;
-    private final ArrayList<Item> customerCart;
+    private final ArrayList<String> customerCart;
 
     // Constructor for Customer class
     public Customer(String email, String username, String password, String first_name, String last_name, String address,
@@ -36,7 +36,7 @@ public class Customer extends User{
         this.likedPosts = new ArrayList<>();
         this.followedBrand = new ArrayList<>();
         this.ordersList = new ArrayList<>();
-        this.customerCart = new ArrayList<>();
+        this.customerCart = new ArrayList<>(); // ensure it's never null
     }
 
     // All the getters
@@ -70,9 +70,14 @@ public class Customer extends User{
     }
 
     public void addToCart(Item item){
-        customerCart.add(item);
+        customerCart.add(item.getItemId());
     }
-
+    public void removeFromCart(Item item){
+        customerCart.remove(item.getItemId());
+    }
+    public ArrayList<String> getCart(){
+        return customerCart;
+    }
     public ArrayList<String> getLikedPosts() {
         return likedPosts;
     }

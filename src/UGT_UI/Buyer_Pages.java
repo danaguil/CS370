@@ -25,7 +25,7 @@ public class Buyer_Pages extends JPanel implements ActionListener {
     JPanel maincard;
 
     //creating objects
-    Buyer_CartPage cartPage;
+    static Buyer_CartPage cartPage;
     Buyer_SearchPage searchPage;
     Buyer_HomePage homePage;
     Buyer_DiscoverPage discoverPage;
@@ -109,6 +109,9 @@ public class Buyer_Pages extends JPanel implements ActionListener {
     }
 
 
+    public static Buyer_CartPage getCartPage() {
+        return cartPage;
+    }
 
 
 
@@ -172,10 +175,6 @@ public class Buyer_Pages extends JPanel implements ActionListener {
             cartPage.print_cart_grid();
             //shows page
             cards.show(maincard, "cartPage");
-
-
-
-
         }
 
     }

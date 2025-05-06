@@ -16,7 +16,6 @@ public class Main extends JFrame {
 
         // TODO: add item name to lowercase and add to hashmap
         LoginController.initialize();
-        new Login();
-        new Buyer_Pages();
+
     }
 }

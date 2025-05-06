@@ -5,6 +5,8 @@ import UGT_Data.Customer;
 import UGT_Data.ResetCode;
 import UGT_Data.User;
 import UGT_Services.UserService;
+import UGT_UI.Brand_Pages;
+import UGT_UI.Buyer_Pages;
 import UGT_UI.Login;
 import UGT_Data.programSession;
 
@@ -57,11 +59,9 @@ public class LoginController {
             // Check if a user is a brand or customer
             if (user instanceof Brand brand) {
                 programSession.setLoggedInBrand(brand);
-                System.out.println("Logged in as a Brand: " + brand.getBrand_name());
                 // TODO: Redirect to Brand Home Page
             } else if (user instanceof Customer customer) {
                 programSession.setLoggedInCustomer(customer);
-                System.out.println("Logged in as a Customer: " + customer.getUsername());
                 // TODO: Redirect to Customer Home Page
             }
 
