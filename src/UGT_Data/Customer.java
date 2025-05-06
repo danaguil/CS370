@@ -72,6 +72,19 @@ public class Customer extends User{
     public void addToCart(Item item){
         customerCart.add(item.getItemId());
     }
+
+    public void addToLikedPosts(String postId){
+        likedPosts.add(postId);
+    }
+
+    public void addToFollowedBrand(String brandId){
+        followedBrand.add(brandId);
+    }
+
+    public void removeFromLikedPosts(String postId){
+        likedPosts.remove(postId);
+    }
+
     public void removeFromCart(Item item){
         customerCart.remove(item.getItemId());
     }
@@ -86,9 +99,14 @@ public class Customer extends User{
         return followedBrand;
     }
 
+    public void removeFromFollowedBrand(String brandId){
+        followedBrand.remove(brandId);
+    }
+
     public ArrayList<Order> getOrdersList() {
         return ordersList;
     }
+
 
     @Override
     public void displayInfo() {

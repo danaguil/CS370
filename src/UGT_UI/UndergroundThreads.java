@@ -22,7 +22,7 @@ public class UndergroundThreads extends JFrame {
     //finna go from login to buyers
    public UndergroundThreads() {
 
-        this.setTitle("Barlitos");
+        this.setTitle("UndergroundThreads");
         this.setSize(500, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

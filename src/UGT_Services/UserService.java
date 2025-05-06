@@ -285,4 +285,9 @@ public class UserService {
         }
     }
 
+
+    public static void updateCustomerCart(Customer customer, Item item) throws FileNotFoundException {
+
+    }
+
 }

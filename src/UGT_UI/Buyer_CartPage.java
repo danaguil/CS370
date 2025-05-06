@@ -24,20 +24,19 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     File barlitosPhoto = new File("src/barlitos.jpg");
 
     double total_price = 0.00;
-    private final JPanel cartContainer; // Add this at the top of your class
 
+    JPanel cartContainer = new JPanel();
 
-
+    static Item item = null;
     //Cart page constructor
     public Buyer_CartPage() {
         this.setLayout(new BorderLayout());
 
-        cartContainer = new JPanel();
+        // Add this at the top of your class
+
         cartContainer.setLayout(new BoxLayout(cartContainer, BoxLayout.Y_AXIS));
 
         this.add(Cart_page(), BorderLayout.CENTER);
-
-        refreshCartPage();
     }
 
     public void refreshCartPage(){
@@ -48,7 +47,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         for(String id : customer.getCart()){
 
             // gets information from the item class
-            Item item = populateProgram.itemMap.get(id);
+            item = populateProgram.itemMap.get(id);
 
             String brandName = getBrandUsernameById(item.getBrandId());
             String desc = item.getDescription();
@@ -57,11 +56,11 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
             System.out.println(brandName + "added " + desc + " " + photoPath + " " + price);
             // creates a button with the item's information
-            JPanel post = post(brandName, desc, photoPath, price, item);
+            JPanel post = post(brandName, desc, photoPath, price);
             add_to_cart(post);
         }
-        //cartContainer.revalidate();
-       // cartContainer.repaint();
+        cartContainer.revalidate();
+        cartContainer.repaint();
     }
 
     //arraylist that holds the users items
@@ -74,6 +73,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     private void add_to_cart(JPanel cart_item){
         all_items_in_cart.add(cart_item);
     }
+
 
 
 
@@ -146,17 +146,16 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
             for (int i = 0; i < all_items_in_cart.size(); i++) {
                 //creating JPanel
-                JPanel item = all_items_in_cart.get(i);
+                JPanel itemPanel = all_items_in_cart.get(i);
 
 
                 //size
-                item.setPreferredSize(new Dimension(500,200));
+                itemPanel.setPreferredSize(new Dimension(500,200));
 
 
                 //adding item (JPanel) to cart_grid
-                cart_grid.add(item);
+                cart_grid.add(itemPanel);
                 if (i == all_items_in_cart.size() - 1) {
-
                     JPanel total_panel = new JPanel();
                     total_panel.setBackground(Color.LIGHT_GRAY);
                     total_panel.setPreferredSize(new Dimension(500,50));
@@ -169,16 +168,14 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
 
 
-                    buy_button.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            Window parentWindow = SwingUtilities.getWindowAncestor(Buyer_CartPage.this);
-                            JOptionPane.showMessageDialog(parentWindow,thank_you()," ",JOptionPane.PLAIN_MESSAGE);
-                            all_items_in_cart.clear();
-                            System.out.println(all_items_in_cart.size());
-                            print_cart_grid();
-                            total_price = 0.00;
-                        }
+                    buy_button.addActionListener(e -> {
+                        UserInteractions.purchaseItem();
+
+                        Window parentWindow = SwingUtilities.getWindowAncestor(Buyer_CartPage.this);
+                        JOptionPane.showMessageDialog(parentWindow,thank_you()," ",JOptionPane.PLAIN_MESSAGE);
+                        all_items_in_cart.clear();
+                        System.out.println(all_items_in_cart.size());
+                        print_cart_grid();
                     });
 
                     //adding button to total_panel
@@ -207,7 +204,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     }
 
 
-    private JPanel post(String brandname, String description , String photo_path, double price, Item item){
+    private JPanel post(String brandname, String description , String photo_path, double price){
         //creating button ---> post
         JPanel post = new JPanel();
         post.setLayout(new BorderLayout());
@@ -259,17 +256,18 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         remove_button_panel.add(remove_item_button, BorderLayout.CENTER);
        //adding remove_button_panel
 
+        total_price = price;
 
+        remove_item_button.addActionListener(e -> {
+          all_items_in_cart.remove(post);
 
-
-        remove_item_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              all_items_in_cart.remove(post);
-
-              UserInteractions.removeFromCart(item);
-              print_cart_grid();
+            if(e.getSource() == remove_item_button){
+                total_price -= price;
             }
+
+          UserInteractions.removeFromCart(item);
+
+          print_cart_grid();
         });
 
 
@@ -294,9 +292,8 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         JPanel price_panel = new JPanel();
         price_panel.setBackground(Color.WHITE);
         price_panel.setPreferredSize(new Dimension(300,30));
-        JLabel price_label = new JLabel("Price: $" + price);
+        JLabel price_label = new JLabel("Price: $" + price );
 
-        total_price += price;
 
         price_panel.add(price_label);
         item_info_panel.add(price_panel);
@@ -306,6 +303,8 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
         return post;
     }
+
+
 
 
 

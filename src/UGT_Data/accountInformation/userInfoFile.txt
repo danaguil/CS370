@@ -4,3 +4,4 @@ tt,myemail3@gmail.com,ttiufurgortnog,55d0f219-9fb6-40ee-8cb2-bba0c0200545,brand
 dansir,hello@gmail.com,mypass123,b75c0004-8ac6-428d-be62-cf5d7d64e610,buyer
 itsme,mycoolemail@gmail.com,mycoolpass,62ffe17c-9927-45db-884d-22309f074b0a,brand
 mybrand,myemail87@gmail.com,hellothere,aaf176ae-39c8-4d25-a22f-5d192596a399,brand
+brand1,helloworld@gmail.com,mypass1234,2440426e-daea-40da-9726-6992f93e2e8b,brand

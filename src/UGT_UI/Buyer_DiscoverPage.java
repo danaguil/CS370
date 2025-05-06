@@ -271,23 +271,10 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
 
 
-        Buyer_CartPage cartPage = Buyer_Pages.getCartPage();
 
-        add_to_cart_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Customer customer = programSession.getLoggedInCustomer();
-                String itemID = item.getItemId();
-                if(!customer.getCart().contains(itemID)){
-                    UserInteractions.addToCart(item);
-                    cartPage.refreshCartPage();
-                } else {
-                    System.out.println("item already in cart");
-                }
-
-                System.out.println("you clicked cart button");
-
-            }
+        add_to_cart_button.addActionListener(e -> {
+                UserInteractions.addToCart(item);
+            System.out.println("you clicked cart button");
         });
 
 

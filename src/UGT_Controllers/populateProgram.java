@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -19,15 +20,18 @@ public class populateProgram {
     private static final String brandsFileName = "brands.txt";
     private static final String customersFileName = "buyers.txt";
     private static final String itemsFileName = "items.txt";
+    private static final String followersFileName = "followers.txt";
 
     public static final File userFile = new File(directoryPath + usersFileName);
     public static final File brandFile = new File(directoryPath + brandsFileName);
     public static final File customerFile = new File(directoryPath + customersFileName);
     public static final File itemsFile = new File(directoryPath + itemsFileName);
+    public static final File followersFile = new File(directoryPath + followersFileName);
 
     public static final HashMap<String, User> userMap = new HashMap<>(); // User hash map
     public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map, key = brand name, value = brand class object
     public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
+    public static final HashMap<String, Item> itemMap = new HashMap<>();
 
     /**
      * Populates the user hashmap with the information from the userInfoFile.txt file.
@@ -36,6 +40,9 @@ public class populateProgram {
     public static void populateMap() throws FileNotFoundException {
         verifyFileExist(userFile, "user");
         verifyFileExist(itemsFile, "item");
+        verifyFileExist(brandFile, "brand");
+        verifyFileExist(customerFile, "buyer");
+        verifyFileExist(followersFile, "follower");
     }
 
     /**
@@ -69,6 +76,7 @@ public class populateProgram {
             switch (fileType.toLowerCase()) {
                 case "user" -> populateUserMap(parts);
                 case "item" -> populateItemsMap(parts);
+                case "follower" -> populateFollowersMap(parts);
                 default -> System.out.println("Unknown file type: " + fileType);
             }
         }
@@ -153,9 +161,8 @@ public class populateProgram {
         }
         return null;
     }
-    // key = if; value = brandItems.txt
-    public static final HashMap<String, Item> itemMap = new HashMap<>();
 
+    // key = if; value = brandItems.txt
     public static void populateItemsMap(String[] parts) {
         String name = parts[0];
         String size = parts[1];
@@ -185,7 +192,6 @@ public class populateProgram {
 
         itemMap.put(itemId, item);
         assert item != null;
-        item.displayInfo();
 
         // Optionally: connect to brand
         Brand brand = brandMap.getOrDefault(getBrandUsernameById(brandId), null);
@@ -193,8 +199,19 @@ public class populateProgram {
             brand.addItem(item);
         }
         assert brand != null;
-        brand.displayInfo();
     }
+
+    public static void populateFollowersMap(String[] parts) {
+        String brandId = parts[0];
+
+        for(int i = 1; i < parts.length; i++){
+            Customer customer = customerMap.getOrDefault(parts[i], null);
+            if(customer != null){
+                customer.addToFollowedBrand(brandId);
+            }
+        }
+    }
+
 }
 
 

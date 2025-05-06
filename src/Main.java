@@ -12,10 +12,7 @@ import java.util.HashMap;
 
 public class Main extends JFrame {
     public static void main(String[] args) throws FileNotFoundException{
-
-
-        // TODO: add item name to lowercase and add to hashmap
         LoginController.initialize();
-
+        new UndergroundThreads();
     }
 }

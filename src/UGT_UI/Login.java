@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import UGT_Data.ResetCode;
-
+import UGT_Data.programSession;
 
 
 public class Login extends JPanel implements ActionListener {
@@ -190,14 +190,7 @@ public class Login extends JPanel implements ActionListener {
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("It works!!");
-                LoginController.loginUser(); // calls function
-
-                UGT.go_to_buyer_pages();
-
-
-
+                LoginController.loginUser(UGT); // calls function
             }
         });
 
@@ -472,14 +465,11 @@ public class Login extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("Create Account Button works!!"); // for testing
                     LoginController.registerUser("brand"); // calls function
                 } catch (IOException ex) {
                     // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
-
-                System.out.println("your account(BRAND) has been made!!! go log in ");
             }
         });
 
@@ -577,13 +567,11 @@ public class Login extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("Create Account Button works!!"); // for testing
                     LoginController.registerUser("buyer"); // calls function
                 } catch (IOException ex) {
                     // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
-                System.out.println("your account(BUYER) has been made!!! go log in ");
             }
         });
 

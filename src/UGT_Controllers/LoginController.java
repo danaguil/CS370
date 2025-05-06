@@ -9,6 +9,7 @@ import UGT_UI.Brand_Pages;
 import UGT_UI.Buyer_Pages;
 import UGT_UI.Login;
 import UGT_Data.programSession;
+import UGT_UI.UndergroundThreads;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +45,7 @@ public class LoginController {
     /**
      * Logs in a user with the given username and password.
      */
-    public static void loginUser() {
+    public static void loginUser(UndergroundThreads UGT) {
         // Gets information from GUI
         String username = Login.getLoginusername();
         String password = Login.getLoginpassword();
@@ -59,9 +60,12 @@ public class LoginController {
             // Check if a user is a brand or customer
             if (user instanceof Brand brand) {
                 programSession.setLoggedInBrand(brand);
+                System.out.println("You are a brand.");
+                UGT.go_to_brand_pages();
                 // TODO: Redirect to Brand Home Page
             } else if (user instanceof Customer customer) {
                 programSession.setLoggedInCustomer(customer);
+                UGT.go_to_buyer_pages();
                 // TODO: Redirect to Customer Home Page
             }
 

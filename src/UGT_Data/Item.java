@@ -91,6 +91,7 @@ public class Item {
         this.imagePath = imagePath;
     }
 
+
     public void displayInfo(){
         System.out.println("Name: " + name);
         System.out.println("Id: " + getItemId());
