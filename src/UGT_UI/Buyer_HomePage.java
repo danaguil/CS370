@@ -1,5 +1,11 @@
 package UGT_UI;
 
+import UGT_Controllers.UserInteractions;
+import UGT_Controllers.populateProgram;
+import UGT_Data.Brand;
+import UGT_Data.Item;
+import UGT_Data.programSession;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
-import java.util.Random;
+import static UGT_Controllers.populateProgram.brandMap;
+import static UGT_Data.Brand.getBrandUsernameById;
 
 public class Buyer_HomePage extends JPanel implements ActionListener {
 
@@ -29,27 +36,54 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
     JPanel following_grid;
 
 
-
-
     //constructor
     public Buyer_HomePage() {
         this.setLayout(new BorderLayout());
 
 
-
+/*
         for(int i = 0; i < 30; i++){
             JPanel post = PostPopUp("brandpost" + i, "a brand that cares about you", String.valueOf(barlitosPhoto),"89","Xll");
             add_to_following_post(post);
         }
-
-
-
+*/
 
         this.add(following_page(), BorderLayout.CENTER);
     }
 
 
+    public void refreshHomePage() {
+        all_following_post.clear();  // Clear the current post-buttons
 
+        // storing brand id in array
+        ArrayList<String> allFollowedBrands = programSession.getLoggedInCustomer().getFollowedBrand();
+
+
+
+        for (String brandId : allFollowedBrands) {
+            Brand brandClass = brandMap.get(getBrandUsernameById(brandId));
+            if (brandId == null) continue;
+
+            ArrayList<Item> brandItems = brandClass.getBrandItems(); // Assuming this method exists
+
+            System.out.println("brandItems size: " + brandItems.size());
+
+            for (Item item : brandItems) {
+                System.out.println("brandItems size: " + brandItems.size());
+
+                item = populateProgram.itemMap.get(item.getItemId());
+                String brandName = getBrandUsernameById(item.getBrandId());
+                String desc = item.getDescription();
+                String photoPath = item.getImagePath();
+                String price = String.valueOf(item.getPrice());
+                String size = item.getSize();
+
+                JPanel post = PostPopUp(brandName, desc, photoPath, price, size, item);
+                add_to_following_post(post);
+            }
+        }
+        print_following_grid();
+    }
 
 
 
@@ -77,7 +111,12 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
         //making order_grid scrollable
         //VERTICAL_SCROLLBAR_ALWAYS
         //HORIZONTAL_SCROLLBAR_NEVER
-        JScrollPane jsp = new JScrollPane(following_grid, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane jsp = new JScrollPane(following_grid,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+// 👇 Add this line to boost scroll speed
+        jsp.getVerticalScrollBar().setUnitIncrement(10);
         //adding jsp to following_page
         following_page.add(jsp);
 
@@ -93,6 +132,8 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
 
     //print following_grid
     public void print_following_grid(){
+        following_grid.setPreferredSize(new Dimension(500, all_following_post.size() * 480));
+
         //clears all buttons from following_grid
         following_grid.removeAll();
         //if all_following_post has a post
@@ -131,7 +172,7 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
 
 
     //this will create the actual post (once the button (post) is clicked this pops up)
-    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price, String size ){
+    public JPanel PostPopUp(String brandname, String post_description, String photo_path, String price, String size, Item item){
 
         //creating a panel
         JPanel makeapost = new JPanel();
@@ -199,6 +240,7 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
         like_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                UserInteractions.likeDislikeFunction(item);
                 System.out.println("you clicked like button");
 
             }
@@ -215,6 +257,7 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
         add_to_cart_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                UserInteractions.addToCart(item);
                 System.out.println("you clicked cart button");
 
             }
@@ -231,6 +274,7 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
         follow_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                UserInteractions.followFunction(item);
 
                 System.out.println("you clicked follow button");
             }

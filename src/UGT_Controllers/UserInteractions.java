@@ -4,14 +4,13 @@ import UGT_Data.Brand;
 import UGT_Data.Customer;
 import UGT_Data.Item;
 import UGT_Data.programSession;
-import UGT_UI.Buyer_CartPage;
-import UGT_UI.Buyer_LikedPage;
-import UGT_UI.Buyer_Pages;
+import UGT_UI.*;
 
 public class UserInteractions {
     static Customer customer = programSession.getLoggedInCustomer();
     static Buyer_CartPage cartPage = Buyer_Pages.getCartPage();
     static Buyer_LikedPage likedPage = Buyer_Pages.getLikePage();
+    static Buyer_HomePage homePage = Buyer_Pages.getHomePage();
 
     // Adding an item to the cart
     public static void addToCart(Item item) {
@@ -82,6 +81,7 @@ public class UserInteractions {
             System.out.println("Brand added to followed brand");
         }
 
+        homePage.refreshHomePage();
         System.out.println("Customer followed brand: ");
         System.out.println(customer.getFollowedBrand());
     }

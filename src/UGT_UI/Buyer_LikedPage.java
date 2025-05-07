@@ -36,10 +36,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
 
 
     //Jpanel that holds the grid of like post
-    JPanel liked_grid;
-
-    JPanel cartContainer = new JPanel();
-
+    JPanel liked_grid = null;
 
     //constructor
     public Buyer_LikedPage() {
@@ -54,12 +51,8 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
 
 
         }
-
-
- */
-
+*/
         this.add(like_page(), BorderLayout.CENTER);
-
     }
 
     //like function work!!! DONT CHANGE :need to add that unlike feature in liked page
@@ -305,6 +298,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserInteractions.addToCart(item);
+                Buyer_Pages.getHomePage().refreshHomePage();
                 System.out.println("you clicked cart button");
 
             }
@@ -325,6 +319,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserInteractions.followFunction(item);
+
                 System.out.println("you clicked follow button");
             }
         });

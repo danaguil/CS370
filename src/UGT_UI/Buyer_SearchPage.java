@@ -26,7 +26,7 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
 
     //constructor
     public Buyer_SearchPage() {
-
+        Buyer_SearchPage.setInstance(this);
 
         this.setLayout(new BorderLayout());
 
@@ -120,9 +120,35 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
 
     }
 
+
     public static String getSearchedText(){
         return searchforthisbrand.getText();
     }
+
+
+    public static Buyer_SearchPage instance;
+
+    public static void setInstance(Buyer_SearchPage page) {
+        instance = page;
+    }
+
+    public static void clearResults() {
+        if (instance != null) {
+            instance.search_grid.removeAll();
+            instance.search_grid.revalidate();
+            instance.search_grid.repaint();
+        }
+    }
+
+    public static void showSearchResult(JComponent resultComponent) {
+        if (instance != null) {
+            resultComponent.setPreferredSize(new Dimension(500, 100)); // adjust as needed
+            instance.search_grid.add(resultComponent);
+            instance.search_grid.revalidate();
+            instance.search_grid.repaint();
+        }
+    }
+
 
 
     //shows the newest grid
@@ -192,6 +218,9 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
 
 
     }
+
+
+
 
 
 }

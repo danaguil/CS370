@@ -26,8 +26,8 @@ public class Buyer_Pages extends JPanel implements ActionListener {
 
     //creating objects
     static Buyer_CartPage cartPage;
-    Buyer_SearchPage searchPage;
-    Buyer_HomePage homePage;
+    static Buyer_SearchPage searchPage;
+    static Buyer_HomePage homePage;
     static Buyer_DiscoverPage discoverPage;
     static Buyer_LikedPage likedPage;
     Buyer_settings settingsPage;
@@ -117,8 +117,8 @@ public class Buyer_Pages extends JPanel implements ActionListener {
     }
     public static Buyer_LikedPage getLikePage(){ return likedPage;}
     public static Buyer_DiscoverPage getDiscoverPage(){ return discoverPage;}
-
-
+    public static Buyer_HomePage getHomePage(){ return homePage;}
+    public static Buyer_SearchPage getSearchPage(){ return searchPage;}
 
 
 

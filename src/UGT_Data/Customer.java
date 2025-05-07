@@ -88,9 +88,11 @@ public class Customer extends User{
     public void removeFromCart(Item item){
         customerCart.remove(item.getItemId());
     }
+
     public ArrayList<String> getCart(){
         return customerCart;
     }
+
     public ArrayList<String> getLikedPosts() {
         return likedPosts;
     }

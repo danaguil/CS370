@@ -42,7 +42,11 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         Customer customer = programSession.getLoggedInCustomer();
 
         System.out.println("customer id: " + customer.getId());
+
+        total_price = 0.00;
+
         for(String id : customer.getCart()){
+
 
             // gets information from the item class
             item = populateProgram.itemMap.get(id);
@@ -251,7 +255,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         remove_button_panel.add(remove_item_button, BorderLayout.CENTER);
        //adding remove_button_panel
 
-        total_price = price;
+        total_price += price;
 
         System.out.println("total price: " + total_price);
 
@@ -267,8 +271,6 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         });
 
         System.out.println("total price: " + total_price);
-
-
 
         item_info_panel.add(remove_button_panel);
 

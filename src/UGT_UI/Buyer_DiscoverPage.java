@@ -276,6 +276,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserInteractions.followFunction(item);
+                Buyer_Pages.getHomePage().refreshHomePage();
                 System.out.println("you clicked follow button");
             }
         });
