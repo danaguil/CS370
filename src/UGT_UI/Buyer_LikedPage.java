@@ -1,11 +1,18 @@
 package UGT_UI;
 
+import UGT_Controllers.UserInteractions;
+import UGT_Controllers.populateProgram;
+import UGT_Data.Item;
+import UGT_Data.programSession;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+
+import static UGT_Data.Brand.getBrandUsernameById;
 
 
 public class Buyer_LikedPage extends JPanel implements ActionListener {
@@ -25,34 +32,63 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
         all_my_liked_post.add(post);
     }
 
+    Item item = null;
 
 
     //Jpanel that holds the grid of like post
     JPanel liked_grid;
 
+    JPanel cartContainer = new JPanel();
 
 
     //constructor
     public Buyer_LikedPage() {
         this.setLayout(new BorderLayout());
-
-
-
-
-
-
+/*
         for (int i = 0; i < 10; i++) {
 
-            JButton post = post("OBEY","OBEY is a brand founded by American street artist Shepard Fairey in 2001, primarily known for its streetwear and clothing line. ", String.valueOf(barlitosPhoto),"90","XLL");
+            JButton post = post("OBEY","OBEY is a brand founded by American street " +
+                    "artist Shepard Fairey in 2001, primarily known for its streetwear " +
+                    "and clothing line. ", String.valueOf(barlitosPhoto),"90","XLL");
             add_to_all_my_liked_post(post);
 
 
         }
 
 
+ */
+
         this.add(like_page(), BorderLayout.CENTER);
 
     }
+
+    //like function work!!! DONT CHANGE :need to add that unlike feature in liked page
+    public void refreshLikePage(){
+        all_my_liked_post.clear();
+
+        // gets all items from the hashmap
+        ArrayList<String> likedPosts = programSession.getLoggedInCustomer().getLikedPosts();
+
+        //  Goes through the list of items and creates a button for each one.
+        for (String itemId : likedPosts) {
+            item = populateProgram.itemMap.get(itemId);
+            if(item == null){return;}
+
+            // gets information from the item class
+            String brandName = getBrandUsernameById(item.getBrandId());
+            String desc = item.getDescription();
+            String photoPath = item.getImagePath(); // Assuming it's a path or ImageIcon source
+            String price = String.valueOf(item.getPrice());
+            String size = item.getSize();
+
+            // creates a button with the item's information
+            JButton postButton = post(brandName, desc, photoPath, price, size);
+            add_to_all_my_liked_post(postButton);
+        }
+        print_liked_grid();
+
+    }
+
 
 
 
@@ -245,6 +281,8 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
         like_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                UserInteractions.likeDislikeFunction(item);
+
                 System.out.println("you clicked like button");
 
             }
@@ -266,6 +304,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
         add_to_cart_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                UserInteractions.addToCart(item);
                 System.out.println("you clicked cart button");
 
             }
@@ -285,7 +324,7 @@ public class Buyer_LikedPage extends JPanel implements ActionListener {
         follow_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                UserInteractions.followFunction(item);
                 System.out.println("you clicked follow button");
             }
         });

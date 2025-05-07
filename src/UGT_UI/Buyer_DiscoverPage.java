@@ -2,10 +2,7 @@ package UGT_UI;
 
 import UGT_Controllers.UserInteractions;
 import UGT_Controllers.populateProgram;
-import UGT_Data.Customer;
 import UGT_Data.Item;
-import UGT_Data.Brand;
-import UGT_Data.programSession;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +13,6 @@ import java.util.*;
 import java.util.List;
 
 import static UGT_Data.Brand.getBrandUsernameById;
-
-// item hashmap <itemid,itemclass>
-
-// call the item class, item.getItemName
-// static hashmap for item
 
 public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
@@ -39,14 +31,21 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
 
     //JPanel that will hold all the post
-    JPanel discover_grid;
-
+    JPanel discover_grid = null;
 
     //constructor
     //get img path
     public Buyer_DiscoverPage() {
         this.setLayout(new BorderLayout());
 
+        this.add(discover_page(), BorderLayout.CENTER);
+
+        refreshDiscoverPage();
+    }
+
+
+    public void refreshDiscoverPage() {
+        all_discover_post.clear();
         // gets all items from the hashmap
         List<Item> allItems = new ArrayList<>(populateProgram.itemMap.values());
         Collections.shuffle(allItems); // shuffles them randomly
@@ -67,11 +66,8 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
             JButton postButton = post(brandName, desc, photoPath, price, item);
             add_post_to_discover(postButton);
         }
-
-        this.add(discover_page(), BorderLayout.CENTER);
+        print_discover_grid();
     }
-
-
 
 
     //main page
@@ -142,7 +138,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
 
 
-    private JButton post(String brandname,String description ,String photo_path,String price, Item item){
+    private JButton post(String brandname, String description, String photo_path, String price, Item item){
         //creating button ---> post
         JButton post = new JButton();
         //adding the image to the button
@@ -172,7 +168,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
 
     //this will create the actual post (once the button (post) is clicked this pops up)
-    private JPanel PostPopUp(String brandname,String post_description ,String photo_path,String price, Item item){
+    private static JPanel PostPopUp(String brandname, String post_description, String photo_path, String price, Item item){
 
         //creating a panel
         JPanel makeapost = new JPanel();
@@ -202,10 +198,6 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
             }
         });
-
-
-
-
 
 
 
@@ -248,21 +240,14 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         //gets rid of rectangle
         like_button.setFocusable(false);
 
-
-
-
         like_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("you clicked like button");
+                UserInteractions.likeDislikeFunction(item);
 
+                System.out.println("you clicked like button");
             }
         });
-
-
-
-
-
 
         JButton add_to_cart_button = new JButton("AddCart");
         //gets rid of rectangle
@@ -270,15 +255,10 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         //add_to_cart_button.setEnabled(false);
 
 
-
-
         add_to_cart_button.addActionListener(e -> {
-                UserInteractions.addToCart(item);
+            UserInteractions.addToCart(item);
             System.out.println("you clicked cart button");
         });
-
-
-
 
 
         JButton follow_button = new JButton("Follow");
@@ -295,14 +275,13 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
         follow_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                UserInteractions.followFunction(item);
                 System.out.println("you clicked follow button");
             }
         });
 
 
-
+   // work on GUI bug, where item liked isn't removed from there
 
 
         //adding to button panel

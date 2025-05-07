@@ -14,7 +14,7 @@ public class UndergroundThreads extends JFrame {
 
     Buyer_Pages buyer_pages;
     Login login;
-   // Brand_Pages brand_pages;
+   Brand_Pages brand_pages;
 
 
 
@@ -35,7 +35,7 @@ public class UndergroundThreads extends JFrame {
 
         buyer_pages = new Buyer_Pages(this);
         login = new Login(this);
-       // brand_pages = new Brand_Pages();
+        brand_pages = new Brand_Pages();
 
 
         maincard.add(login, "login_pages");

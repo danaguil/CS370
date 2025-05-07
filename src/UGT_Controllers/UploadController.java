@@ -19,6 +19,7 @@ public class UploadController {
      * Uploads an item to the database.
      * @throws IOException If an error occurs while writing to the item file.
      */
+
     public static void uploadItem() throws IOException {
         Brand currentBrand = programSession.getLoggedInBrand();
 
@@ -72,6 +73,12 @@ public class UploadController {
         System.out.println("Uploaded item: " + itemName);
         System.out.println("Item ID: " + itemID);
         System.out.println("↳ Uploaded by brand ID: " + brandId);
+
+
+
+        Buyer_Pages.getDiscoverPage().refreshDiscoverPage();
+
+
 
         writeItemtoTextFile(itemName, size, color, price,
                 imagePath, description, itemID, brandId,

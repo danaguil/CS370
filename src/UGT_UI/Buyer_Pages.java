@@ -28,8 +28,8 @@ public class Buyer_Pages extends JPanel implements ActionListener {
     static Buyer_CartPage cartPage;
     Buyer_SearchPage searchPage;
     Buyer_HomePage homePage;
-    Buyer_DiscoverPage discoverPage;
-    Buyer_LikedPage likedPage;
+    static Buyer_DiscoverPage discoverPage;
+    static Buyer_LikedPage likedPage;
     Buyer_settings settingsPage;
 
 
@@ -106,12 +106,17 @@ public class Buyer_Pages extends JPanel implements ActionListener {
          */
 
        //////// this.setVisible(true);
+
+        discoverPage.print_discover_grid();
+        cards.show(maincard, "discoverPage");
     }
 
 
     public static Buyer_CartPage getCartPage() {
         return cartPage;
     }
+    public static Buyer_LikedPage getLikePage(){ return likedPage;}
+    public static Buyer_DiscoverPage getDiscoverPage(){ return discoverPage;}
 
 
 

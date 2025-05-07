@@ -31,7 +31,7 @@ public class populateProgram {
     public static final HashMap<String, User> userMap = new HashMap<>(); // User hash map
     public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map, key = brand name, value = brand class object
     public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
-    public static final HashMap<String, Item> itemMap = new HashMap<>();
+    public static final HashMap<String, Item> itemMap = new HashMap<>(); // key = id; value = item class
 
     /**
      * Populates the user hashmap with the information from the userInfoFile.txt file.
@@ -132,7 +132,6 @@ public class populateProgram {
         }
         return null;
     }
-
 
 
     public static Customer populateCustomerFromFile(String idToFind) {
