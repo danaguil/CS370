@@ -26,6 +26,7 @@ public class UndergroundThreads extends JFrame {
         this.setTitle("UndergroundThreads");
         this.setSize(500, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
         //will be cardlayout
         cards = new CardLayout();
@@ -36,11 +37,12 @@ public class UndergroundThreads extends JFrame {
 
         buyer_pages = new Buyer_Pages(this);
         login = new Login(this);
-
+//        brand_pages = new Brand_Pages();
 
 
         maincard.add(login, "login_pages");
         maincard.add(buyer_pages, "buyer_pages");
+
 
 
 
@@ -70,7 +72,7 @@ public class UndergroundThreads extends JFrame {
     }
 
     public void create_brand_pages(){
-       brand_pages = new Brand_Pages();
+       brand_pages = new Brand_Pages(UndergroundThreads.this);
        maincard.add(brand_pages, "brand_pages");
     }
 

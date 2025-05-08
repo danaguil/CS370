@@ -37,8 +37,8 @@ public class populateProgram {
     public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map, key = brand name, value = brand class object
     public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
     public static final HashMap<String, Item> itemMap = new HashMap<>(); // key = id; value = item object
-    public static final HashMap<String, Item> topsItemMap = new HashMap<>(); // key = item id; value = top object
-    public static final HashMap<String, Item> bottomsItemMap = new HashMap<>(); // key = item id; value = bottom object
+    public static final HashMap<String, Tops> topsItemMap = new HashMap<>(); // key = item id; value = top object
+    public static final HashMap<String, Bottoms> bottomsItemMap = new HashMap<>(); // key = item id; value = bottom object
     public static final HashMap<String, Shoes> shoesMap = new HashMap<>(); // key = item id; value = shoes object
 
     /**
@@ -209,7 +209,7 @@ public class populateProgram {
 
 
         // Add Item to Brand Account
-        Brand brand = brandMap.get(brandId);
+        Brand brand = brandMap.get(getBrandUsernameById(brandId));
         brand.addItem(tops);
     }
 
@@ -232,7 +232,7 @@ public class populateProgram {
         bottomsItemMap.put(itemId, bottoms);
 
         // Add Bottoms to Brand Item Arraylist
-        Brand brand = brandMap.get(brandId);
+        Brand brand = brandMap.get(getBrandUsernameById(brandId));
         brand.addItem(bottoms);
     }
 
@@ -251,7 +251,7 @@ public class populateProgram {
         shoesMap.put(itemId, shoes);
 
         // Add Shoes to Brand Item ArrayList
-        Brand brand = brandMap.get(brandId);
+        Brand brand = brandMap.get(getBrandUsernameById(brandId));
         brand.addItem(shoes);
     }
 

@@ -61,9 +61,9 @@ public class LoginController {
             if (user instanceof Brand brand) {
                 programSession.setLoggedInBrand(brand);
                 System.out.println("You are a brand.");
+                // TODO: Redirect to Brand Home Page
                 UGT.create_brand_pages();
                 UGT.go_to_brand_pages();
-                // TODO: Redirect to Brand Home Page
             } else if (user instanceof Customer customer) {
                 programSession.setLoggedInCustomer(customer);
                 UGT.go_to_buyer_pages();

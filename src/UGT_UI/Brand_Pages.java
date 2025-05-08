@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Brand_Pages extends JFrame implements ActionListener {
+public class Brand_Pages extends JPanel implements ActionListener {
 
     //footer buttons
     JButton button_profile;
@@ -21,11 +21,10 @@ public class Brand_Pages extends JFrame implements ActionListener {
     SettingsPage settingsPage;
 
 
-    public Brand_Pages() {
+    public Brand_Pages(UndergroundThreads UGT) {
 
         this.setSize(500, 800);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
+
         this.setLayout(new BorderLayout());
 
         BrandFooter footer = new BrandFooter();
@@ -38,7 +37,7 @@ public class Brand_Pages extends JFrame implements ActionListener {
 
         profilePage = new ProfilePage();
         uploadPage = new UploadPage();
-        settingsPage = new SettingsPage();
+        settingsPage = new SettingsPage(UGT);
 
         maincard.add(profilePage, "profile");
         maincard.add(uploadPage, "upload");

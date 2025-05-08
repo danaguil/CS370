@@ -37,7 +37,7 @@ public class SettingsController {
             //checking valid
            if(UserService.Validator.verifySingleInfo(username, "username")){
                //updating username
-               UserService.updateUsername(customer.getId(), username);
+//               UserService.updateUsername(customer.getId(), username);
                //checking flag
                updated_username = true;
            }
@@ -51,7 +51,7 @@ public class SettingsController {
            //checking if valid
            if(UserService.Validator.verifySingleInfo(email, "email")){
                 //updating email
-                UserService.updateEmail(customer.getId(), email);
+//                UserService.updateEmail(customer.getId(), email);
                 //checking flag
                 updated_email = true;
            }

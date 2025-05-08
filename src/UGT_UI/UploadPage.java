@@ -68,10 +68,25 @@ public class UploadPage extends JPanel implements ActionListener {
     JComboBox<String> shoes_type_combo = new JComboBox<>(shoes_type_array);
     JComboBox<String> shoes_size_combo = new JComboBox<>(shoes_size_array);
 
+    JTextField price_text1 = new JTextField();
+    JTextField price_text2 = new JTextField();
+    JTextField price_text3 = new JTextField();
+
+    JTextArea description_text1 = new JTextArea();
+    JTextArea description_text2 = new JTextArea();
+    JTextArea description_text3 = new JTextArea();
+
+    JTextField item_name_text1 = new JTextField();
+    JTextField item_name_text2 = new JTextField();
+    JTextField item_name_text3 = new JTextField();
+
     // Files for saving the Item Image
     BufferedImage image_file;
     File selected_file; // Stores the currently selected file from the FileChooser
     String newFileName;
+    String outputFilePath;
+
+    ProfilePage profile;
 
 
     // Upload Page Constructor
@@ -170,8 +185,8 @@ public class UploadPage extends JPanel implements ActionListener {
 
 
     // The Layered Panel used to show the price
-    JTextField price_text;
-    private JLayeredPane price_panel(){
+
+    private JLayeredPane price_panel(JTextField price_text) {
         // Create the pricePanel
         JLayeredPane price_panel = new JLayeredPane();
         price_panel.setLayout(null);
@@ -182,7 +197,7 @@ public class UploadPage extends JPanel implements ActionListener {
         JLabel priceLabel = new JLabel("Enter Price:");
         priceLabel.setBounds(30, 10, 180, 20);
 
-        price_text = new JTextField();
+
         price_text.setBounds(150, 10, 160, 20);
         price_text.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -193,8 +208,8 @@ public class UploadPage extends JPanel implements ActionListener {
 //
 //
     // The LayeredPane to show the item description TextArea
-    JTextArea description_text;
-    private JLayeredPane description_panel(){
+
+    private JLayeredPane description_panel(JTextArea description_text) {
         // Create the descriptionPanel
         JLayeredPane description_panel = new JLayeredPane();
         description_panel.setLayout(null);
@@ -205,7 +220,6 @@ public class UploadPage extends JPanel implements ActionListener {
         JLabel descriptionLabel = new JLabel("Enter Description:");
         descriptionLabel.setBounds(30, 10, 180, 20);
 
-        description_text = new JTextArea();
         description_text.setWrapStyleWord(true);
         description_text.setLineWrap(true);
         description_text.setBounds(30, 30, 285, 60);
@@ -216,8 +230,8 @@ public class UploadPage extends JPanel implements ActionListener {
         return description_panel;
     }
 //
-     JTextField item_name_text;
-     JLayeredPane item_name_panel(){
+
+     JLayeredPane item_name_panel(JTextField item_name_text) {
          // Create the itemNamePanel
          JLayeredPane itemNamePanel = new JLayeredPane();
          itemNamePanel.setLayout(null);
@@ -230,7 +244,6 @@ public class UploadPage extends JPanel implements ActionListener {
          itemNameLabel.setBounds(30, 10, 120, 20);
 
          // Create the TextField
-         item_name_text = new JTextField();
          item_name_text.setBounds(150, 10, 160, 20);
          item_name_text.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -313,15 +326,15 @@ public class UploadPage extends JPanel implements ActionListener {
         tops_inputs.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Add the data input fields
-        tops_inputs.add(item_name_panel());
+        tops_inputs.add(item_name_panel(item_name_text1));
         tops_inputs.add(data_panes(top_type_combo, "Enter Top Type:"));
         tops_inputs.add(data_panes(color_combo_box1, "Enter Top Color:"));
         tops_inputs.add(data_panes(size_combo1, "Enter Top Size:"));
         tops_inputs.add(data_panes(chest_size_combo, "Enter Chest Size:"));
         tops_inputs.add(data_panes(hem_size_combo, "Enter Hem Size:"));
         tops_inputs.add(data_panes(sleeve_length_combo, "Enter Sleeve Length:"));
-        tops_inputs.add(description_panel());
-        tops_inputs.add(price_panel());
+        tops_inputs.add(description_panel(description_text1));
+        tops_inputs.add(price_panel(price_text1));
         tops_inputs.add(image_btn(image_upload_btn1));
         tops_inputs.add(getUploadPostButton(upload_post_btn1));
 
@@ -350,7 +363,7 @@ public class UploadPage extends JPanel implements ActionListener {
          bottoms_inputs.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Add the data input fields
-        bottoms_inputs.add(item_name_panel());
+        bottoms_inputs.add(item_name_panel(item_name_text2));
         bottoms_inputs.add(data_panes(bottom_type_combo, "Enter Bottom Type:"));
         bottoms_inputs.add(data_panes(color_combo_box2, "Enter Bottom Color:"));
         bottoms_inputs.add(data_panes(size_combo2, "Enter Bottom Size:"));
@@ -358,8 +371,8 @@ public class UploadPage extends JPanel implements ActionListener {
         bottoms_inputs.add(data_panes(length_combo, "Enter Bottom Length:"));
         bottoms_inputs.add(data_panes(inseam_combo, "Enter Inseam Length:"));
         bottoms_inputs.add(data_panes(rise_combo, "Enter Rise Length:"));
-        bottoms_inputs.add(description_panel());
-        bottoms_inputs.add(price_panel());
+        bottoms_inputs.add(description_panel(description_text2));
+        bottoms_inputs.add(price_panel(price_text2));
         bottoms_inputs.add(image_btn(image_upload_btn2));
         bottoms_inputs.add(getUploadPostButton(upload_post_btn2));
 
@@ -387,12 +400,12 @@ public class UploadPage extends JPanel implements ActionListener {
         shoes_inputs.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Add the data input fields
-        shoes_inputs.add(item_name_panel());
+        shoes_inputs.add(item_name_panel(item_name_text3));
         shoes_inputs.add(data_panes(shoes_type_combo, "Enter Shoes Type:"));
         shoes_inputs.add(data_panes(color_combo_box3, "Enter Shoe Color:"));
         shoes_inputs.add(data_panes(shoes_size_combo, "Enter Shoe Size:"));
-        shoes_inputs.add(description_panel());
-        shoes_inputs.add(price_panel());
+        shoes_inputs.add(description_panel(description_text3));
+        shoes_inputs.add(price_panel(price_text3));
         shoes_inputs.add(image_btn(image_upload_btn3));
         shoes_inputs.add(getUploadPostButton(upload_post_btn3));
 
@@ -418,16 +431,19 @@ public class UploadPage extends JPanel implements ActionListener {
         if(e.getSource() == tops_btn) {
             System.out.println("Showing top item data fields.");
             cards.show(maincard, "tops_panel");
+//            resetTopFields();
         }
 
         if (e.getSource() == bottoms_btn) {
             System.out.println("Showing bottom item data fields.");
             cards.show(maincard, "bottoms_panel");
+//            resetBottomFields();
         }
 
         if(e.getSource() == shoes_btn) {
             System.out.println("Showing shoes item data fields.");
             cards.show(maincard, "shoes_panel");
+//            resetShoeFields();
         }
 
 
@@ -473,15 +489,17 @@ public class UploadPage extends JPanel implements ActionListener {
 
 
         if(e.getSource() == upload_post_btn1) {
+
             // Verify Price, Name, and Description
-            if(uploadController.verifyName(item_name_text.getText()) && uploadController.verifyPrice(price_text.getText()) && uploadController.verifyDescription(description_text.getText())){
+            if(uploadController.verifyName(item_name_text1.getText()) && uploadController.verifyPrice(price_text1.getText()) && uploadController.verifyDescription(description_text1.getText())){
 
                 try {
-                    uploadController.uploadTop(item_name_text.getText(), top_type_combo.getItemAt(top_type_combo.getSelectedIndex()), color_combo_box1.getItemAt(color_combo_box1.getSelectedIndex()),
-                            size_combo1.getItemAt(size_combo1.getSelectedIndex()), chest_size_combo.getItemAt(chest_size_combo.getSelectedIndex()), hem_size_combo.getItemAt(hem_size_combo.getSelectedIndex()),
-                            sleeve_length_combo.getItemAt(sleeve_length_combo.getSelectedIndex()), price_text.getText(), description_text.getText(), newFileName);
                     writeToImages();
+                    uploadController.uploadTop(item_name_text1.getText(), getSelected(top_type_combo), getSelected(color_combo_box1),
+                            getSelected(size_combo1), getSelected(chest_size_combo), getSelected(hem_size_combo),
+                            getSelected(sleeve_length_combo), price_text1.getText(), description_text1.getText(), outputFilePath);
                     resetTopFields();
+                    profile.refreshProfilePage();
 
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(maincard, ex.getMessage(), "Something went wrong.", JOptionPane.ERROR_MESSAGE);
@@ -494,14 +512,15 @@ public class UploadPage extends JPanel implements ActionListener {
 
         } if (e.getSource() == upload_post_btn2) {
             // Verify Price, Name, and Description
-            if(uploadController.verifyName(item_name_text.getText()) && uploadController.verifyPrice(price_text.getText()) && uploadController.verifyDescription(description_text.getText())){
+            if(uploadController.verifyName(item_name_text2.getText()) && uploadController.verifyPrice(price_text2.getText()) && uploadController.verifyDescription(description_text2.getText())){
 
                 try{
-                    uploadController.uploadBottom(item_name_text.getText(), bottom_type_combo.getItemAt(bottom_type_combo.getSelectedIndex()), color_combo_box2.getItemAt(color_combo_box2.getSelectedIndex()),
-                            size_combo2.getItemAt(size_combo2.getSelectedIndex()), waist_size_combo.getItemAt(waist_size_combo.getSelectedIndex()), length_combo.getItemAt(length_combo.getSelectedIndex()), inseam_combo.getItemAt(inseam_combo.getSelectedIndex()),
-                            rise_combo.getItemAt(rise_combo.getSelectedIndex()), price_text.getText(), description_text.getText(), newFileName);
                     writeToImages();
+                    uploadController.uploadBottom(item_name_text2.getText(), getSelected(bottom_type_combo), getSelected(color_combo_box2),
+                            getSelected(size_combo2), getSelected(waist_size_combo), getSelected(length_combo), getSelected(inseam_combo),
+                            getSelected(rise_combo), price_text2.getText(), description_text2.getText(), outputFilePath);
                     resetBottomFields();
+                    profile.refreshProfilePage();
 
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(maincard, ex.getMessage(), "Something went wrong.", JOptionPane.ERROR_MESSAGE);
@@ -514,13 +533,17 @@ public class UploadPage extends JPanel implements ActionListener {
 
         } if (e.getSource() == upload_post_btn3) {
             // Verify Price, Name, and Description
-            if(uploadController.verifyName(item_name_text.getText()) && uploadController.verifyPrice(price_text.getText()) && uploadController.verifyDescription(description_text.getText())){
+            System.out.println(item_name_text3.getText());
+            System.out.println(price_text3.getText());
+            System.out.println(description_text3.getText());
+            if(uploadController.verifyName(item_name_text3.getText()) && uploadController.verifyPrice(price_text3.getText()) && uploadController.verifyDescription(description_text3.getText())){
 
                 try{
-                    uploadController.uploadShoe(item_name_text.getText(), shoes_type_combo.getItemAt(shoes_type_combo.getSelectedIndex()), shoes_size_combo.getItemAt(shoes_size_combo.getSelectedIndex())
-                        , price_text.getText(), color_combo_box3.getItemAt(color_combo_box3.getSelectedIndex()), description_text.getText(), newFileName);
                     writeToImages();
+                    uploadController.uploadShoe(item_name_text3.getText(), getSelected(shoes_type_combo), getSelected(shoes_size_combo)
+                        , price_text3.getText(), getSelected(color_combo_box3), description_text3.getText(), outputFilePath);
                     resetShoeFields();
+                    profile.refreshProfilePage();
 
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(maincard, ex.getMessage(), "Something went wrong.", JOptionPane.ERROR_MESSAGE);
@@ -559,6 +582,11 @@ public class UploadPage extends JPanel implements ActionListener {
         }
     }
 
+    private String getSelected(JComboBox<String> combo){
+        Object selectedItem = combo.getSelectedItem();
+        return selectedItem != null ? selectedItem.toString() : "";
+    }
+
 
     // Function used to write an uploaded picture to the Images package
     private void writeToImages() {
@@ -569,7 +597,7 @@ public class UploadPage extends JPanel implements ActionListener {
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         newFileName = "image_" + System.currentTimeMillis() + extension;
         File outputFile = new File(imagesDir, newFileName);
-
+        outputFilePath = "src/UGT_Data/Images/" + newFileName;
         try {
             // Save the image
             ImageIO.write(image_file, extension.substring(1), outputFile);
@@ -612,8 +640,8 @@ public class UploadPage extends JPanel implements ActionListener {
         boolean check_hem_size = hem_size_combo.getSelectedIndex() != 0;
         boolean check_sleeve_length = sleeve_length_combo.getSelectedIndex() != 0;
         boolean check_color = color_combo_box1.getSelectedIndex() != 0;
-        boolean check_description = !description_text.getText().isEmpty();
-        boolean check_price = !price_text.getText().isEmpty();
+        boolean check_description = !description_text1.getText().isEmpty();
+        boolean check_price = !price_text1.getText().isEmpty();
 
         if(check_top_type && check_size && check_chest_size && check_hem_size && check_sleeve_length && check_color && check_description && check_price){
             System.out.println("YIPPEE");
@@ -631,8 +659,8 @@ public class UploadPage extends JPanel implements ActionListener {
         boolean check_rise_size = rise_combo.getSelectedIndex() != 0;
         boolean check_length = length_combo.getSelectedIndex() != 0;
         boolean check_color = color_combo_box2.getSelectedIndex() != 0;
-        boolean check_description = !description_text.getText().isEmpty();
-        boolean check_price = !price_text.getText().isEmpty();
+        boolean check_description = !description_text2.getText().isEmpty();
+        boolean check_price = !price_text2.getText().isEmpty();
 
         if(check_bottom_type && check_size && check_inseam_size && check_waist_size && check_rise_size && check_length &&  check_color && check_description && check_price){
             System.out.println("YIPPEE");
@@ -646,8 +674,8 @@ public class UploadPage extends JPanel implements ActionListener {
         boolean check_shoes_type = shoes_type_combo.getSelectedIndex() != 0;
         boolean check_shoe_size = shoes_size_combo.getSelectedIndex() != 0;
         boolean check_color = color_combo_box3.getSelectedIndex() != 0;
-        boolean check_description = !description_text.getText().isEmpty();
-        boolean check_price = !price_text.getText().isEmpty();
+        boolean check_description = !description_text3.getText().isEmpty();
+        boolean check_price = !price_text3.getText().isEmpty();
 
         if(check_shoes_type && check_shoe_size &&  check_color && check_description && check_price){
             System.out.println("YIPPEE");
@@ -658,14 +686,15 @@ public class UploadPage extends JPanel implements ActionListener {
 
     // Reset all the data inputs
     private void resetTopFields(){
+         item_name_text1.setText("");
          top_type_combo.setSelectedIndex(0);
          color_combo_box1.setSelectedIndex(0);
-         size_combo2.setSelectedIndex(0);
+         size_combo1.setSelectedIndex(0);
          chest_size_combo.setSelectedIndex(0);
          hem_size_combo.setSelectedIndex(0);
          sleeve_length_combo.setSelectedIndex(0);
-         price_text.setText("");
-         description_text.setText("");
+         price_text1.setText("");
+         description_text1.setText("");
          upload_post_btn1.setEnabled(false);
     }
 
@@ -677,9 +706,9 @@ public class UploadPage extends JPanel implements ActionListener {
          rise_combo.setSelectedIndex(0);
          inseam_combo.setSelectedIndex(0);
          waist_size_combo.setSelectedIndex(0);
-         description_text.setText("");
-         price_text.setText("");
-         item_name_text.setText("");
+         description_text2.setText("");
+         price_text2.setText("");
+         item_name_text2.setText("");
          upload_post_btn2.setEnabled(false);
     }
 
@@ -687,9 +716,9 @@ public class UploadPage extends JPanel implements ActionListener {
          shoes_type_combo.setSelectedIndex(0);
          shoes_size_combo.setSelectedIndex(0);
          color_combo_box3.setSelectedIndex(0);
-         item_name_text.setText("");
-         description_text.setText("");
-         price_text.setText("");
+         item_name_text3.setText("");
+         description_text3.setText("");
+         price_text3.setText("");
          upload_post_btn3.setEnabled(false);
     }
 

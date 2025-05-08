@@ -1,5 +1,6 @@
 package UGT_UI;
 
+import UGT_Controllers.*;
 import UGT_Data.*;
 
 import javax.swing.*;
@@ -20,9 +21,12 @@ public class ProfilePage extends JPanel implements ActionListener {
 
     Brand currentBrand = programSession.getLoggedInBrand();
 
+
     public ProfilePage(){
         this.setLayout(new BorderLayout());
         this.add(getProfilePanel(), BorderLayout.CENTER);
+
+        refreshProfilePage();
     }
 
 
@@ -52,6 +56,8 @@ public class ProfilePage extends JPanel implements ActionListener {
         //creating JPanel
         post_grid = new JLayeredPane();
         //Layout 0 = rows (dynamic) 3 = cols
+        post_grid.setBounds(100, 100, 400, 400);
+        post_grid.setBorder(BorderFactory.createLineBorder(Color.black));
         post_grid.setLayout(new GridLayout(0,3));
 
         //creating JScrollPane ---> jsp
@@ -114,6 +120,7 @@ public class ProfilePage extends JPanel implements ActionListener {
         // Add Brand Elements to Element Panel
         elements.add(brand_name_label, BorderLayout.NORTH);
         elements.add(brand_insta_label, BorderLayout.CENTER);
+        elements.add(brand_tiktok_label, BorderLayout.CENTER);
         elements.add(brand_description_label, BorderLayout.SOUTH);
 
 
@@ -141,10 +148,6 @@ public class ProfilePage extends JPanel implements ActionListener {
     //---------------------------------------------------print_grid for post (buttons)
     public void print_grid(){
 
-        post_grid.setBounds(100, 100, 400, 400);
-        post_grid.setBackground(Color.WHITE);
-        post_grid.setBorder(BorderFactory.createLineBorder(Color.black));
-
         //clears all buttons from post_grid
         post_grid.removeAll();
         //if all_posts has a post
@@ -170,12 +173,271 @@ public class ProfilePage extends JPanel implements ActionListener {
 
     }
 
+    public void refreshProfilePage(){
+        all_myposts.clear();
+        // Gets all items from teh hashmap
+        for(Item item : currentBrand.getBrandItems()){
+            if(item.getClass() == Tops.class){
+                String brand_name = currentBrand.getBrand_name();
+
+                JButton postButton = topPost(item.getImagePath(), brand_name, item.getItemId());
+                add_to_profile(postButton);
+
+            } else if(item.getClass() == Bottoms.class){
+                String brand_name = currentBrand.getBrand_name();
+
+                JButton postButton = bottomPost(item.getImagePath(), brand_name, item.getItemId());
+                add_to_profile(postButton);
+            } else if(item.getClass() == Shoes.class){
+                String brand_name = currentBrand.getBrand_name();
+
+                JButton postButton = shoePost(item.getImagePath(), brand_name, item.getItemId());
+                add_to_profile(postButton);
+            }
+        }
+        print_grid();
+    }
+
+    private JButton topPost(String image_path, String brand_name, String itemID){
+        JButton post = new JButton();
+        ImageIcon path = new ImageIcon(image_path);
+        JLabel image = new JLabel(path);
+        post.add(image);
+
+        post.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window window = SwingUtilities.getWindowAncestor(ProfilePage.this);
+                JOptionPane.showMessageDialog(window, TopPopUp(brand_name, itemID), " ", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        return post;
+    }
+
+    private JButton bottomPost(String image_path, String brand_name, String itemID){
+        JButton post = new JButton();
+        ImageIcon path = new ImageIcon(image_path);
+        JLabel image = new JLabel(path);
+        post.add(image);
+
+        post.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window window = SwingUtilities.getWindowAncestor(ProfilePage.this);
+                JOptionPane.showMessageDialog(window, BottomPopUp(brand_name, itemID), " ", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        return post;
+    }
+
+    private JButton shoePost(String image_path, String brand_name, String itemID){
+        JButton post = new JButton();
+        ImageIcon path = new ImageIcon(image_path);
+        JLabel image = new JLabel(path);
+        post.add(image);
+
+        post.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window window = SwingUtilities.getWindowAncestor(ProfilePage.this);
+                JOptionPane.showMessageDialog(window, ShoePopUp(brand_name, itemID), " ", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        return post;
+    }
+
+
 
     //-----------------------------------------------------------------add_to_profile
     //adds a post (button) to all_myposts
-    private void add_to_profile(JButton post){
+    private void add_to_profile(JButton button){
         //adding post to all_post (list array)
-        all_myposts.add(post);
+        all_myposts.add(button);
+    }
+
+    private JPanel TopPopUp(String brandName, String itemID){
+        // Creating a panel
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+        panel.setSize(300, 500);
+        panel.setLayout(null);
+
+
+        Tops top = populateProgram.topsItemMap.get(itemID);
+
+        if(top != null){
+
+            JLabel brand_name = new JLabel(brandName);
+            brand_name.setBounds(100, 10, 100, 20);
+
+            ImageIcon item_image = new ImageIcon(top.getImagePath());
+            JLabel image_label = new JLabel(item_image);
+            image_label.setBounds(25, 30, 250, 100);
+
+            JLabel item_name = new JLabel("Name: " + top.getName());
+            item_name.setBounds(25, 140, 100, 20);
+
+            JLabel item_type = new JLabel("Item Type: " + top.getTopType());
+            item_type.setBounds(150, 140, 100, 20);
+
+            JLabel item_price = new JLabel("Price: " + top.getPrice());
+            item_price.setBounds(150, 170, 100, 20);
+
+            JLabel item_size = new JLabel("Size: " + top.getSize());
+            item_size.setBounds(25, 170, 100, 20);
+
+            JLabel item_color = new JLabel("Color: " + top.getColor());
+            item_color.setBounds(25, 200, 100, 20);
+
+            JLabel chest_size = new JLabel("Chest Size: " + top.getChest_size());
+            chest_size.setBounds(150, 200, 100, 20);
+
+            JLabel hem_size = new JLabel("Hem Size: " + top.getHemSize());
+            hem_size.setBounds(25, 230, 100, 20);
+
+            JLabel sleeve_length = new JLabel("Sleeve Length: " + top.getsleeveLength());
+            sleeve_length.setBounds(150, 230, 100, 20);
+
+            JLabel item_description = new JLabel("Description: " + top.getDescription());
+            item_description.setBounds(25, 260, 225, 50);
+
+
+            panel.add(image_label);
+            panel.add(item_name);
+            panel.add(item_type);
+            panel.add(item_price);
+            panel.add(item_size);
+            panel.add(item_color);
+            panel.add(chest_size);
+            panel.add(hem_size);
+            panel.add(sleeve_length);
+            panel.add(item_description);
+            panel.add(brand_name);
+
+        }
+
+        return panel;
+    }
+
+    private JPanel BottomPopUp(String brandName, String itemID){
+        // Creating a panel
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+        panel.setSize(300, 500);
+        panel.setLayout(null);
+
+
+        Bottoms bottom = populateProgram.bottomsItemMap.get(itemID);
+
+        if(bottom != null){
+            JLabel brand_name = new JLabel(brandName);
+            brand_name.setBounds(100, 10, 100, 20);
+
+            ImageIcon item_image = new ImageIcon(bottom.getImagePath());
+            JLabel image_label = new JLabel(item_image);
+            image_label.setBounds(25, 30, 250, 100);
+
+            JLabel item_name = new JLabel("Name: " + bottom.getName());
+            item_name.setBounds(25, 140, 100, 20);
+
+            JLabel item_type = new JLabel("Item Type: " + bottom.getBottomType());
+            item_type.setBounds(150, 140, 100, 20);
+
+            JLabel item_price = new JLabel("Price: " + bottom.getPrice());
+            item_price.setBounds(150, 170, 100, 20);
+
+            JLabel item_size = new JLabel("Size: " + bottom.getSize());
+            item_size.setBounds(25, 170, 100, 20);
+
+            JLabel item_color = new JLabel("Color: " + bottom.getColor());
+            item_color.setBounds(25, 200, 100, 20);
+
+            JLabel length = new JLabel("Length: " + bottom.getLength());
+            length.setBounds(150, 200, 100, 20);
+
+            JLabel waist_size = new JLabel("Waist Size: " + bottom.getWaistSize());
+            waist_size.setBounds(25, 230, 100, 20);
+
+            JLabel inseam_size = new JLabel("Inseam: " + bottom.getInseam());
+            inseam_size.setBounds(150, 230, 100, 20);
+
+            JLabel rise_size = new JLabel("Rise: " + bottom.getRise());
+            rise_size.setBounds(25, 260, 100, 20);
+
+            JLabel item_description = new JLabel(bottom.getDescription());
+            item_description.setBounds(25, 290, 225, 50);
+
+
+            panel.add(image_label);
+            panel.add(item_name);
+            panel.add(item_type);
+            panel.add(item_price);
+            panel.add(item_size);
+            panel.add(item_color);
+            panel.add(length);
+            panel.add(waist_size);
+            panel.add(inseam_size);
+            panel.add(rise_size);
+            panel.add(brand_name);
+
+        }
+
+        return panel;
+    }
+
+    private JPanel ShoePopUp(String brandName, String itemID){
+        // Creating a panel
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+        panel.setSize(300, 500);
+        panel.setLayout(null);
+
+
+        Shoes shoes = populateProgram.shoesMap.get(itemID);
+
+        if(shoes != null){
+            JLabel brand_name = new JLabel(brandName);
+            brand_name.setBounds(100, 10, 100, 20);
+
+            ImageIcon item_image = new ImageIcon(shoes.getImagePath());
+            JLabel image_label = new JLabel(item_image);
+            image_label.setBounds(25, 30, 250, 100);
+
+            JLabel item_name = new JLabel("Name: " + shoes.getName());
+            item_name.setBounds(25, 140, 100, 20);
+
+            JLabel item_type = new JLabel("Item Type: " + shoes.getshoesType());
+            item_type.setBounds(150, 140, 100, 20);
+
+            JLabel item_price = new JLabel("Price: " + shoes.getPrice());
+            item_price.setBounds(150, 170, 100, 20);
+
+            JLabel item_size = new JLabel("Size: " + shoes.getSize());
+            item_size.setBounds(25, 170, 100, 20);
+
+            JLabel item_color = new JLabel("Color: " + shoes.getColor());
+            item_color.setBounds(25, 200, 100, 20);
+
+            JLabel item_description = new JLabel(shoes.getDescription());
+            item_description.setBounds(25, 230, 225, 50);
+
+
+
+            panel.add(image_label);
+            panel.add(item_name);
+            panel.add(item_type);
+            panel.add(item_price);
+            panel.add(item_size);
+            panel.add(item_color);
+            panel.add(item_description);
+            panel.add(brand_name);
+
+        }
+
+        return panel;
     }
 
 
