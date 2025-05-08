@@ -2,6 +2,7 @@ package UGT_UI;
 
 import UGT_Controllers.UserInteractions;
 import UGT_Controllers.populateProgram;
+import UGT_Data.Brand;
 import UGT_Data.Item;
 
 import javax.swing.*;
@@ -42,6 +43,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
 
         refreshDiscoverPage();
     }
+
 
 
     public void refreshDiscoverPage() {
@@ -195,6 +197,14 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("this will show brand's profile");
+                String brandId = item.getBrandId(); // e.g., "BR123"
+                String brandUsername = getBrandUsernameById(brandId); // your helper method
+
+                Brand brand = populateProgram.brandMap.get(brandUsername);
+
+
+                JPanel popup = Buyer_SearchPage.BrandPopUp(brand);
+                JOptionPane.showMessageDialog(null, popup, "Brand Profile", JOptionPane.PLAIN_MESSAGE);
 
             }
         });
