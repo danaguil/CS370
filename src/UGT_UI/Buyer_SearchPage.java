@@ -1,6 +1,7 @@
 package UGT_UI;
 
 import UGT_Controllers.SearchController;
+import UGT_Controllers.UserInteractions;
 import UGT_Data.Brand;
 import UGT_Data.Item;
 
@@ -46,6 +47,7 @@ public class Buyer_SearchPage extends JPanel implements ActionListener {
         this.add(Search(random_brand_names), BorderLayout.CENTER);
 
     }
+    static Item item2 = null;
 
     public static JPanel BrandPopUp(Brand brand) {
         JPanel profilePanel = new JPanel();
@@ -88,6 +90,7 @@ public class Buyer_SearchPage extends JPanel implements ActionListener {
         itemsPanel.setBackground(Color.WHITE);
 
         for (Item item : brand.getBrandItems()) {
+            item2 = item;
             ImageIcon icon = new ImageIcon(item.getImagePath());
             Image scaledImg = icon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
             JButton itemButton = new JButton(new ImageIcon(scaledImg));
@@ -119,6 +122,8 @@ public class Buyer_SearchPage extends JPanel implements ActionListener {
         followButton.addActionListener(e -> {
             // Insert logic to follow brand
             System.out.println("Followed brand: " + brand.getBrand_name());
+            UserInteractions.followFunction(item2);
+            Buyer_Pages.getHomePage().refreshHomePage();
         });
         profilePanel.add(Box.createRigidArea(new Dimension(0, 15)));
         profilePanel.add(followButton);
