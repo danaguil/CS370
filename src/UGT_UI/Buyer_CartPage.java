@@ -24,8 +24,8 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
     File barlitosPhoto = new File("src/barlitos.jpg");
 
     double total_price = 0.00;
-
-    JPanel cartContainer = new JPanel();
+    //arraylist that holds the users items
+    private final ArrayList<JPanel> all_items_in_cart = new ArrayList<>();
 
     static Item item = null;
     //Cart page constructor
@@ -34,16 +34,17 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
         // Add this at the top of your class
 
-        cartContainer.setLayout(new BoxLayout(cartContainer, BoxLayout.Y_AXIS));
-
         this.add(Cart_page(), BorderLayout.CENTER);
     }
 
     public void refreshCartPage(){
-
+        all_items_in_cart.clear();
         Customer customer = programSession.getLoggedInCustomer();
 
         System.out.println("customer id: " + customer.getId());
+
+        total_price = 0.00;
+
         for(String id : customer.getCart()){
 
             // gets information from the item class
@@ -59,12 +60,10 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
             JPanel post = post(brandName, desc, photoPath, price);
             add_to_cart(post);
         }
-        cartContainer.revalidate();
-        cartContainer.repaint();
+        print_cart_grid();
     }
 
-    //arraylist that holds the users items
-    private final ArrayList<JPanel> all_items_in_cart = new ArrayList<>();
+
 
     //JPanel that will hold all items (JPanel)
     JPanel cart_grid;
@@ -185,7 +184,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
             }
 
 
-        }else{
+        } else{
             System.out.println("cart is empty");
 
             //System.out.println("Sorry no brand found");
@@ -214,7 +213,7 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
 
         //adding the image to the button
-       // ImageIcon path = new ImageIcon(photo_path);
+        // ImageIcon path = new ImageIcon(photo_path);
 
 
         //getting photo
@@ -238,12 +237,11 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
 
         JPanel item_info_panel = new JPanel();
         //item_info_panel.setBackground(Color.GREEN);
-       // item_info_panel.setMaximumSize(new Dimension(300,200));
+        // item_info_panel.setMaximumSize(new Dimension(300,200));
         item_info_panel.setPreferredSize(new Dimension(300,200));
 
         item_info_panel.setLayout(new BoxLayout(item_info_panel, BoxLayout.Y_AXIS));
         post.add(item_info_panel, BorderLayout.EAST);
-
 
 
         //just a remove button
@@ -254,23 +252,23 @@ public class Buyer_CartPage extends JPanel implements ActionListener {
         remove_button_panel.setLayout(new BorderLayout());
         JButton remove_item_button = new JButton("remove");
         remove_button_panel.add(remove_item_button, BorderLayout.CENTER);
-       //adding remove_button_panel
+        //adding remove_button_panel
 
-        total_price = price;
+        total_price += price;
+
+        System.out.println("total price: " + total_price);
 
         remove_item_button.addActionListener(e -> {
-          all_items_in_cart.remove(post);
-
             if(e.getSource() == remove_item_button){
                 total_price -= price;
+                all_items_in_cart.remove(post);
+                UserInteractions.removeFromCart(item);
             }
 
-          UserInteractions.removeFromCart(item);
-
-          print_cart_grid();
+            print_cart_grid();
         });
 
-
+        System.out.println("total price: " + total_price);
 
         item_info_panel.add(remove_button_panel);
 

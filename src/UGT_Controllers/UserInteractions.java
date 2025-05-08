@@ -16,8 +16,6 @@ public class UserInteractions {
     public static void addToCart(Item item) {
         System.out.println("Item information adding to cart: ");
 
-        // Getting customer information currently logged in
-        customer = programSession.getLoggedInCustomer();
 
         if(!customer.getCart().contains(item.getItemId())){
             customer.addToCart(item);
@@ -37,14 +35,8 @@ public class UserInteractions {
     public static void removeFromCart(Item item) {
         System.out.println("Item information removing from cart: ");
 
-        customer = programSession.getLoggedInCustomer();
-
-        if(!customer.getCart().isEmpty()){
-            customer.removeFromCart(item);
-        } else{
-            System.out.println("Cart is empty");
-            return;
-        }
+        customer.removeFromCart(item);
+        cartPage.refreshCartPage();
 
 
         System.out.println("Customer cart: ");
@@ -54,7 +46,6 @@ public class UserInteractions {
     }
 
     public static void likeDislikeFunction(Item item){
-        customer = programSession.getLoggedInCustomer();
 
         // Dislike
         if(customer.getLikedPosts().contains(item.getItemId())){
@@ -71,7 +62,6 @@ public class UserInteractions {
     }
 
     public static void followFunction(Item item){
-        customer = programSession.getLoggedInCustomer();
 
         if(customer.getFollowedBrand().contains(item.getBrandId())){
             customer.removeFromFollowedBrand(item.getBrandId());
