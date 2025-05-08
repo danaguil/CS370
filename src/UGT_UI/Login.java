@@ -137,7 +137,7 @@ public class Login extends JPanel implements ActionListener {
 
 
     private static JTextField login_username;
-    private static JPasswordField login_password;
+    private static JTextField login_password;
 
 
 
@@ -166,7 +166,7 @@ public class Login extends JPanel implements ActionListener {
         //will be the panel holding password objects
         JPanel password_panel = new JPanel();
         JLabel password_label = new JLabel("password:");
-        login_password = new JPasswordField(10);
+        login_password = new JTextField(10);
         password_panel.add(password_label);
         password_panel.add(login_password);
         //adding to cardlogin
@@ -190,7 +190,16 @@ public class Login extends JPanel implements ActionListener {
         login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
+
+                System.out.println("It works!!");
                 LoginController.loginUser(UGT); // calls function
+
+
+
+
+
             }
         });
 
@@ -465,18 +474,19 @@ public class Login extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    get_ca_brand_brandname();
-                    get_ca_brand_username();
-                    get_ca_brand_email();
-                    get_ca_brand_password();
-                    get_ca_brand_aboutbrand();
-                    get_ca_brand_Instagram();
-                    get_ca_brand_Tiktok();
+                    System.out.println("Create Account Button works!!"); // for testing
+
+
+
+
+
                     LoginController.registerUser("brand"); // calls function
                 } catch (IOException ex) {
                     // ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Create Account failed due to an error.");
                 }
+
+                System.out.println("your account(BRAND) has been made!!! go log in ");
             }
         });
 

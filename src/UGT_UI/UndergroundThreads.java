@@ -19,7 +19,8 @@ public class UndergroundThreads extends JFrame {
 
 
 
-    //finna go from login to buyers
+    //login to buyerpages...back to login
+    //login to brandpages...back to login
    public UndergroundThreads() {
 
         this.setTitle("UndergroundThreads");

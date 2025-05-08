@@ -112,11 +112,12 @@ public class Buyer_settings extends JPanel implements ActionListener {
         //creating panel
         JPanel report_page = new JPanel();
         //size
-        report_page.setSize(500,200);
+        //report_page.setSize(500,200);
         //color
         //report_page.setBackground(Color.green);
         //layout
-        report_page.setLayout(new BoxLayout(report_page, BoxLayout.Y_AXIS));
+       // report_page.setLayout(new BoxLayout(report_page, BoxLayout.Y_AXIS));
+        report_page.setLayout(null);
         //creating bug_report_panel to hold all objects: label, textarea
         JPanel bug_report_panel = new JPanel();
         JLabel bug_report_label = new JLabel("Report a brand:");
@@ -125,12 +126,17 @@ public class Buyer_settings extends JPanel implements ActionListener {
         bug_report_panel.add(bug_report_label);
         bug_report_panel.add(report_brand_text_field);
         //adding bug_report_panel to report_page
+        //report_page.add(bug_report_panel);
+
+
+        bug_report_panel.setBounds(60,200,400,40);
         report_page.add(bug_report_panel);
 
         //creating button_panel to hold button
         JPanel button_panel = new JPanel();
         //creating button submit_report
         JButton submit_report = new JButton("report");
+
 
         //ACTION LISTENER
         submit_report.addActionListener(new ActionListener() {
@@ -142,8 +148,16 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
         //adding submit_report to button_panel
         button_panel.add(submit_report);
-        //adding button_panel to report_page
+
+
+
+       // button_panel.setBackground(Color.yellow);
+        button_panel.setBounds(220,240,100,30);
         report_page.add(button_panel);
+
+
+        //adding button_panel to report_page
+        //report_page.add(button_panel);
 
 
 
@@ -151,6 +165,11 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
         return report_page;
     }
+
+
+
+
+
     private JPanel logout_page(UndergroundThreads UGT) {
         //creating logout_panel to hold everything
         JPanel logout_panel = new JPanel();
@@ -223,15 +242,23 @@ public class Buyer_settings extends JPanel implements ActionListener {
         //banner to help out user
         JPanel banner = new JPanel();
         banner.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
-        banner.setBackground(Color.cyan);
+        //banner.setBackground(Color.cyan);
         JLabel text_for_banner = new JLabel("fill in any new changes then press save :)");
         banner.add(text_for_banner);
         settings_page.add(banner);
 
+
+
+        JPanel blank_panel4 = new JPanel();
+        JPanel blank_panel5 = new JPanel();
+
+        settings_page.add(blank_panel4);
+        settings_page.add(blank_panel5);
+
         JPanel change_username_panel = new JPanel();
         //change_username_panel.setPreferredSize(new Dimension(300,10));
-        change_username_panel.setBackground(Color.MAGENTA);
-        change_username_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        //change_username_panel.setBackground(Color.MAGENTA);
+        change_username_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         JLabel username_label = new JLabel("username:");
         usernmae_j = new JTextField(20);
         change_username_panel.add(username_label);
@@ -241,7 +268,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
 
         JPanel change_password_panel = new JPanel();
-        //change_password_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        change_password_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel password_label = new JLabel("password:");
         password_j = new JTextField(20);
         change_password_panel.add(password_label);
@@ -292,11 +319,21 @@ public class Buyer_settings extends JPanel implements ActionListener {
         settings_page.add(change_email_panel);
 
         JPanel button_panel = new JPanel();
+        //button_panel.setBackground(Color.blue);
         save_changes_button = new JButton("save changes");
         save_changes_button.addActionListener(this);
         button_panel.add(save_changes_button);
         //adding to settings_page
         settings_page.add(button_panel);
+
+
+        JPanel blank_panel1 = new JPanel();
+        JPanel blank_panel2 = new JPanel();
+        JPanel blank_panel3 = new JPanel();
+        settings_page.add(blank_panel1);
+        settings_page.add(blank_panel2);
+        settings_page.add(blank_panel3);
+
 
 
         return settings_page;
@@ -321,7 +358,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
 
     }
 
-
+    //no need?
     public void savehanges(){
 
     }

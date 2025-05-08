@@ -63,7 +63,7 @@ public class Buyer_DiscoverPage extends JPanel implements ActionListener {
             String price = String.valueOf(item.getPrice());
 
             // creates a button with the item's information
-            JButton postButton = post(brandName, desc, photoPath, price, item);
+            JButton postButton = post(brandName, desc, photoPath, price,item);
             add_post_to_discover(postButton);
         }
         print_discover_grid();

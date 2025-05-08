@@ -72,7 +72,7 @@ public class Buyer extends JFrame implements ActionListener {
 
         JLabel minibannertext = new JLabel();
         minibannertext.setForeground(Color.WHITE);
-        minibannertext.setText("UndergroundThreads");
+        minibannertext.setText("UGT_UI.UndergroundThreads");
 
         JPanel minibanner = new JPanel();
         minibanner.add(minibannertext);

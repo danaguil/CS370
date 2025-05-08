@@ -1,5 +1,6 @@
-brand,myemIl@gmail.com,mypass,brandsss,my cool brand,/Users/dansir/Desktop/logoTest.jpg,myinsta,mytiktok,181dfa4b-e9d6-4bf4-b582-64b16f28dc16
+barlos,litos@gmail.com,notBarlo,wds2,a brand that cares,/Users/dansir/Desktop/logoTest.jpg,barlitosxcarlitos,bbbforbarlos,181dfa4b-e9d6-4bf4-b582-64b16f28dc16
 myUsername,myemail@gmail.com,mypass,WRLD Domination,my cool brand yayy,/Users/dansir/Desktop/logoTest.jpg,myinsta,mytiktok,71ecf54a-ef1f-4871-ab23-5e12f442674f
 itsme,mycoolemail@gmail.com,mycoolpass,Mario,It's my super brand,/Users/dansir/Desktop/logoTest.jpg,,,62ffe17c-9927-45db-884d-22309f074b0a
 mybrand,myemail87@gmail.com,hellothere,its a cool brand,It's a cool brand,/Users/dansir/Desktop/logoTest.jpg,,,aaf176ae-39c8-4d25-a22f-5d192596a399
 brand1,helloworld@gmail.com,mypass1234,World Wide,My cool brand:),/Users/dansir/Desktop/logoTest.jpg,,,2440426e-daea-40da-9726-6992f93e2e8b
+barlos123,fakebarlosbb@gmail.com,bforbarlos22,wdswds,abcabc,/Users/barlitos/Desktop/barlos.jpg,abc123,jjjjjjjj,802804a6-1925-47c6-8dfc-4916339eb3c1

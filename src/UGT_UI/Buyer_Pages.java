@@ -60,6 +60,7 @@ public class Buyer_Pages extends JPanel implements ActionListener {
         homePage = new Buyer_HomePage();
         discoverPage = new Buyer_DiscoverPage();
         likedPage = new Buyer_LikedPage();
+
         settingsPage = new Buyer_settings(UGT);
 
 
