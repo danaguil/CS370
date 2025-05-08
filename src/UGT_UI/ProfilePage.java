@@ -83,6 +83,7 @@ public class ProfilePage extends JPanel implements ActionListener {
         profile_header.add(brandElements(currentBrand.getBrand_name(), currentBrand.getBrand_description(), currentBrand.getInstagram_name(), currentBrand.getTiktok_name()), BorderLayout.EAST);
         profile_header.add(brandPicture(currentBrand.getBrand_image()), BorderLayout.WEST);
 
+
         return profile_header;
     }
 

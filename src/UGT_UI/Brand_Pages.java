@@ -68,6 +68,7 @@ public class Brand_Pages extends JPanel implements ActionListener {
         if (e.getSource() == button_profile) {
             System.out.println("button profile");
             profilePage.print_grid();
+            profilePage.refreshProfilePage();
             cards.show(maincard, "profile");
 
 
