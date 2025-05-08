@@ -10,15 +10,15 @@ public class TitleHeader extends JPanel {
      */
 
     public TitleHeader() {
-        setLayout(null);
+        setLayout(new BorderLayout());
         setBackground(Color.WHITE);
-        setBounds(0, 0, 600, 50); // Spans the width of every frame/panel and takes up 50 vertical pixels
+        setSize(600, 50); // Spans the width of every frame/panel and takes up 50 vertical pixels
 
         JLabel titleLabel = new JLabel("UnderGround Threads");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setBounds(0, 0, 600, 50);
+        titleLabel.setSize(600, 50);
 
         add(titleLabel);
     }

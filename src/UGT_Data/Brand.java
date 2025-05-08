@@ -12,17 +12,17 @@ public class Brand extends User{
 
     private String brand_name;
     private String brand_description;
-    private File brand_image;
+    private String brand_image_path;
     private String instagram_name;
     private String tiktok_name;
     ArrayList<Item> brandItems; // Will hold item objects
 
     public Brand(String email, String username, String password, String brand_name, String brand_description,
-                 File brand_image, String instagram_name, String tiktok_name, String id) {
+                 String brand_image_path, String instagram_name, String tiktok_name, String id) {
         super(email, username, password, id);
         this.brand_name = brand_name;
         this.brand_description = brand_description;
-        this.brand_image = brand_image;
+        this.brand_image_path = brand_image_path;
         this.instagram_name = instagram_name;
         this.tiktok_name = tiktok_name;
 
@@ -46,16 +46,16 @@ public class Brand extends User{
         this.brand_description = brand_description;
     }
 
-    public File getBrand_image() {
-        return brand_image;
+    public String getBrand_image() {
+        return brand_image_path;
     }
 
-    public void setBrand_image(File brand_image) {
+    public void setBrand_image(String brand_image) {
         // Check if the new brand_image is a PNG or JPEG / JPG
-        if(brand_image.getName().endsWith(".jpg") || brand_image.getName().endsWith(".png") || brand_image.getName().endsWith(".jpeg"))
+        if(brand_image.endsWith(".jpg") || brand_image.endsWith(".png") || brand_image.endsWith(".jpeg"))
         {
-            System.out.println("Accepted new brand image " + brand_image.getName());
-            this.brand_image = brand_image;
+            System.out.println("Accepted new brand image " + brand_image);
+            this.brand_image_path = brand_image;
         }
         else
         {
@@ -103,7 +103,7 @@ public class Brand extends User{
         super.displayInfo(); // calls User's displayInfo()
         System.out.println("Brand Name: " + brand_name);
         System.out.println("About Brand: " + brand_description);
-        System.out.println("Logo Location: " + brand_image.getPath());
+        System.out.println("Logo Location: " + brand_image_path);
         System.out.println("Instagram Handle: " + instagram_name);
         System.out.println("TikTok Handle: " + tiktok_name);
         System.out.println("Brand Items: " + brandItems);

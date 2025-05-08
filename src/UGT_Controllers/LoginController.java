@@ -61,6 +61,7 @@ public class LoginController {
             if (user instanceof Brand brand) {
                 programSession.setLoggedInBrand(brand);
                 System.out.println("You are a brand.");
+                UGT.create_brand_pages();
                 UGT.go_to_brand_pages();
                 // TODO: Redirect to Brand Home Page
             } else if (user instanceof Customer customer) {
@@ -222,7 +223,7 @@ public class LoginController {
 
         try {
             // Destination path
-            String mediaDirectory = "src/UGT_Data/Media/";
+            String mediaDirectory = "src/UGT_Data/Images";
             File destFile = new File(mediaDirectory + selectedFile.getName());
 
             // Copy file content

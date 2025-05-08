@@ -181,7 +181,7 @@ public class UserService {
         } else if (status.equalsIgnoreCase("brand")) {
             // Creating a brand class with the new information and adding it to the brand hashmap
             Brand newBrand = new Brand(email, username, password, brandName, aboutBrand,
-                    new File(logoFileLocation), instagramHandle, tiktokHandle, id);
+                    logoFileLocation, instagramHandle, tiktokHandle, id);
             populateProgram.brandMap.put(brandName.toLowerCase(), newBrand);
             newBrand.displayInfo();
 

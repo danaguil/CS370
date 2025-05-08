@@ -23,12 +23,13 @@ public class Brand_Pages extends JFrame implements ActionListener {
 
     public Brand_Pages() {
 
-        this.setSize(600, 800);
+        this.setSize(500, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 
         BrandFooter footer = new BrandFooter();
-
+        TitleHeader header = new TitleHeader();
 
         cards = new CardLayout();
         //this JPanel (maincard) will be used to hold all cards
@@ -36,7 +37,7 @@ public class Brand_Pages extends JFrame implements ActionListener {
         maincard.setLayout(cards);
 
         profilePage = new ProfilePage();
-        uploadPage = new UploadPage(0,0,0,0);
+        uploadPage = new UploadPage();
         settingsPage = new SettingsPage();
 
         maincard.add(profilePage, "profile");
@@ -44,7 +45,7 @@ public class Brand_Pages extends JFrame implements ActionListener {
         maincard.add(settingsPage, "settings");
 
 
-        this.add(maincard, BorderLayout.CENTER);
+        this.add(maincard, null);
 
 
         button_profile = footer.getProfile_btn();
@@ -55,6 +56,7 @@ public class Brand_Pages extends JFrame implements ActionListener {
         button_settings.addActionListener(this);
 
         this.add(footer,BorderLayout.SOUTH);
+        this.add(header,BorderLayout.NORTH);
         this.setVisible(true);
     }
 

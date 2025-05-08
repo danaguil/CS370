@@ -20,18 +20,26 @@ public class populateProgram {
     private static final String brandsFileName = "brands.txt";
     private static final String customersFileName = "buyers.txt";
     private static final String itemsFileName = "items.txt";
+    private static final String topsFileName = "topsItems.txt";
+    private static final String bottomsFileName = "bottomsItems.txt";
+    private static final String shoesFileName = "shoesItems.txt";
     private static final String followersFileName = "followers.txt";
 
     public static final File userFile = new File(directoryPath + usersFileName);
     public static final File brandFile = new File(directoryPath + brandsFileName);
     public static final File customerFile = new File(directoryPath + customersFileName);
-    public static final File itemsFile = new File(directoryPath + itemsFileName);
+    public static final File topsFile = new File(directoryPath + topsFileName);
+    public static final File bottomsFile = new File(directoryPath + bottomsFileName);
+    public static final File shoesFile = new File(directoryPath + shoesFileName);
     public static final File followersFile = new File(directoryPath + followersFileName);
 
     public static final HashMap<String, User> userMap = new HashMap<>(); // User hash map
     public static final HashMap<String, Brand> brandMap = new HashMap<>(); // Brand hash map, key = brand name, value = brand class object
     public static final HashMap<String, Customer> customerMap = new HashMap<>(); // Customer hash map
-    public static final HashMap<String, Item> itemMap = new HashMap<>(); // key = id; value = item class
+    public static final HashMap<String, Item> itemMap = new HashMap<>(); // key = id; value = item object
+    public static final HashMap<String, Item> topsItemMap = new HashMap<>(); // key = item id; value = top object
+    public static final HashMap<String, Item> bottomsItemMap = new HashMap<>(); // key = item id; value = bottom object
+    public static final HashMap<String, Shoes> shoesMap = new HashMap<>(); // key = item id; value = shoes object
 
     /**
      * Populates the user hashmap with the information from the userInfoFile.txt file.
@@ -39,10 +47,13 @@ public class populateProgram {
      */
     public static void populateMap() throws FileNotFoundException {
         verifyFileExist(userFile, "user");
-        verifyFileExist(itemsFile, "item");
+        verifyFileExist(topsFile, "tops");
+        verifyFileExist(bottomsFile, "bottoms");
+        verifyFileExist(shoesFile, "shoes");
         verifyFileExist(brandFile, "brand");
         verifyFileExist(customerFile, "buyer");
         verifyFileExist(followersFile, "follower");
+        populateItemsMap();
     }
 
     /**
@@ -75,7 +86,9 @@ public class populateProgram {
 
             switch (fileType.toLowerCase()) {
                 case "user" -> populateUserMap(parts);
-                case "item" -> populateItemsMap(parts);
+                case "tops" -> populateTopsMap(parts);
+                case "bottoms" -> populateBottomsMap(parts);
+                case "shoes" -> populateShoesMap(parts);
                 case "follower" -> populateFollowersMap(parts);
                 default -> System.out.println("Unknown file type: " + fileType);
             }
@@ -124,7 +137,7 @@ public class populateProgram {
 
                 if (id.equals(idToFind)) {
                     return new Brand(email, username, password, brandName,
-                            aboutBrand, new File(logoFileLocation), instagram, tiktok, id);
+                            aboutBrand, logoFileLocation, instagram, tiktok, id);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -162,42 +175,84 @@ public class populateProgram {
     }
 
     // key = if; value = brandItems.txt
-    public static void populateItemsMap(String[] parts) {
+    public static void populateItemsMap() {
+        // Populate the item map with tops
+        for (Item item : topsItemMap.values()) {
+            itemMap.put(item.getItemId(), item);
+        }
+        // Populate the item map with bottoms
+        for (Item item : bottomsItemMap.values()) {
+            itemMap.put(item.getItemId(), item);
+        }
+        // Populate the item map with shoes
+        for(Item item: shoesMap.values()){
+            itemMap.put(item.getItemId(), item);
+        }
+    }
+
+    public static void populateTopsMap(String[] parts){
         String name = parts[0];
-        String size = parts[1];
-        String uniqueField = parts[2]; // sleeveLength OR waistSize OR shoeType
-        double price = Double.parseDouble(parts[3]);
-        String description = parts[4];
-        String color = parts[5];
-        String imagePath = parts[6];
-        String itemId = parts[7];
-        String itemType = parts[8];
-        String brandId = parts[9];
+        String size = parts[1].trim();
+        String topType = parts[2];
+        int chestSize = Integer.parseInt(parts[3].trim());
+        int hemSize = Integer.parseInt(parts[4].trim());
+        int sleeveLength = Integer.parseInt(parts[5].trim());
+        double price = Double.parseDouble(parts[6].trim());
+        String color = parts[7];
+        String description = parts[8];
+        String imagePath = parts[9].trim();
+        String itemId = parts[10].trim();
+        String brandId = parts[11].trim();
 
-        Item item = null;
+        Tops tops = new Tops(name, size, topType, chestSize, hemSize, sleeveLength, price, color, description, imagePath, itemId, brandId);
+        topsItemMap.put(itemId, tops);
 
-        switch (itemType.toLowerCase()) {
-            case "tops" -> {
-                item = new Tops(name, size, uniqueField, price, color, description, imagePath, itemId, brandId);
-            }
-            case "bottoms" -> {
-                int waistSize = Integer.parseInt(uniqueField);
-                item = new Bottoms(name, size, waistSize, price, color, description, imagePath, itemId, brandId);
-            }
-            case "shoes" -> {
-                item = new Shoes(name, size, uniqueField, price, color, description, imagePath, itemId, brandId);
-            }
-        }
 
-        itemMap.put(itemId, item);
-        assert item != null;
+        // Add Item to Brand Account
+        Brand brand = brandMap.get(brandId);
+        brand.addItem(tops);
+    }
 
-        // Optionally: connect to brand
-        Brand brand = brandMap.getOrDefault(getBrandUsernameById(brandId), null);
-        if (brand != null) {
-            brand.addItem(item);
-        }
-        assert brand != null;
+    public static void populateBottomsMap(String[] parts){
+        String name = parts[0];
+        String size = parts[1].trim();
+        String bottomsType = parts[2];
+        int waistSize = Integer.parseInt(parts[3].trim());
+        int inseam = Integer.parseInt(parts[4].trim());
+        int rise = Integer.parseInt(parts[5].trim());
+        int length = Integer.parseInt(parts[6].trim());
+        double price = Double.parseDouble(parts[7].trim());
+        String color = parts[8];
+        String description = parts[9];
+        String imagePath = parts[10].trim();
+        String itemId = parts[11].trim();
+        String brandId = parts[12].trim();
+
+        Bottoms bottoms = new Bottoms(name, size, bottomsType, waistSize, inseam, rise, length, price, color, description, imagePath, itemId, brandId);
+        bottomsItemMap.put(itemId, bottoms);
+
+        // Add Bottoms to Brand Item Arraylist
+        Brand brand = brandMap.get(brandId);
+        brand.addItem(bottoms);
+    }
+
+    public static void populateShoesMap(String[] parts){
+        String name = parts[0];
+        String size = parts[1].trim();
+        String shoeType = parts[2];
+        double price = Double.parseDouble(parts[3].trim());
+        String color = parts[4];
+        String description = parts[5];
+        String imagePath = parts[6].trim();
+        String itemId = parts[7].trim();
+        String brandId = parts[8].trim();
+
+        Shoes shoes = new Shoes(name, size, shoeType, price, color, description, imagePath, itemId, brandId);
+        shoesMap.put(itemId, shoes);
+
+        // Add Shoes to Brand Item ArrayList
+        Brand brand = brandMap.get(brandId);
+        brand.addItem(shoes);
     }
 
     public static void populateFollowersMap(String[] parts) {
@@ -209,6 +264,11 @@ public class populateProgram {
                 customer.addToFollowedBrand(brandId);
             }
         }
+    }
+
+    public static void addToItemMap(String key, Item item) {
+        itemMap.put(key, item);
+        System.out.print("Item added to the Item Map");
     }
 
 }

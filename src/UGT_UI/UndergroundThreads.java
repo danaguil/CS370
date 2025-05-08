@@ -14,7 +14,7 @@ public class UndergroundThreads extends JFrame {
 
     Buyer_Pages buyer_pages;
     Login login;
-   Brand_Pages brand_pages;
+    Brand_Pages brand_pages;
 
 
 
@@ -35,11 +35,12 @@ public class UndergroundThreads extends JFrame {
 
         buyer_pages = new Buyer_Pages(this);
         login = new Login(this);
-        brand_pages = new Brand_Pages();
+
 
 
         maincard.add(login, "login_pages");
         maincard.add(buyer_pages, "buyer_pages");
+
 
 
         this.add(maincard, BorderLayout.CENTER);
@@ -65,6 +66,11 @@ public class UndergroundThreads extends JFrame {
 
     public void go_to_buyer_pages(){
         cards.show(maincard, "buyer_pages");
+    }
+
+    public void create_brand_pages(){
+       brand_pages = new Brand_Pages();
+       maincard.add(brand_pages, "brand_pages");
     }
 
 }
