@@ -61,8 +61,11 @@ public class Buyer_HomePage extends JPanel implements ActionListener {
 
 
         for (String brandId : allFollowedBrands) {
-            Brand brandClass = brandMap.get(getBrandUsernameById(brandId));
+            String brandUsername = getBrandUsernameById(brandId);
             if (brandId == null) continue;
+
+            Brand brandClass = brandMap.get(brandUsername);
+
 
             ArrayList<Item> brandItems = brandClass.getBrandItems(); // Assuming this method exists
 

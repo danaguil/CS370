@@ -16,6 +16,7 @@ public class UserInteractions {
     public static void addToCart(Item item) {
         System.out.println("Item information adding to cart: ");
 
+        // Getting customer information currently logged in
 
         if(!customer.getCart().contains(item.getItemId())){
             customer.addToCart(item);
@@ -36,6 +37,7 @@ public class UserInteractions {
         System.out.println("Item information removing from cart: ");
 
         customer.removeFromCart(item);
+
         cartPage.refreshCartPage();
 
 
@@ -55,6 +57,8 @@ public class UserInteractions {
             customer.addToLikedPosts(item.getItemId());
             System.out.println("Post added to liked posts");
         }
+
+
 
         likedPage.refreshLikePage();
         System.out.println("Customer liked posts: ");
@@ -78,7 +82,6 @@ public class UserInteractions {
 
     public static void purchaseItem(){
         System.out.println("Purchase item");
-        Customer customer = programSession.getLoggedInCustomer();
         customer.getCart().clear();
 
         System.out.println("Customer cart: ");

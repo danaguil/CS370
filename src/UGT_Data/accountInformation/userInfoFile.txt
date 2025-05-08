@@ -5,4 +5,5 @@ dansir,hello@gmail.com,mypass123,b75c0004-8ac6-428d-be62-cf5d7d64e610,buyer
 barlos123,fakebarlosbb@gmail.com,bforbarlos22,802804a6-1925-47c6-8dfc-4916339eb3c1,brand
 pauloperez,asasas@gmail.com,wawamm,fec65428-ba90-49f6-af1b-51785acc0a6a,brand
 pauloperez,shorebirdsco@gmail.com,123456789,1c84cb33-35e4-462a-a9d7-3c5bf8845fd9,brand
-MrP,mrP@gmail.com,12345,107d4bcb-1bce-4e90-8039-ced15effdeda,buyerbrand12,myemail34@gmail.com,brand12,e88a7784-4b34-4257-a065-d8d41a24e4ab,brand
+MrP,mrP@gmail.com,12345,107d4bcb-1bce-4e90-8039-ced15effdeda,buyer
+brand12,myemail34@gmail.com,brand12,e88a7784-4b34-4257-a065-d8d41a24e4ab,brand
