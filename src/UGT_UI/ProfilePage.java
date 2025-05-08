@@ -205,6 +205,8 @@ public class ProfilePage extends JPanel implements ActionListener {
         JLabel image = new JLabel(path);
         post.add(image);
 
+
+
         post.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -259,184 +261,150 @@ public class ProfilePage extends JPanel implements ActionListener {
         all_myposts.add(button);
     }
 
-    private JPanel TopPopUp(String brandName, String itemID){
-        // Creating a panel
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        panel.setSize(300, 500);
-        panel.setLayout(null);
-
-
+    private JPanel TopPopUp(String brandName, String itemID) {
         Tops top = populateProgram.topsItemMap.get(itemID);
+        if (top == null) return new JPanel(); // fallback
 
-        if(top != null){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-            JLabel brand_name = new JLabel(brandName);
-            brand_name.setBounds(100, 10, 100, 20);
+        // Brand name header
+        JLabel brandLabel = new JLabel(brandName);
+        brandLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        brandLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(brandLabel);
+        panel.add(Box.createVerticalStrut(10));
 
-            ImageIcon item_image = new ImageIcon(top.getImagePath());
-            JLabel image_label = new JLabel(item_image);
-            image_label.setBounds(25, 30, 250, 100);
+        // Image
+        ImageIcon icon = new ImageIcon(top.getImagePath());
+        Image scaled = icon.getImage().getScaledInstance(200, 260, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(imageLabel);
+        panel.add(Box.createVerticalStrut(15));
 
-            JLabel item_name = new JLabel("Name: " + top.getName());
-            item_name.setBounds(25, 140, 100, 20);
+        // Info labels
+        panel.add(makeInfoLabel("Name: " + top.getName()));
+        panel.add(makeInfoLabel("Type: " + top.getTopType()));
+        panel.add(makeInfoLabel("Price: $" + top.getPrice()));
+        panel.add(makeInfoLabel("Size: " + top.getSize()));
+        panel.add(makeInfoLabel("Color: " + top.getColor()));
+        panel.add(makeInfoLabel("Chest Size: " + top.getChest_size()));
+        panel.add(makeInfoLabel("Hem Size: " + top.getHemSize()));
+        panel.add(makeInfoLabel("Sleeve Length: " + top.getsleeveLength()));
+        panel.add(Box.createVerticalStrut(10));
 
-            JLabel item_type = new JLabel("Item Type: " + top.getTopType());
-            item_type.setBounds(150, 140, 100, 20);
-
-            JLabel item_price = new JLabel("Price: " + top.getPrice());
-            item_price.setBounds(150, 170, 100, 20);
-
-            JLabel item_size = new JLabel("Size: " + top.getSize());
-            item_size.setBounds(25, 170, 100, 20);
-
-            JLabel item_color = new JLabel("Color: " + top.getColor());
-            item_color.setBounds(25, 200, 100, 20);
-
-            JLabel chest_size = new JLabel("Chest Size: " + top.getChest_size());
-            chest_size.setBounds(150, 200, 100, 20);
-
-            JLabel hem_size = new JLabel("Hem Size: " + top.getHemSize());
-            hem_size.setBounds(25, 230, 100, 20);
-
-            JLabel sleeve_length = new JLabel("Sleeve Length: " + top.getsleeveLength());
-            sleeve_length.setBounds(150, 230, 100, 20);
-
-            JLabel item_description = new JLabel("Description: " + top.getDescription());
-            item_description.setBounds(25, 260, 225, 50);
-
-
-            panel.add(image_label);
-            panel.add(item_name);
-            panel.add(item_type);
-            panel.add(item_price);
-            panel.add(item_size);
-            panel.add(item_color);
-            panel.add(chest_size);
-            panel.add(hem_size);
-            panel.add(sleeve_length);
-            panel.add(item_description);
-            panel.add(brand_name);
-
-        }
+        // Description (wrap in JTextArea for multi-line)
+        JTextArea descArea = new JTextArea("Description: " + top.getDescription());
+        descArea.setWrapStyleWord(true);
+        descArea.setLineWrap(true);
+        descArea.setEditable(false);
+        descArea.setOpaque(false);
+        descArea.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        panel.add(descArea);
 
         return panel;
     }
 
-    private JPanel BottomPopUp(String brandName, String itemID){
-        // Creating a panel
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        panel.setSize(300, 500);
-        panel.setLayout(null);
+    // Helper for consistent label style
+    private JLabel makeInfoLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return label;
+    }
 
-
+    private JPanel BottomPopUp(String brandName, String itemID) {
         Bottoms bottom = populateProgram.bottomsItemMap.get(itemID);
+        if (bottom == null) return new JPanel(); // fallback panel
 
-        if(bottom != null){
-            JLabel brand_name = new JLabel(brandName);
-            brand_name.setBounds(100, 10, 100, 20);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-            ImageIcon item_image = new ImageIcon(bottom.getImagePath());
-            JLabel image_label = new JLabel(item_image);
-            image_label.setBounds(25, 30, 250, 100);
+        // Brand name
+        JLabel brandLabel = new JLabel(brandName);
+        brandLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        brandLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(brandLabel);
+        panel.add(Box.createVerticalStrut(10));
 
-            JLabel item_name = new JLabel("Name: " + bottom.getName());
-            item_name.setBounds(25, 140, 100, 20);
+        // Scaled item image
+        ImageIcon icon = new ImageIcon(bottom.getImagePath());
+        Image scaled = icon.getImage().getScaledInstance(200, 260, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(imageLabel);
+        panel.add(Box.createVerticalStrut(15));
 
-            JLabel item_type = new JLabel("Item Type: " + bottom.getBottomType());
-            item_type.setBounds(150, 140, 100, 20);
+        // Info labels
+        panel.add(makeInfoLabel("Name: " + bottom.getName()));
+        panel.add(makeInfoLabel("Type: " + bottom.getBottomType()));
+        panel.add(makeInfoLabel("Price: $" + bottom.getPrice()));
+        panel.add(makeInfoLabel("Size: " + bottom.getSize()));
+        panel.add(makeInfoLabel("Color: " + bottom.getColor()));
+        panel.add(makeInfoLabel("Length: " + bottom.getLength()));
+        panel.add(makeInfoLabel("Waist: " + bottom.getWaistSize()));
+        panel.add(makeInfoLabel("Inseam: " + bottom.getInseam()));
+        panel.add(makeInfoLabel("Rise: " + bottom.getRise()));
+        panel.add(Box.createVerticalStrut(10));
 
-            JLabel item_price = new JLabel("Price: " + bottom.getPrice());
-            item_price.setBounds(150, 170, 100, 20);
-
-            JLabel item_size = new JLabel("Size: " + bottom.getSize());
-            item_size.setBounds(25, 170, 100, 20);
-
-            JLabel item_color = new JLabel("Color: " + bottom.getColor());
-            item_color.setBounds(25, 200, 100, 20);
-
-            JLabel length = new JLabel("Length: " + bottom.getLength());
-            length.setBounds(150, 200, 100, 20);
-
-            JLabel waist_size = new JLabel("Waist Size: " + bottom.getWaistSize());
-            waist_size.setBounds(25, 230, 100, 20);
-
-            JLabel inseam_size = new JLabel("Inseam: " + bottom.getInseam());
-            inseam_size.setBounds(150, 230, 100, 20);
-
-            JLabel rise_size = new JLabel("Rise: " + bottom.getRise());
-            rise_size.setBounds(25, 260, 100, 20);
-
-            JLabel item_description = new JLabel(bottom.getDescription());
-            item_description.setBounds(25, 290, 225, 50);
-
-
-            panel.add(image_label);
-            panel.add(item_name);
-            panel.add(item_type);
-            panel.add(item_price);
-            panel.add(item_size);
-            panel.add(item_color);
-            panel.add(length);
-            panel.add(waist_size);
-            panel.add(inseam_size);
-            panel.add(rise_size);
-            panel.add(brand_name);
-
-        }
+        // Description
+        JTextArea descArea = new JTextArea("Description: " + bottom.getDescription());
+        descArea.setWrapStyleWord(true);
+        descArea.setLineWrap(true);
+        descArea.setEditable(false);
+        descArea.setOpaque(false);
+        descArea.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        panel.add(descArea);
 
         return panel;
     }
 
-    private JPanel ShoePopUp(String brandName, String itemID){
-        // Creating a panel
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        panel.setSize(300, 500);
-        panel.setLayout(null);
 
-
+    private JPanel ShoePopUp(String brandName, String itemID) {
         Shoes shoes = populateProgram.shoesMap.get(itemID);
+        if (shoes == null) return new JPanel(); // fallback
 
-        if(shoes != null){
-            JLabel brand_name = new JLabel(brandName);
-            brand_name.setBounds(100, 10, 100, 20);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-            ImageIcon item_image = new ImageIcon(shoes.getImagePath());
-            JLabel image_label = new JLabel(item_image);
-            image_label.setBounds(25, 30, 250, 100);
+        // Brand name
+        JLabel brandLabel = new JLabel(brandName);
+        brandLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        brandLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(brandLabel);
+        panel.add(Box.createVerticalStrut(10));
 
-            JLabel item_name = new JLabel("Name: " + shoes.getName());
-            item_name.setBounds(25, 140, 100, 20);
+        // Scaled image
+        ImageIcon icon = new ImageIcon(shoes.getImagePath());
+        Image scaled = icon.getImage().getScaledInstance(250, 160, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(imageLabel);
+        panel.add(Box.createVerticalStrut(15));
 
-            JLabel item_type = new JLabel("Item Type: " + shoes.getshoesType());
-            item_type.setBounds(150, 140, 100, 20);
+        // Shoe info labels
+        panel.add(makeInfoLabel("Name: " + shoes.getName()));
+        panel.add(makeInfoLabel("Type: " + shoes.getshoesType()));
+        panel.add(makeInfoLabel("Price: $" + shoes.getPrice()));
+        panel.add(makeInfoLabel("Size: " + shoes.getSize()));
+        panel.add(makeInfoLabel("Color: " + shoes.getColor()));
+        panel.add(Box.createVerticalStrut(10));
 
-            JLabel item_price = new JLabel("Price: " + shoes.getPrice());
-            item_price.setBounds(150, 170, 100, 20);
-
-            JLabel item_size = new JLabel("Size: " + shoes.getSize());
-            item_size.setBounds(25, 170, 100, 20);
-
-            JLabel item_color = new JLabel("Color: " + shoes.getColor());
-            item_color.setBounds(25, 200, 100, 20);
-
-            JLabel item_description = new JLabel(shoes.getDescription());
-            item_description.setBounds(25, 230, 225, 50);
-
-
-
-            panel.add(image_label);
-            panel.add(item_name);
-            panel.add(item_type);
-            panel.add(item_price);
-            panel.add(item_size);
-            panel.add(item_color);
-            panel.add(item_description);
-            panel.add(brand_name);
-
-        }
+        // Description
+        JTextArea descArea = new JTextArea("Description: " + shoes.getDescription());
+        descArea.setWrapStyleWord(true);
+        descArea.setLineWrap(true);
+        descArea.setEditable(false);
+        descArea.setOpaque(false);
+        descArea.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        panel.add(descArea);
 
         return panel;
     }
