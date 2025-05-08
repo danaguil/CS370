@@ -31,9 +31,10 @@ public class SearchController {
             if (brandName.contains(searchedText)) {
                 JButton brandBtn = new JButton("Brand: " + entry.getKey());
                 brandBtn.addActionListener(e -> {
-                    System.out.println("Clicked brand: " + entry.getKey());
-                    // Optional: Show brand profile here
+                    JPanel popup = Buyer_SearchPage.BrandPopUp(entry.getValue());
+                    JOptionPane.showMessageDialog(null, popup, "Brand Profile", JOptionPane.PLAIN_MESSAGE);
                 });
+
 
                 Buyer_SearchPage.showSearchResult(brandBtn);
                 foundAny = true;
@@ -71,4 +72,10 @@ public class SearchController {
             Buyer_SearchPage.showSearchResult(noResults);
         }
     }
+
+
+
+
+
+
 }

@@ -1,6 +1,8 @@
 package UGT_UI;
 
 import UGT_Controllers.SearchController;
+import UGT_Data.Brand;
+import UGT_Data.Item;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,8 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Buyer_SearchPage extends JPanel implements ActionListener  {
+import static UGT_Data.Brand.getBrandUsernameById;
 
+public class Buyer_SearchPage extends JPanel implements ActionListener {
 
 
     //array to hold result if found... if what users are looking for is found it is place in here
@@ -23,15 +26,11 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
     ArrayList<String> random_brand_names = new ArrayList<>();
 
 
-
     //constructor
     public Buyer_SearchPage() {
         Buyer_SearchPage.setInstance(this);
 
         this.setLayout(new BorderLayout());
-
-
-
 
 
         random_brand_names.add("AAA");
@@ -47,6 +46,86 @@ public class Buyer_SearchPage extends JPanel implements ActionListener  {
         this.add(Search(random_brand_names), BorderLayout.CENTER);
 
     }
+
+    public static JPanel BrandPopUp(Brand brand) {
+        JPanel profilePanel = new JPanel();
+        profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
+        profilePanel.setBackground(Color.WHITE);
+        profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Brand name (big header)
+        JLabel brandNameLabel = new JLabel(brand.getBrand_name());
+        brandNameLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        brandNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        profilePanel.add(brandNameLabel);
+
+        // Bio or description
+        JTextArea bioArea = new JTextArea(brand.getBrand_description() != null ? brand.getBrand_description() : "No bio yet.");
+        bioArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        bioArea.setLineWrap(true);
+        bioArea.setWrapStyleWord(true);
+        bioArea.setEditable(false);
+        bioArea.setOpaque(false);
+        bioArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        profilePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        profilePanel.add(bioArea);
+
+        // Divider
+        JSeparator separator = new JSeparator();
+        separator.setMaximumSize(new Dimension(400, 1));
+        profilePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        profilePanel.add(separator);
+
+        // Section title
+        JLabel uploadsTitle = new JLabel("Recent Uploads:");
+        uploadsTitle.setFont(new Font("SansSerif", Font.BOLD, 16));
+        uploadsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        profilePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        profilePanel.add(uploadsTitle);
+
+        // Display uploaded items (icons or names)
+        JPanel itemsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        itemsPanel.setBackground(Color.WHITE);
+
+        for (Item item : brand.getBrandItems()) {
+            ImageIcon icon = new ImageIcon(item.getImagePath());
+            Image scaledImg = icon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            JButton itemButton = new JButton(new ImageIcon(scaledImg));
+            itemButton.setToolTipText(item.getName());
+            itemButton.setPreferredSize(new Dimension(80, 80));
+            itemButton.setBorder(BorderFactory.createEmptyBorder());
+            itemButton.setContentAreaFilled(false);
+
+            itemButton.addActionListener(e -> {
+                String brandName = getBrandUsernameById(item.getBrandId());
+                String desc = item.getDescription();
+                String photoPath = item.getImagePath();
+                String price = String.valueOf(item.getPrice());
+                String size = item.getSize();
+
+                JPanel itemPopUp = new Buyer_HomePage().PostPopUp(brandName, desc, photoPath, price, size, item);
+                JOptionPane.showMessageDialog(null, itemPopUp, "Item Details", JOptionPane.PLAIN_MESSAGE);
+            });
+
+            itemsPanel.add(itemButton);
+        }
+
+        profilePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        profilePanel.add(itemsPanel);
+
+        // Follow button
+        JButton followButton = new JButton("Follow");
+        followButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        followButton.addActionListener(e -> {
+            // Insert logic to follow brand
+            System.out.println("Followed brand: " + brand.getBrand_name());
+        });
+        profilePanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        profilePanel.add(followButton);
+
+        return profilePanel;
+    }
+
 
     private static JTextField searchforthisbrand;
 

@@ -1,3 +1,4 @@
 dansir,hello@gmail.com,mypass123,,,,b75c0004-8ac6-428d-be62-cf5d7d64e610
 barlos,fakebarlos@gmail.com,mypass439,,,,4fa9a1cd-450e-4741-a3fd-5e73d6d06f05
 MrP,mrP@gmail.com,12345,,,,107d4bcb-1bce-4e90-8039-ced15effdeda
+exampleUsername,helloemail@gmail.com,mypassword,,,,6d61617a-5605-43d0-be2c-ebc5656b766c
