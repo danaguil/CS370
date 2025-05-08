@@ -1,5 +1,7 @@
 package UGT_UI;
 
+import UGT_Data.programSession;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -185,7 +187,7 @@ public class Buyer_settings extends JPanel implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("you been logged out :(");
                 UGT.go_to_login_pages();
-
+                programSession.logout();
             }
         });
 

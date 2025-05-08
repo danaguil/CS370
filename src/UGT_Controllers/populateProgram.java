@@ -206,11 +206,12 @@ public class populateProgram {
 
         Tops tops = new Tops(name, size, topType, chestSize, hemSize, sleeveLength, price, color, description, imagePath, itemId, brandId);
         topsItemMap.put(itemId, tops);
-
-
-        // Add Item to Brand Account
-        Brand brand = brandMap.get(getBrandUsernameById(brandId));
-        brand.addItem(tops);
+        // Optionally: connect to brand
+        Brand brand = brandMap.getOrDefault(getBrandUsernameById(brandId), null);
+        if (brand != null) {
+            brand.addItem(tops);
+        }
+        assert brand != null;
     }
 
     public static void populateBottomsMap(String[] parts){
@@ -232,8 +233,11 @@ public class populateProgram {
         bottomsItemMap.put(itemId, bottoms);
 
         // Add Bottoms to Brand Item Arraylist
-        Brand brand = brandMap.get(getBrandUsernameById(brandId));
-        brand.addItem(bottoms);
+        Brand brand = brandMap.getOrDefault(getBrandUsernameById(brandId), null);
+        if (brand != null) {
+            brand.addItem(bottoms);
+        }
+        assert brand != null;
     }
 
     public static void populateShoesMap(String[] parts){
@@ -251,8 +255,11 @@ public class populateProgram {
         shoesMap.put(itemId, shoes);
 
         // Add Shoes to Brand Item ArrayList
-        Brand brand = brandMap.get(getBrandUsernameById(brandId));
-        brand.addItem(shoes);
+        Brand brand = brandMap.getOrDefault(getBrandUsernameById(brandId), null);
+        if (brand != null) {
+            brand.addItem(shoes);
+        }
+        assert brand != null;
     }
 
     public static void populateFollowersMap(String[] parts) {

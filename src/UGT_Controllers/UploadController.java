@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 
 import static UGT_Controllers.populateProgram.brandFile;
 import static UGT_Controllers.populateProgram.itemMap;
+import static UGT_UI.Buyer_Pages.getDiscoverPage;
 import static UGT_UI.UploadPage.*;
 
 /**
@@ -96,6 +97,9 @@ public class UploadController {
         populateProgram.topsItemMap.put(itemID, top);
         writeTopToTextFile(itemName, size, topType, chestSize, hemSize, sleeveLength, priceDouble, color, description, imagePath, itemID, currentBrand.getId());
         currentBrand.addItem(top);
+
+        getDiscoverPage().refreshDiscoverPage();
+
     }
 
     public void uploadBottom(String itemName, String bottomType, String color, String size, String waistSize,
@@ -117,6 +121,9 @@ public class UploadController {
         writeBottomToTextFile(itemName, size, bottomType, waistSizeInt, inseamInt, riseInt,lengthInt, priceDouble, color, description, imagePath,
                 itemID, currentBrand.getId());
         currentBrand.addItem(bottom);
+
+        getDiscoverPage().refreshDiscoverPage();
+
     }
 
     public void uploadShoe(String itemName, String shoeType, String size, String price, String color, String description, String imagePath) throws IOException {
@@ -131,6 +138,9 @@ public class UploadController {
         populateProgram.shoesMap.put(itemID, shoe);
         writeShoesToTextFile(itemName, size, shoeType, priceDouble, color, description, imagePath, itemID, currentBrand.getId());
         currentBrand.addItem(shoe);
+
+        getDiscoverPage().refreshDiscoverPage();
+
     }
 
 

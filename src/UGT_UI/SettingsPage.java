@@ -1,5 +1,7 @@
 package UGT_UI;
 
+import UGT_Data.programSession;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,6 +47,7 @@ public class SettingsPage extends JPanel implements ActionListener {
         if(e.getSource() == button) {
             System.out.println("Logging out of Brand Account");
             UGT.go_to_login_pages();
+            programSession.logout();
         }
     }
 }
