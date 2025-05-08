@@ -168,6 +168,7 @@ public class UserService {
             Customer newCustomer = new Customer(email, username, password, firstName,
                     lastName, address, id);
             populateProgram.customerMap.put(username, newCustomer);
+            populateProgram.userMap.put(username, newCustomer);
             newCustomer.displayInfo();
 
             // Writing the new information into the customerFile.txt file
@@ -183,6 +184,7 @@ public class UserService {
             Brand newBrand = new Brand(email, username, password, brandName, aboutBrand,
                     logoFileLocation, instagramHandle, tiktokHandle, id);
             populateProgram.brandMap.put(brandName.toLowerCase(), newBrand);
+            populateProgram.userMap.put(username, newBrand);
             newBrand.displayInfo();
 
             // Writing the new information into the brandFile.txt file

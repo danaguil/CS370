@@ -5,3 +5,4 @@ mybrand,myemail87@gmail.com,hellothere,its a cool brand,It's a cool brand,/Users
 brand1,helloworld@gmail.com,mypass1234,World Wide,My cool brand:),/Users/dansir/Desktop/logoTest.jpg,,,2440426e-daea-40da-9726-6992f93e2e8b
 barlos123,fakebarlosbb@gmail.com,bforbarlos22,wdswds,abcabc,/Users/barlitos/Desktop/barlos.jpg,abc123,jjjjjjjj,802804a6-1925-47c6-8dfc-4916339eb3c1
 pauloperez,shorebirdsco@gmail.com,123456789,shorebirds,a brand that never delivers on time,/Users/pauloperez/IdeaProjects/Profile Practice/opium.png,shorebirdsco,shorebirdsco,1c84cb33-35e4-462a-a9d7-3c5bf8845fd9
+brand12,myemail34@gmail.com,brand12,brand12,hellothere,/Users/dansir/Desktop/logoTest.jpg,,,e88a7784-4b34-4257-a065-d8d41a24e4ab

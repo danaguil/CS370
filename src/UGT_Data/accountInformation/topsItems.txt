@@ -1,1 +1,1 @@
-
+myitem,L,Fleece,21,20,21,200.0,Green,myItem,src/UGT_Data/Images/image_1746697176123.jpg,04e5cf0b-e416-451d-b275-8f446fb1c6f0,e88a7784-4b34-4257-a065-d8d41a24e4ab

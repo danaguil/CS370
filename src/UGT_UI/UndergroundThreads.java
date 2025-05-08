@@ -44,8 +44,6 @@ public class UndergroundThreads extends JFrame {
         maincard.add(buyer_pages, "buyer_pages");
 
 
-
-
         this.add(maincard, BorderLayout.CENTER);
 
 

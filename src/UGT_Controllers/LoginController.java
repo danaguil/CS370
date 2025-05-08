@@ -21,6 +21,7 @@ import static UGT_Services.UserService.Validator.verifySingleInfo;
 
 // Will I need a duplicate username and email and password info for customer and brand???
 
+// PERFECT
 /**
  * Controller for the Login page.
  */
@@ -68,9 +69,6 @@ public class LoginController {
                 programSession.setLoggedInCustomer(customer);
                 UGT.go_to_buyer_pages();
                 // TODO: Redirect to Customer Home Page
-
-
-
 
             }
 
