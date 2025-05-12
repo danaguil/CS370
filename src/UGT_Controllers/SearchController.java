@@ -74,7 +74,48 @@ public class SearchController {
     }
 
 
+    //this is the same as search(), just no GUI
+    public static boolean search_Testing(String text) {
 
+        String searchedText = text.toLowerCase().trim();
+
+
+        if (!UserService.Validator.verifySingleInfo(searchedText, "search")) return false;
+
+
+        boolean foundAny = false;
+
+        // Search Brands
+        for (Map.Entry<String, Brand> entry : brandMap.entrySet()) {
+            String brandName = entry.getKey().toLowerCase();
+
+            if (brandName.contains(searchedText)) {
+               System.out.println("found the brand " + brandName);
+
+                foundAny = true;
+
+            }
+        }
+
+
+
+        // Search Items
+        for (Map.Entry<String, Item> entry : itemMap.entrySet()) {
+            Item item = entry.getValue();
+            String itemName = item.getName().toLowerCase();
+
+            if (itemName.contains(searchedText)) {
+                System.out.println("found the brand " + searchedText);
+                foundAny = true;
+            }
+        }
+
+
+        if (!foundAny) {
+            System.out.println("no results found for " + searchedText);
+        }
+        return foundAny;
+    }
 
 
 

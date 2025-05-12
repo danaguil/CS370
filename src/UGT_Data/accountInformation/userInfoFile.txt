@@ -6,4 +6,8 @@ barlos123,fakebarlosbb@gmail.com,bforbarlos22,802804a6-1925-47c6-8dfc-4916339eb3
 pauloperez,asasas@gmail.com,wawamm,fec65428-ba90-49f6-af1b-51785acc0a6a,brand
 pauloperez,shorebirdsco@gmail.com,123456789,1c84cb33-35e4-462a-a9d7-3c5bf8845fd9,brand
 MrP,mrP@gmail.com,12345,107d4bcb-1bce-4e90-8039-ced15effdeda,buyer
-brand12,myemail34@gmail.com,brand12,e88a7784-4b34-4257-a065-d8d41a24e4ab,brand
+brand12,myemail34@gmail.com,brand12,e88a7784-4b34-4257-a065-d8d41a24e4ab,brandactive_a,active@gmail.com,activepassword,50f044d9-4cc0-44df-a0c1-635783f539a1,buyer
+active_brand,aforactive@gmail.com,active_brand_password,1687713f-1984-4c0c-a518-1d90099638db,brand
+bxc,wd@gmail.com,barlitos,9dae33ca-1133-4038-abe0-0b3562becd55,brand
+demo123,shore.birds@gmail.com,12345,66940aca-ef15-42eb-9314-ef727ee2e3b8,brand
+demo245,demo@gmail.com,12345,ddfc7d5c-9747-4519-ab8b-26e6160e0452,buyer

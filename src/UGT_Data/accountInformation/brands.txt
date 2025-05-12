@@ -6,3 +6,5 @@ brand1,helloworld@gmail.com,mypass1234,World Wide,My cool brand:),/Users/dansir/
 barlos123,fakebarlosbb@gmail.com,bforbarlos22,wdswds,abcabc,/Users/barlitos/Desktop/barlos.jpg,abc123,jjjjjjjj,802804a6-1925-47c6-8dfc-4916339eb3c1
 pauloperez,shorebirdsco@gmail.com,123456789,shorebirds,a brand that never delivers on time,/Users/pauloperez/IdeaProjects/Profile Practice/opium.png,shorebirdsco,shorebirdsco,1c84cb33-35e4-462a-a9d7-3c5bf8845fd9
 brand12,myemail34@gmail.com,brand12,brand12,hellothere,/Users/dansir/Desktop/logoTest.jpg,,,e88a7784-4b34-4257-a065-d8d41a24e4ab
+bxc,wd@gmail.com,barlitos,worlddomination,barlitosmade,/Users/barlitos/Pictures/Photos Library.photoslibrary/resources/renders/7/745DB7F2-7D4B-4475-BED3-7BFEB809C9E5_1_201_a.jpeg,wds2,wds2,9dae33ca-1133-4038-abe0-0b3562becd55
+demo123,shore.birds@gmail.com,12345,shorebirds,a brand that never delivers on time,/Users/barlitos/Desktop/IMG_2336 (1).JPG,shorebirdsco,shorebirdsco,66940aca-ef15-42eb-9314-ef727ee2e3b8

@@ -1,6 +1,4 @@
-import UGT_Controllers.IDGenerator;
-import UGT_Controllers.LoginController;
-import UGT_Controllers.SettingsController;
+import UGT_Controllers.*;
 import UGT_Data.Brand;
 import UGT_Data.Customer;
 import UGT_Data.Item;
@@ -12,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import static UGT_Controllers.populateProgram.brandMap;
+import static UGT_Controllers.populateProgram.userMap;
 import static UGT_Services.UserService.*;
 
 public class Main extends JFrame {
@@ -46,10 +45,21 @@ public class Main extends JFrame {
 
 
         //updateBrandPassword("181dfa4b-e9d6-4bf4-b582-64b16f28dc16","pforpassword123");
+        //new UndergroundThreads();
+        // LoginController.initialize();
 
-        LoginController.initialize();
-        new UndergroundThreads();
 
+
+/*
+
+
+
+        int size = brandMap.size();
+        System.out.println("Number of users: " + size);
+
+        SearchController.search_Testing("shorebirds");
+
+ */
 
 /*
         for (String key : brandMap.keySet()) {
@@ -72,6 +82,8 @@ public class Main extends JFrame {
 
  */
 
+        LoginController.initialize();
+        new UndergroundThreads();
 
 
 

@@ -3,3 +3,5 @@ barlos,fakebarlos@gmail.com,mypass439,,,,4fa9a1cd-450e-4741-a3fd-5e73d6d06f05
 MrP,mrP@gmail.com,12345,,,,107d4bcb-1bce-4e90-8039-ced15effdeda
 exampleUsername,helloemail@gmail.com,mypassword,,,,6d61617a-5605-43d0-be2c-ebc5656b766c
 sunshine,myemail4@gmail.com,sunshine,,,,01a97605-c64f-411d-9b28-0a642cb25886
+active_a,active@gmail.com,activepassword,,,,50f044d9-4cc0-44df-a0c1-635783f539a1
+demo2,supercoolguy@gmail.com,12345,,,,63f673f6-49ba-41c8-8a48-d009dbe7ce52demo245,demo@gmail.com,12345,,,,ddfc7d5c-9747-4519-ab8b-26e6160e0452
